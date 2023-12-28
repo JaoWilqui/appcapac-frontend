@@ -1,0 +1,32 @@
+<form [formGroup]="loginForm">
+  <div class="mb-3">
+    <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
+      <input type="text" customInput formControlName="email" />
+      <label>E-mail</label>
+    </form-field>
+  </div>
+  <div>
+    <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
+      <input
+        customInput
+        [type]="showPassword ? 'text' : 'password'"
+        formControlName="password"
+      />
+      <label>Senha</label>
+      <button class="button-password" (click)="changePasswordVisibility()">
+        <mat-icon class="mt-1 mr-2">{{
+          showPassword ? "visibility" : "visibility_off"
+        }}</mat-icon>
+      </button>
+    </form-field>
+  </div>
+
+  <button
+    class="enter-button ripple mt-5"
+    [class.spinner]="isLoading"
+    [disabled]="isLoading"
+    (click)="access()"
+  >
+    Entrar
+  </button>
+</form>

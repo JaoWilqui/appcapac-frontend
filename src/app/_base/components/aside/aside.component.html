@@ -1,0 +1,100 @@
+<li class="account-tab mt-5" #toggleButton (click)="changeView()">
+  <div class="icon-wrapper">
+    <img class="icon-img" [src]="'../assets/svgs/account_circle.svg'" alt="" />
+  </div>
+  <section class="user-inner">
+    <div class="mr-5 user-container" *ngIf="user">
+      <h3 class="mr-1 user-toggle">
+        {{ user?.nome }}
+      </h3>
+      <user-inner
+        *ngIf="show"
+        #menu
+        [isExpanded]="isPropertiesShown"
+        [user]="user"
+      ></user-inner>
+      <img
+        [ngClass]="show ? 'open' : 'closed'"
+        width="20"
+        height="20"
+        [src]="'../assets/svgs/expand_circle_down.svg'"
+        alt=""
+      />
+    </div>
+  </section>
+</li>
+<ul class="main-list">
+  <span>
+    <li
+      class="menu-item"
+      [routerLink]="['/dashboard']"
+      [routerLinkActive]="'active'"
+    >
+      <img class="home-icon" [src]="'../assets/svgs/home.svg'" alt="" />
+      <span [ngClass]="isPropertiesShown ? 'open' : 'closed'">Dashboard</span>
+    </li>
+  </span>
+
+  <ng-container *ngFor="let item of listMenu">
+    <span *ngIf="item.section" class="menu-title"
+      ><span [hidden]="!isPropertiesShown">{{ item.section }}</span>
+    </span>
+    <span *ngIf="!item.subItems && !item.section">
+      <li
+        class="menu-item"
+        [routerLink]="[item.path]"
+        [routerLinkActive]="'active'"
+      >
+        <div class="icon-wrapper">
+          <img class="icon-img" [src]="item.link" />
+        </div>
+        <span [ngClass]="isPropertiesShown ? 'open' : 'closed'">{{
+          item.label
+        }}</span>
+      </li>
+    </span>
+    <span *ngIf="item.subItems">
+      <li
+        class="menu-item"
+        (click)="item.expanded = !item.expanded"
+        [routerLinkActive]="item.expanded ? 'active' : ''"
+      >
+        <div class="icon-wrapper">
+          <img class="icon-img" [src]="item.link" />
+        </div>
+        <span [ngClass]="isPropertiesShown ? 'open' : 'closed'">{{
+          item.label
+        }}</span>
+        <span
+          class="arrow-icon"
+          [ngStyle]="
+            item.expanded
+              ? { transform: 'rotate(135deg)' }
+              : { transition: 'rotate(45deg)' }
+          "
+        ></span>
+      </li>
+      <ul
+        [hidden]="!isPropertiesShown"
+        [disableRipple]="true"
+        [ngClass]="item.expanded ? 'sub-list-open' : 'sub-list-closed'"
+      >
+        <ng-container *ngFor="let subItem of item.subItems">
+          <li
+            class="sub-menu-item"
+            [routerLink]="[subItem.path]"
+            [routerLinkActive]="'active'"
+          >
+            <div class="icon-wrapper">
+              <img class="icon-img" [src]="item.link" />
+            </div>
+            >
+            <span [ngClass]="isPropertiesShown ? 'open' : 'closed'">{{
+              subItem.label
+            }}</span>
+          </li>
+        </ng-container>
+      </ul>
+    </span>
+  </ng-container>
+</ul>

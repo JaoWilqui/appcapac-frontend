@@ -1,0 +1,28 @@
+<div #menu class="info-card" [ngClass]="isExpanded ? 'open' : 'closed'">
+  <section class="info-header">
+    <span class="user-name">
+      {{ user?.nome ?? "N/A" }}
+    </span>
+    <span></span>
+  </section>
+  <section class="profile-info">
+    <div class="mr-2">
+      <img
+        width="30"
+        height="30"
+        [src]="'../assets/svgs/account_circle.svg'"
+        alt=""
+        class="account_img"
+      />
+    </div>
+    <span>
+      <h3 class="pr-2">Perfil</h3>
+      <h2>Dados referentes ao seu cadastro</h2>
+    </span>
+  </section>
+  <section class="inner-footer">
+    <button color="yellow" mat-raised-button (click)="logout()" class="">
+      Sair
+    </button>
+  </section>
+</div>

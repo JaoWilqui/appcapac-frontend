@@ -1,0 +1,61 @@
+.centered-btns {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn {
+  background: #001f30;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(2px);
+  min-width: 110px;
+  padding: 7px;
+  max-width: 500px;
+  border-radius: 5px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+
+  min-height: 27px;
+
+  user-select: none; /* Standard */
+
+  &.white {
+    background: white;
+    color: #001f30;
+  }
+
+  &.yellow {
+    background: #e8b017;
+    color: #0c2054;
+  }
+
+  &.green {
+    background: #18ab56;
+    color: white;
+  }
+
+  &.gray {
+    background: #828282;
+    color: white;
+  }
+
+  &:hover {
+    opacity: 0.9;
+    transform: translateY(-0.1em);
+  }
+
+  &:disabled {
+    &:hover {
+      opacity: none;
+      transform: none;
+    }
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}

@@ -1,0 +1,31 @@
+<main class="app-body">
+  <header>
+    <nav class="top-bar">
+      <section class="flex">
+        <img *ngIf="allowOpen && sidebarAllowed" src="../assets/svgs/arr079.svg" width="25" height="25" class="double-arrow ml-3"
+          (click)="handleExpansion()" [ngClass]="isExpanded ? 'open' : 'closed'" />
+        <div class="logo ml-3">
+          <app-side-logo></app-side-logo>
+        </div>
+      </section>
+      <section class="left-info">
+        <div class="mr-5">
+          <app-low-stock-notification *ngxPermissionsExcept="['MASTER']"></app-low-stock-notification>
+        </div>
+        <app-fixed-balance *ngxPermissionsExcept="['MASTER']"></app-fixed-balance>
+        <segments-inner *ngxPermissionsOnly="['OWNER_CLIENT']"></segments-inner>
+      </section>
+      <section class="parana-logo">
+        <img src="../assets/images/logo-parana.png" />
+      </section>
+    </nav>
+  </header>
+  <section *ngIf="sidebarAllowed" #aside class="sidenav" (mouseover)="mouseEnter()" (mouseout)="mouseExit()"
+    [ngClass]="isExpanded ? 'open' : 'closed'">
+    <app-aside [isExpanded]="isExpanded" [isShown]="isPropertiesShown" #sidenav></app-aside>
+  </section>
+
+  <body [ngClass]="isExpanded ? 'open' : 'closed'" class="app-content" [class.nomargin]="!sidebarAllowed" [class.loading]="isLoading">
+    <router-outlet></router-outlet>
+  </body>
+</main>

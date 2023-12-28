@@ -1,0 +1,14 @@
+:host mat-icon {
+  cursor: pointer;
+}
+
+form-field div:has([disabled]) {
+  background-color: #dedede22;
+  color: #0004 !important;
+}
+
+form-field:has(select[disabled]) {
+  label {
+    display: none;
+  }
+}

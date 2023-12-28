@@ -1,0 +1,179 @@
+:host ::ng-deep div {
+  position: relative;
+  border: 1px solid #bca9a9;
+  border-radius: 10px;
+  display: flex;
+  width: 100%;
+
+  label {
+    position: absolute;
+    top: 12px;
+    z-index: 0;
+    font-size: 10pt;
+    display: block;
+    left: 20px;
+    color: #bcc0cf;
+    cursor: text;
+    transition: 0.2s ease-in-out transform;
+  }
+
+  input {
+    display: flex;
+    position: relative;
+    height: 50px;
+    min-height: 50px;
+    z-index: 1;
+    background: transparent;
+    height: 30px;
+    width: 100%;
+    padding: 7px 0 0 10px;
+    width: 100%;
+    align-items: center;
+    &:not(:placeholder-shown) {
+      + label {
+        visibility: visible;
+        z-index: 0;
+        opacity: 1;
+        font-size: 7pt;
+        transform: translateY(-10px) translateX(-10px);
+        transition: 0.2s ease-in-out transform;
+      }
+    }
+
+    &:focus {
+      & + label {
+        visibility: visible;
+        z-index: 0;
+        opacity: 1;
+        font-size: 7pt;
+        transform: translateY(-10px) translateX(-10px);
+        transition: 0.2s ease-in-out transform;
+      }
+
+      outline: none;
+    }
+  }
+
+  input::placeholder {
+    visibility: hidden;
+  }
+  input::placeholder-shown + label {
+    visibility: hidden;
+    z-index: -1;
+    transition: 0.2s ease-in-out;
+  }
+
+  //select css
+
+  select {
+    width: 100%;
+    z-index: 2;
+    outline: 0;
+    background: transparent;
+    padding: 0 1em;
+
+    color: #727880;
+    position: relative;
+    padding: 7px 0 0 10px;
+    border: none;
+    border-radius: 10px;
+    height: 50px;
+    cursor: pointer;
+
+    &:focus {
+      & + label {
+        visibility: visible;
+        z-index: 0;
+        opacity: 1;
+        font-size: 7pt;
+        transform: translateY(-10px) translateX(-10px);
+        transition: 0.2s ease-in-out transform;
+      }
+      outline: none;
+    }
+
+    &:placeholder-shown + label {
+      visibility: hidden;
+      z-index: 1;
+      transition: 0.2s ease-in-out;
+    }
+
+    &:valid {
+      & + label {
+        visibility: none;
+        z-index: 0;
+        opacity: 1;
+        font-size: 7pt;
+        transform: translateY(-10px) translateX(-10px);
+        transition: 0.2s ease-in-out transform;
+      }
+    }
+  }
+
+  select {
+    background-image: linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position: calc(100% - 20px) calc(1em + 2px),
+      calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em;
+    background-size: 5px 5px, 5px 5px, 1px 1.5em;
+    background-repeat: no-repeat;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  //Textarea css
+  textarea {
+    display: flex;
+    height: 50px;
+    position: relative;
+    min-height: 50px;
+    max-height: 150px;
+    padding: 15px 0 0 10px;
+    width: 100%;
+    z-index: 1;
+    background: transparent;
+    border-radius: 10px;
+    border: none;
+    align-items: center;
+
+    &:not(:placeholder-shown) {
+      + label {
+        visibility: visible;
+        z-index: 0;
+        opacity: 1;
+        font-size: 7pt;
+        transform: translateY(-10px) translateX(-10px);
+        transition: 0.2s ease-in-out transform;
+      }
+    }
+
+    &:focus {
+      & + label {
+        visibility: visible;
+        z-index: 0;
+        opacity: 1;
+        font-size: 7pt;
+        transform: translateY(-10px) translateX(-10px);
+        transition: 0.2s ease-in-out transform;
+      }
+    }
+    outline: none;
+  }
+
+  textarea::placeholder-shown + label {
+    visibility: hidden;
+    z-index: -1;
+    transition: 0.2s ease-in-out;
+  }
+}
+
+:host ::ng-deep .invalid-input {
+  border: 1px solid red;
+
+  label {
+    color: red;
+  }
+}

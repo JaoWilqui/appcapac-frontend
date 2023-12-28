@@ -1,0 +1,14 @@
+.footer {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  height: 5vh;
+  background: #161616;
+
+  .footer-reserved-rights {
+    color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+  }
+}
