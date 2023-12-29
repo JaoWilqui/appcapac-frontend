@@ -12,38 +12,6 @@
   // background-color: red;
 }
 
-.top-bar {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  height: 100px;
-  box-shadow: 0 0.1rem 1rem 0.25rem #0000000d !important;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background-color: #001f30;
-
-  .left-info {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-  }
-
-  .parana-logo {
-    background-color: white;
-    margin-right: 50px;
-    padding: 5px;
-    border-radius: 10px;
-
-    img {
-      width: 70px;
-      height: 70px;
-      min-width: 70px;
-      min-height: 70px;
-    }
-  }
-}
-
 .double-arrow {
   cursor: pointer;
   width: 40px;
@@ -95,8 +63,7 @@
 .sidenav {
   height: calc(100vh - 100px);
   // background-color: #ced2d6;
-  background-color: rgb(240, 240, 240);
-  box-shadow: 2px 2px 4px rgb(160, 160, 160);
+  background: transparent;
   position: absolute;
   z-index: 100;
   width: 350px;

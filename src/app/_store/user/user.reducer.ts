@@ -1,8 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
-import { User } from '../../_shared/models/user.model';
+import { IUserProfile } from '../../auth/models/auth.model';
 import { clearUser, getUser, setUser } from './user.actions';
 
-const INITIAL_STATE: User = new User();
+const INITIAL_STATE: IUserProfile = new IUserProfile();
 
 export const _userReducer = createReducer(
   INITIAL_STATE,

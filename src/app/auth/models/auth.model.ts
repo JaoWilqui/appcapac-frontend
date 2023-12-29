@@ -4,7 +4,7 @@ export interface ILogin {
 }
 
 export interface IAuthRes {
-  accessToken: string;
+  access_token: string;
 }
 
 export class IUserProfile {

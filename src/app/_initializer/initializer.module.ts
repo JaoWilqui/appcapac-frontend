@@ -2,11 +2,11 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { InitializerService } from './initializer.service';
 
 export function getProfileInitializer(configService: InitializerService) {
-  return () => {
-    const token = localStorage.getItem('token');
+  return async () => {
+    const token = localStorage.getItem('authToken');
 
     if (token) {
-      return configService.getInfo();
+      return await configService.getInfo();
     } else {
       return null;
     }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IAuthRes, ILogin, IUserProfile } from '../models/auth.model';
 
 @Injectable({ providedIn: 'root' })
@@ -9,11 +9,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login(login: ILogin): Observable<IAuthRes> {
-    return this.http.post<IAuthRes>('/auth', { login }).pipe(
-      tap((res) => {
-        localStorage.setItem('authToken', res.accessToken);
-      })
-    );
+    return this.http.post<IAuthRes>('/auth', login);
   }
 
   logout(path: string) {

@@ -8,7 +8,7 @@ export class BaseGuard {
   constructor(private router: Router) {}
 
   canActivate(): boolean {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('authToken')) {
       return true;
     }
     this.router.navigate(['auth']);

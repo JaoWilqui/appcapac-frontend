@@ -18,19 +18,18 @@ export class TokenInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('authToken');
-    const clonedRequest = request;
+    const token = localStorage.getItem('authToken') ?? '';
 
-    if (token) {
-      clonedRequest.clone({ setHeaders: { ['Bearer ']: token } });
-    }
+    request = request.clone({
+      setHeaders: { Authorization: 'Bearer ' + token },
+    });
 
     request = request.clone({ url: environment.apiUrl + request.url });
 
     return next.handle(request).pipe(
       catchError((error: HttpResponse<any>) => {
         if (error.status === 401) {
-          this.authService.logout('auth');
+          this.authService.logout('login');
         }
         return throwError(() => error);
       })

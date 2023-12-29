@@ -2,9 +2,7 @@ import {
   Component,
   ElementRef,
   Input,
-  OnChanges,
   OnDestroy,
-  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -24,9 +22,9 @@ type MenuTree = { [key: string]: MenuLink[] };
     '(document:click)': 'onClickOutside($event)',
   },
 })
-export class AsideComponent implements OnDestroy, OnChanges {
-  @ViewChild('toggleButton') toggleButton: ElementRef;
-  @ViewChild('menu') menu: ElementRef;
+export class AsideComponent implements OnDestroy {
+  @ViewChild('toggleButton', { read: ElementRef }) toggleButton: ElementRef;
+  @ViewChild('menu', { read: ElementRef }) menu: ElementRef<any>;
   @Input('isShown') isPropertiesShown = true;
   @Input('isExpanded') isExpanded: boolean = true;
 
@@ -81,18 +79,15 @@ export class AsideComponent implements OnDestroy, OnChanges {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    // get the active link
-  }
-
   changeView() {
     this.show = !this.show;
   }
 
   onClickOutside(event: any) {
-    const clickButton = this.toggleButton?.nativeElement.contains(event.target);
     const clickedInside = this.menu?.nativeElement?.contains(event.target);
-    if (!clickedInside && !clickButton) {
+    console.log(clickedInside);
+
+    if (!clickedInside && this.show) {
       this.show = false;
     }
   }

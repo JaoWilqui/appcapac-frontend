@@ -8,7 +8,7 @@ export class AuthGuard {
   constructor(private router: Router) {}
 
   canActivate(): boolean {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('authToken')) {
       return false;
     }
     return true;

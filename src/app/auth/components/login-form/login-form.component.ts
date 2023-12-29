@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { SwalService } from '../../../_shared/services/swal.service';
+import { setUser } from '../../../_store/user/user.actions';
+import { IUserProfile } from '../../models/auth.model';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -15,7 +19,9 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private route: Router,
     private authService: AuthService,
+    private store: Store<IUserProfile>,
     private swalService: SwalService
   ) {}
 
@@ -43,34 +49,32 @@ export class LoginFormComponent implements OnInit {
   access() {
     this.isLoading = true;
 
-    let formValue = (param: string) => {
-      return this.loginForm.controls[param].value;
-    };
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (res) => {
+        console.log(res.access_token);
+        localStorage.setItem('authToken', res.access_token);
+        this.getUserData();
+        this.route.navigate(['dashboard']);
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.isLoading = false;
 
-    this.authService
-      .login({
-        email: formValue('email'),
-        password: formValue('password'),
-      })
-      .subscribe({
-        next: (res) => {
-          this.getUserData();
-          this.isLoading = false;
-        },
-        error: (err) => {
-          this.isLoading = false;
+        if (err.status == 401) {
+          this.swalService.error.fire('Login ou senha incorretos!');
+          return;
+        }
 
-          if (err.status == 401) {
-            this.swalService.error.fire('Login ou senha incorretos!');
-            return;
-          }
-
-          this.swalService.error.fire('Um erro inesperado ocorreu!');
-        },
-      });
+        this.swalService.error.fire('Um erro inesperado ocorreu!');
+      },
+    });
   }
 
   getUserData() {
-    this.authService.getUserInfo().subscribe();
+    this.authService.getUserInfo().subscribe({
+      next: (res) => {
+        this.store.dispatch(setUser({ user: res }));
+      },
+    });
   }
 }
