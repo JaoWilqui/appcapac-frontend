@@ -1,4 +1,4 @@
-<li class="account-tab mt-5" #toggleButton (click)="changeView()">
+<li class="menu-item mt-5" #toggleButton (click)="changeView()">
   <section class="tab-container flex justify-between items-center">
     <div class="flex justify-center items-center">
       <mat-icon class="icon-wrapper">face</mat-icon>
@@ -6,26 +6,20 @@
         {{ user?.nome }}
       </h3>
     </div>
-    <div class="icon-wrapper">
-      <mat-icon [ngClass]="show ? 'open' : 'closed'"
-        >arrow_circle_left</mat-icon
-      >
-    </div>
+    <mat-icon [ngClass]="show ? 'open' : 'closed'">arrow_circle_left</mat-icon>
   </section>
-  <user-inner [hidden]="!show" #menu [user]="user"></user-inner>
 </li>
+<user-inner *ngIf="show" #menu [user]="user"></user-inner>
 
 <ul class="main-list">
-  <span>
-    <li
-      class="menu-item"
-      [routerLink]="['/dashboard']"
-      [routerLinkActive]="'active'"
-    >
-      <img class="home-icon" [src]="'../assets/svgs/home.svg'" alt="" />
-      <span [ngClass]="isPropertiesShown ? 'open' : 'closed'">Dashboard</span>
-    </li>
-  </span>
+  <li
+    class="menu-item"
+    [routerLink]="['/dashboard']"
+    [routerLinkActive]="'active'"
+  >
+    <mat-icon>home</mat-icon>
+    <span [ngClass]="isPropertiesShown ? 'open' : 'closed'">Dashboard</span>
+  </li>
 
   <ng-container *ngFor="let item of listMenu">
     <span *ngIf="item.section" class="menu-title"

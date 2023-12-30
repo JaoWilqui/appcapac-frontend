@@ -23,8 +23,8 @@ type MenuTree = { [key: string]: MenuLink[] };
   },
 })
 export class AsideComponent implements OnDestroy {
-  @ViewChild('toggleButton', { read: ElementRef }) toggleButton: ElementRef;
-  @ViewChild('menu', { read: ElementRef }) menu: ElementRef<any>;
+  @ViewChild('toggleButton') toggleButton: ElementRef;
+  @ViewChild('menu') menu: ElementRef<any>;
   @Input('isShown') isPropertiesShown = true;
   @Input('isExpanded') isExpanded: boolean = true;
 
@@ -48,15 +48,6 @@ export class AsideComponent implements OnDestroy {
       this.listMenu = this.asideMenuService.getListMenu(perm[value?.role].name);
       this.tree = this.mountMenuTree();
     });
-  }
-
-  checkExpanded(me) {
-    if (!me?._body) {
-      return false;
-    }
-    const activeLink =
-      me._body.nativeElement.querySelector('.menu-item.active');
-    return !!activeLink;
   }
 
   mountMenuTree(): MenuTree {
@@ -84,10 +75,9 @@ export class AsideComponent implements OnDestroy {
   }
 
   onClickOutside(event: any) {
+    const clickButton = this.toggleButton?.nativeElement.contains(event.target);
     const clickedInside = this.menu?.nativeElement?.contains(event.target);
-    console.log(clickedInside);
-
-    if (!clickedInside && this.show) {
+    if (!clickedInside && !clickButton) {
       this.show = false;
     }
   }

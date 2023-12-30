@@ -1,20 +1,5 @@
-.user-row {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  overflow: hidden;
-}
-
-.menu-icon {
-  width: 16px;
-  height: 16px;
-  min-width: 16px;
-  min-height: 16px;
-  margin-right: 10px;
-}
-
 .main-list {
-  margin-top: 90px !important;
+  margin-top: 20px !important;
   height: calc(100vh - 200px);
   margin: 10px 0px 10px 0px;
   overflow-y: auto;
@@ -34,9 +19,11 @@
 .tab-container {
   position: relative;
   width: 100%;
+
   mat-icon {
     min-width: 20px;
     min-height: 20px;
+    transition: all 0.4s;
     &.open {
       transform: rotate(180deg);
     }
@@ -51,14 +38,7 @@
     &.hidden {
       opacity: 0;
     }
-
-    transition: all 0.4s;
   }
-}
-
-.account-tab {
-  border-radius: 25px;
-  border: #001f30 solid 1px;
 }
 
 .menu-title {
@@ -74,64 +54,25 @@
   cursor: pointer;
 }
 
-.home-icon {
-  width: 50px;
-  height: 50px;
-  min-width: 50px;
-  min-height: 50px;
-}
-
-.user-toggle.open {
-  opacity: 1;
-  transition: all ease 0.2s;
-}
-
-.user-toggle.closed {
-  opacity: 0;
-  transition: all ease 0.2s;
-}
-
-li {
-  padding-left: 10px !important;
+.menu-item {
   width: 300px;
-  display: flex !important;
-  align-items: center !important;
+  display: flex;
+  align-items: center;
+  border-radius: 25px;
+  border: #001f30 solid 1px;
   height: 54px;
-  width: 100%;
-  // margin-bottom: 20px;
   cursor: pointer;
   padding: 20px 15px 20px 15px;
-  transition: all ease 0.2s;
+  transition: all ease 0.5s;
+  white-space: nowrap;
 
-  span {
-    font-size: 18px;
-    margin-left: 12px;
-  }
-
-  .icon-wrapper {
-    display: flex;
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
-    min-height: 40px;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .icon-img {
-    color: #001f30;
-  }
-
-  &.active {
-    background-color: #001f30;
-    span {
-      color: white;
-    }
+  h3 {
+    margin-left: 15px;
   }
 
   span {
     font-family: Poppins, Helvetica, "sans-serif" !important;
-    color: #1c1b1f;
+    color: #001f30;
     font-size: 15px;
     display: inline-flex;
     word-break: keep-all !important;
@@ -147,25 +88,53 @@ li {
     }
   }
 
+  &.active {
+    background-color: #001f30;
+    span {
+      margin-left: 15px;
+      color: white;
+    }
+
+    mat-icon {
+      color: white;
+    }
+
+    h3 {
+      margin-left: 15px;
+      color: white;
+    }
+  }
+
   &:focus {
+    mat-icon {
+      color: white;
+    }
+
+    h3 {
+      margin-left: 15px;
+      color: white;
+    }
     span {
       color: white;
     }
     background-color: #2d4753 !important;
   }
 
-  &:hover:not(.account-tab) {
+  &:hover {
     transition: all ease 0.5s;
     background-color: #2d4753 !important;
+
+    mat-icon {
+      color: white;
+    }
+    h3 {
+      color: white;
+    }
     span {
       color: white;
     }
   }
-  &.menu-item {
-    white-space: nowrap;
-    padding-left: 10px !important;
-    border-radius: 5px;
-  }
+
   &.sub-menu-item {
     padding-left: 10px !important;
     white-space: nowrap;
