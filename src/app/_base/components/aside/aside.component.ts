@@ -5,14 +5,11 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { NgxPermissionsService } from 'ngx-permissions';
 import { Subscription } from 'rxjs';
-import { User } from '../../../_shared/models/user.model';
+import { getUser } from '../../../_store/user/user.actions';
+import { IUserProfile } from '../../../auth/models/auth.model';
 import { AsideMenuService, MenuLink } from './services/aside-menu.service';
-
-type MenuTree = { [key: string]: MenuLink[] };
 
 @Component({
   selector: 'app-aside',
@@ -28,42 +25,20 @@ export class AsideComponent implements OnDestroy {
   @Input('isShown') isPropertiesShown = true;
   @Input('isExpanded') isExpanded: boolean = true;
 
-  listMenu: MenuLink[] = [];
-  user?: User;
+  menuList: MenuLink[] = [];
+  user?: IUserProfile;
   show = false;
-
-  tree: MenuTree;
 
   private unsubscribe: Subscription[] = [];
 
   constructor(
-    private permissionsService: NgxPermissionsService,
     private asideMenuService: AsideMenuService,
-    private store: Store<any>,
-    private router: Router
+    private store: Store<any>
   ) {
-    let perm = this.permissionsService.getPermissions();
-    this.store.select('user').subscribe((value) => {
-      this.user = value;
-      this.listMenu = this.asideMenuService.getListMenu(perm[value?.role].name);
-      this.tree = this.mountMenuTree();
+    this.store.select(getUser).subscribe((value) => {
+      this.user = value.user;
+      this.menuList = this.asideMenuService.getListMenu(this.user.perms);
     });
-  }
-
-  mountMenuTree(): MenuTree {
-    let currSection = null;
-    const tree: MenuTree = {};
-
-    for (const link of this.listMenu) {
-      if (link.section) {
-        currSection = link.section;
-        tree[currSection] = [];
-      } else {
-        tree[currSection].push(link);
-      }
-    }
-
-    return tree;
   }
 
   ngOnDestroy() {

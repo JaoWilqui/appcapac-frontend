@@ -9,12 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 
-import {
-  NavigationEnd,
-  NavigationError,
-  NavigationStart,
-  Router,
-} from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { User } from '../_shared/models/user.model';
 
@@ -41,44 +36,13 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
     this.handleResize();
   }
 
-  listenToRouterChange() {
-    let asyncLoadCount = 0;
-
-    const calculateLoading = () => {
-      if (asyncLoadCount < 0) {
-        asyncLoadCount = 0;
-      }
-      this.isLoading = !!asyncLoadCount;
-    };
-
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        asyncLoadCount++;
-      } else if (
-        event instanceof NavigationEnd ||
-        event instanceof NavigationError
-      ) {
-        asyncLoadCount--;
-      }
-
-      calculateLoading();
-    });
-  }
-
   constructor(
     private renderer: Renderer2,
     private store: Store<any>,
     private router: Router
   ) {
-    this.listenToRouterChange();
     this.store.select('user').subscribe((res) => {
       this.user = res;
-    });
-    this.store.select('sidebarAllowed').subscribe((res) => {
-      if (typeof res !== 'boolean') {
-        return;
-      }
-      this.sidebarAllowed = res;
     });
   }
   ngOnDestroy(): void {}
@@ -101,14 +65,14 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.isExpanded) {
       this.renderer.setStyle(this.side.nativeElement, 'width', '350px');
     } else {
-      this.renderer.setStyle(
-        this.side.nativeElement,
-        'width',
-        /*'70px'*/ '0px'
-      );
+      this.renderer.setStyle(this.side.nativeElement, 'width', '90px');
     }
 
-    this.isPropertiesShown = !this.isPropertiesShown;
+    if (this.isExpanded) {
+      this.isPropertiesShown = true;
+    } else {
+      this.isPropertiesShown = false;
+    }
   }
 
   mouseExit() {
@@ -116,7 +80,7 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    this.renderer.setStyle(this.side.nativeElement, 'width', /*'70px'*/ '0px');
+    this.renderer.setStyle(this.side.nativeElement, 'width', '90px');
     this.isPropertiesShown = false;
   }
 
@@ -126,11 +90,7 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
       this.isExpanded = false;
       this.isPropertiesShown = false;
 
-      this.renderer.setStyle(
-        this.side.nativeElement,
-        'width',
-        /*'70px'*/ '0px'
-      );
+      this.renderer.setStyle(this.side.nativeElement, 'width', '90px');
       return;
     }
     this.allowOpen = true;

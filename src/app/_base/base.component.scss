@@ -12,29 +12,6 @@
   // background-color: red;
 }
 
-.double-arrow {
-  cursor: pointer;
-  width: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  filter: brightness(0) invert(1);
-
-  &:hover {
-    filter: brightness(0.8) invert(0.5) sepia(1) saturate(240%);
-  }
-
-  &.open {
-    transition: all ease 0.5s;
-  }
-
-  &.closed {
-    transition: all ease 0.5s;
-    transform: rotate(180deg);
-    filter: brightness(1) invert(0.5) sepia(1) saturate(240%);
-  }
-}
-
 .app-content {
   width: calc(100% - 70px);
   overflow-x: hidden;
@@ -46,8 +23,8 @@
     transition: all ease 0.3s;
   }
   &.closed {
-    // width: calc(100% - 70px);
-    // margin-left: 70px !important;
+    width: calc(100% - 70px);
+    margin-left: 70px !important;
     width: 100%;
     margin-left: 0px !important;
     transition: all ease 0.3s;
@@ -62,12 +39,47 @@
 
 .sidenav {
   height: calc(100vh - 100px);
-  // background-color: #ced2d6;
-  background: transparent;
+  background-color: azure;
   position: absolute;
   z-index: 100;
   width: 350px;
-  padding: 8px;
+
+  .menu {
+    width: 100%;
+  }
+
+  .menu-btn {
+    height: 100%;
+    right: -10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    min-width: 30px;
+    background-color: rgb(9, 171, 228);
+    cursor: pointer;
+    position: absolute;
+    transition: all ease 0.2s;
+
+    &:hover {
+      background-color: rgb(35, 191, 248);
+      transition: all ease 0.2s;
+
+      .double-arrow {
+        color: white;
+      }
+    }
+    .double-arrow {
+      &.open {
+        transition: all ease 0.2s;
+      }
+
+      &.closed {
+        transition: all ease 0.2s;
+        transform: rotate(180deg);
+      }
+    }
+  }
 
   &.open {
     transition: all ease 0.3s;

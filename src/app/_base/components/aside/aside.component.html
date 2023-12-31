@@ -1,12 +1,17 @@
-<li class="menu-item mt-5" #toggleButton (click)="changeView()">
+<li class="menu-item" #toggleButton (click)="changeView()">
   <section class="tab-container flex justify-between items-center">
     <div class="flex justify-center items-center">
-      <mat-icon class="icon-wrapper">face</mat-icon>
-      <h3 *ngIf="user" class="mr-3 user-toggle">
+      <mat-icon>face</mat-icon>
+      <span
+        [ngClass]="isPropertiesShown ? 'open' : 'closed'"
+        class="mr-3 user-toggle"
+      >
         {{ user?.nome }}
-      </h3>
+      </span>
     </div>
-    <mat-icon [ngClass]="show ? 'open' : 'closed'">arrow_circle_left</mat-icon>
+    <mat-icon [ngClass]="isPropertiesShown ? 'open' : 'closed'"
+      >arrow_circle_left</mat-icon
+    >
   </section>
 </li>
 <user-inner *ngIf="show" #menu [user]="user"></user-inner>
@@ -21,8 +26,8 @@
     <span [ngClass]="isPropertiesShown ? 'open' : 'closed'">Dashboard</span>
   </li>
 
-  <ng-container *ngFor="let item of listMenu">
-    <span *ngIf="item.section" class="menu-title"
+  <ng-container *ngFor="let item of menuList">
+    <span *ngIf="item.section" class="title-card mt-5"
       ><span [hidden]="!isPropertiesShown">{{ item.section }}</span>
     </span>
     <span *ngIf="!item.subItems && !item.section">
@@ -31,9 +36,7 @@
         [routerLink]="[item.path]"
         [routerLinkActive]="'active'"
       >
-        <div class="icon-wrapper">
-          <img class="icon-img" [src]="item.link" />
-        </div>
+        <mat-icon>{{ item.icon }}</mat-icon>
         <span [ngClass]="isPropertiesShown ? 'open' : 'closed'">{{
           item.label
         }}</span>

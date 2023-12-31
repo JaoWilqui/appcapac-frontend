@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { PERMS } from '../../../../_shared/models/perms.enum';
 
 export interface MenuLink {
-  link?: string;
+  icon?: string;
   faIcon?: string;
   section?: string;
   svgIcon?: string;
@@ -19,18 +19,18 @@ export interface MenuObjectLiteral {
 
 const MODULES_LIST: MenuObjectLiteral = {
   [PERMS.ADMIN]: [
-    { section: 'Administrativo' },
+    { section: 'Admnistrativo' },
     {
-      label: 'Clientes',
-      link: '../assets/svgs/diversity_1.svg',
-      path: '/clientes',
+      label: 'Usuários',
+      icon: 'account_circle',
+      path: '/users',
     },
   ],
   [PERMS.USER]: [
     { section: 'Cadastro' },
     {
       label: 'Usuarios',
-      link: '../assets/svgs/diversity_1.svg',
+      icon: '../assets/svgs/diversity_1.svg',
       path: '/usuarios',
     },
   ],

@@ -6,4 +6,9 @@ export const routeModules = [
         (module) => module.DashboardModule
       ),
   },
+  {
+    path: 'users',
+    loadChildren: () =>
+      import('./users/users.module').then((module) => module.UsersModule),
+  },
 ];

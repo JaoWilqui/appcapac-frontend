@@ -1,18 +1,25 @@
 <main class="app-body">
   <app-header></app-header>
   <section
-    *ngIf="sidebarAllowed"
     #aside
     class="sidenav"
     (mouseover)="mouseEnter()"
     (mouseout)="mouseExit()"
     [ngClass]="isExpanded ? 'open' : 'closed'"
   >
-    <app-aside
-      [isExpanded]="isExpanded"
-      [isShown]="isPropertiesShown"
-      #sidenav
-    ></app-aside>
+    <button class="menu-btn" (click)="handleExpansion()">
+      <mat-icon class="double-arrow" [ngClass]="isExpanded ? 'open' : 'closed'"
+        >keyboard_double_arrow_right</mat-icon
+      >
+    </button>
+
+    <div class="menu">
+      <app-aside
+        [isExpanded]="isExpanded"
+        [isShown]="isPropertiesShown"
+        #sidenav
+      ></app-aside>
+    </div>
   </section>
 
   <body

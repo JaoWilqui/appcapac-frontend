@@ -22,6 +22,7 @@
 
   mat-icon {
     min-width: 20px;
+    color: rgb(7, 106, 142);
     min-height: 20px;
     transition: all 0.4s;
     &.open {
@@ -45,62 +46,53 @@
   width: 100%;
   align-items: center;
   height: 42px;
-  line-height: 42px;
   padding-left: 12px;
   font-size: 22px;
   white-space: nowrap;
-  color: #1c1b1f;
-  user-select: none;
-  cursor: pointer;
+  color: rgb(7, 106, 142);
 }
 
 .menu-item {
-  width: 300px;
+  width: 90%;
   display: flex;
   align-items: center;
   border-radius: 25px;
-  border: #001f30 solid 1px;
+  border: rgb(9, 171, 228) solid 1px;
   height: 54px;
   cursor: pointer;
   padding: 20px 15px 20px 15px;
   transition: all ease 0.5s;
   white-space: nowrap;
-
-  h3 {
-    margin-left: 15px;
+  mat-icon {
+    color: rgb(7, 106, 142);
   }
-
   span {
     font-family: Poppins, Helvetica, "sans-serif" !important;
-    color: #001f30;
+    color: rgb(7, 106, 142);
     font-size: 15px;
+    margin-left: 15px;
     display: inline-flex;
     word-break: keep-all !important;
     word-wrap: nowrap !important;
 
     &.open {
-      opacity: 1;
+      display: block;
       transition: all ease 0.2s;
     }
     &.closed {
-      opacity: 0;
+      display: none;
       transition: all ease 0.2s;
     }
   }
 
   &.active {
-    background-color: #001f30;
+    background-color: rgb(9, 171, 228);
     span {
       margin-left: 15px;
       color: white;
     }
 
     mat-icon {
-      color: white;
-    }
-
-    h3 {
-      margin-left: 15px;
       color: white;
     }
   }
@@ -110,19 +102,14 @@
       color: white;
     }
 
-    h3 {
-      margin-left: 15px;
-      color: white;
-    }
     span {
       color: white;
     }
-    background-color: #2d4753 !important;
   }
 
   &:hover {
     transition: all ease 0.5s;
-    background-color: #2d4753 !important;
+    background-color: rgb(9, 171, 228);
 
     mat-icon {
       color: white;
@@ -138,8 +125,5 @@
   &.sub-menu-item {
     padding-left: 10px !important;
     white-space: nowrap;
-  }
-  &.menu-item:first-child {
-    margin-top: 12px;
   }
 }
