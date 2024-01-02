@@ -1,4 +1,4 @@
-<li class="menu-item" #toggleButton (click)="changeView()">
+<!-- <li class="menu-item" #toggleButton (click)="changeView()">
   <section class="tab-container flex justify-between items-center">
     <div class="flex justify-center items-center">
       <mat-icon>face</mat-icon>
@@ -9,12 +9,9 @@
         {{ user?.nome }}
       </span>
     </div>
-    <mat-icon [ngClass]="isPropertiesShown ? 'open' : 'closed'"
-      >arrow_circle_left</mat-icon
-    >
   </section>
 </li>
-<user-inner *ngIf="show" #menu [user]="user"></user-inner>
+<user-inner *ngIf="show" #menu [user]="user"></user-inner> -->
 
 <ul class="main-list">
   <li
@@ -27,7 +24,7 @@
   </li>
 
   <ng-container *ngFor="let item of menuList">
-    <span *ngIf="item.section" class="title-card mt-5"
+    <span *ngIf="item.section" class="title-card ml-1 my-5"
       ><span [hidden]="!isPropertiesShown">{{ item.section }}</span>
     </span>
     <span *ngIf="!item.subItems && !item.section">

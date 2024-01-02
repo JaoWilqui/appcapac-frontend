@@ -4,8 +4,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { FormFieldComponent } from './components/form-field/form-field.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { DynamicPipe } from './components/table/pipes/dynamic.pipe';
+import { TableComponent } from './components/table/table.component';
 import { InputDirective } from './directives/custom-input.directive';
-const declarations = [InputDirective, FormFieldComponent];
+import { NumberPipe } from './pipes/number.pipe';
+const declarations = [
+  NumberPipe,
+  DynamicPipe,
+  InputDirective,
+  FormFieldComponent,
+  TableComponent,
+  PaginatorComponent,
+];
 
 const imports = [RouterModule, FormsModule, ReactiveFormsModule, CommonModule];
 

@@ -65,7 +65,7 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.isExpanded) {
       this.renderer.setStyle(this.side.nativeElement, 'width', '350px');
     } else {
-      this.renderer.setStyle(this.side.nativeElement, 'width', '90px');
+      this.renderer.setStyle(this.side.nativeElement, 'width', '80px');
     }
 
     if (this.isExpanded) {
@@ -80,7 +80,7 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    this.renderer.setStyle(this.side.nativeElement, 'width', '90px');
+    this.renderer.setStyle(this.side.nativeElement, 'width', '80px');
     this.isPropertiesShown = false;
   }
 
@@ -90,7 +90,7 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
       this.isExpanded = false;
       this.isPropertiesShown = false;
 
-      this.renderer.setStyle(this.side.nativeElement, 'width', '90px');
+      this.renderer.setStyle(this.side.nativeElement, 'width', '80px');
       return;
     }
     this.allowOpen = true;

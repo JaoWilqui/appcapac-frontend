@@ -1,4 +1,4 @@
-.textbox-div {
+.select-input {
   display: flex;
   position: relative;
   height: 50px;
@@ -8,6 +8,18 @@
   border-radius: 10px;
   border: 1px solid #a9b1bc;
   align-items: center;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    right: 2%;
+    top: 30%;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    rotate: 45deg;
+  }
 
   label {
     position: absolute;
@@ -20,51 +32,6 @@
     transition: 0.2s ease-in-out transform;
   }
 
-  .textbox-input {
-    z-index: 1;
-    background: transparent;
-    height: 30px;
-    width: 100%;
-    padding: 7px 0 0 10px;
-
-    &:not(:placeholder-shown) {
-      + label {
-        visibility: visible;
-        z-index: 0;
-        opacity: 1;
-        font-size: 7pt;
-        transform: translateY(-10px) translateX(-10px);
-        transition: 0.2s ease-in-out transform;
-      }
-    }
-
-    &:focus {
-      & + label {
-        visibility: visible;
-        z-index: 0;
-        opacity: 1;
-        font-size: 7pt;
-        transform: translateY(-10px) translateX(-8px);
-        transition: 0.2s ease-in-out transform;
-      }
-      outline: none;
-    }
-  }
-
-  .textbox-input::placeholder {
-    visibility: hidden;
-  }
-  .textbox-input::placeholder-shown + label {
-    visibility: hidden;
-    z-index: -1;
-    transition: 0.2s ease-in-out;
-  }
-  &:hover {
-    border: 1px solid #888f99;
-  }
-}
-
-.textbox-div {
   select {
     appearance: none;
     outline: 0;

@@ -13,27 +13,19 @@
 }
 
 .app-content {
-  width: calc(100% - 70px);
+  width: calc(100% - 85px);
   overflow-x: hidden;
   position: absolute;
   height: calc(100vh - 100px);
   &.open {
-    width: calc(100% - 350px);
-    margin-left: 350px;
+    width: calc(100% - 385px);
+    margin-left: 385px;
     transition: all ease 0.3s;
   }
   &.closed {
-    width: calc(100% - 70px);
-    margin-left: 70px !important;
-    width: 100%;
-    margin-left: 0px !important;
+    width: calc(100% - 85px);
+    margin-left: 85px !important;
     transition: all ease 0.3s;
-  }
-
-  &.nomargin {
-    width: 100%;
-    margin-left: auto !important;
-    margin-right: auto !important;
   }
 }
 
@@ -56,13 +48,13 @@
     align-items: center;
     width: 10%;
     min-width: 30px;
-    background-color: rgb(9, 171, 228);
+    background-color: rgb(10, 133, 178);
     cursor: pointer;
     position: absolute;
     transition: all ease 0.2s;
 
     &:hover {
-      background-color: rgb(35, 191, 248);
+      background-color: rgb(14, 155, 206);
       transition: all ease 0.2s;
 
       .double-arrow {

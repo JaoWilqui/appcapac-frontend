@@ -1,3 +1,18 @@
-<p>
-  list-users works!
-</p>
+<section class="flex justify-end mb-5">
+  <button class="btn green" (click)="navigateTo('register')">Cadastrar</button>
+</section>
+
+<section>
+  <app-table
+    #appTable
+    [tableData]="data"
+    [isLoading]="isLoading"
+    [options]="'Ações'"
+    [pageSizeOptions]="[5, 10, 15]"
+    [pageOptions]="{ pageIndex: 1, listLength: itemsCount }"
+    [tableColumns]="displayedColumns"
+    (sortData)="sortTable($event)"
+    (changePageData)="changePage($event)"
+    [isPageable]="true"
+  ></app-table>
+</section>

@@ -53,34 +53,34 @@
 }
 
 .menu-item {
-  width: 90%;
+  width: 100%;
   display: flex;
   align-items: center;
-  border-radius: 25px;
-  border: rgb(9, 171, 228) solid 1px;
   height: 54px;
   cursor: pointer;
   padding: 20px 15px 20px 15px;
   transition: all ease 0.5s;
   white-space: nowrap;
   mat-icon {
+    margin-right: 10px;
     color: rgb(7, 106, 142);
   }
   span {
     font-family: Poppins, Helvetica, "sans-serif" !important;
     color: rgb(7, 106, 142);
     font-size: 15px;
-    margin-left: 15px;
-    display: inline-flex;
+    background: transparent;
     word-break: keep-all !important;
     word-wrap: nowrap !important;
 
     &.open {
-      display: block;
+      width: 100%;
+      opacity: 1;
       transition: all ease 0.2s;
     }
     &.closed {
-      display: none;
+      opacity: 0;
+      width: 0%;
       transition: all ease 0.2s;
     }
   }
@@ -88,7 +88,6 @@
   &.active {
     background-color: rgb(9, 171, 228);
     span {
-      margin-left: 15px;
       color: white;
     }
 

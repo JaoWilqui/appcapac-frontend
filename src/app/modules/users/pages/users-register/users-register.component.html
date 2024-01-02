@@ -1,0 +1,36 @@
+<section class="content-body">
+  <span class="title-card mb-5">Cadastrar</span>
+  <form [formGroup]="registerUserForm" class="grid grid-cols-3 gap-3">
+    <div class="mb-3">
+      <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
+        <input type="text" customInput formControlName="nome" />
+        <label>Nome</label>
+      </form-field>
+    </div>
+    <div class="mb-3">
+      <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
+        <input type="text" customInput formControlName="sobrenome" />
+        <label>Sobrenome</label>
+      </form-field>
+    </div>
+    <div class="mb-3">
+      <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
+        <input type="text" customInput formControlName="email" />
+        <label>E-mail</label>
+      </form-field>
+    </div>
+    <div class="mb-3">
+      <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
+        <input type="text" customInput formControlName="senha" />
+        <label>senha</label>
+      </form-field>
+    </div>
+    <div class="select-input">
+      <select placeholder=" " customInput formControlName="perms">
+        <option [value]="'ADMIN'">Admnistrador</option>
+        <option [value]="'USER'">Usuário</option>
+      </select>
+      <label>Permsissões</label>
+    </div>
+  </form>
+</section>
