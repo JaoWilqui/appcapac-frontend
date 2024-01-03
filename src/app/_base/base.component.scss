@@ -9,33 +9,33 @@
 .loading {
   opacity: 0.5;
   cursor: wait;
-  // background-color: red;
 }
 
 .app-content {
-  width: calc(100% - 85px);
+  width: calc(100% - 70px);
   overflow-x: hidden;
+  background-color: var(--white-smoke);
   position: absolute;
   height: calc(100vh - 100px);
   &.open {
-    width: calc(100% - 385px);
-    margin-left: 385px;
+    width: calc(100% - 350px);
+    margin-left: 350px;
     transition: all ease 0.3s;
   }
   &.closed {
-    width: calc(100% - 85px);
-    margin-left: 85px !important;
+    width: calc(100% - 70px);
+    margin-left: 70px !important;
     transition: all ease 0.3s;
   }
 }
 
 .sidenav {
   height: calc(100vh - 100px);
-  background-color: azure;
+  background-color: white;
   position: absolute;
   z-index: 100;
   width: 350px;
-
+  box-shadow: 20px 0px 9px 0px rgba(0, 0, 0, 0.02);
   .menu {
     width: 100%;
   }
@@ -48,7 +48,7 @@
     align-items: center;
     width: 10%;
     min-width: 30px;
-    background-color: rgb(10, 133, 178);
+    background-color: var(--light-blue);
     cursor: pointer;
     position: absolute;
     transition: all ease 0.2s;

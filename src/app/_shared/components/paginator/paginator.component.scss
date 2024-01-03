@@ -80,7 +80,7 @@ button {
   padding: 0 !important;
 
   &.selected {
-    background: rgb(10, 133, 178);
+    background: var(--dark-green);
     color: white;
   }
 

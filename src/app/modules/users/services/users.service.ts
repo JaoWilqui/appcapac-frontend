@@ -13,4 +13,8 @@ export class UsersService {
       params: { ...params },
     });
   }
+
+  postUsers(user: User): Observable<any> {
+    return this.http.post<User>('/user/register', user);
+  }
 }

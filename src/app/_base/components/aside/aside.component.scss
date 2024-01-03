@@ -52,6 +52,16 @@
   color: rgb(7, 106, 142);
 }
 
+.section-wrapper {
+  display: inline-flex;
+  padding: 5px 25px 5px 25px;
+  position: relative;
+  background: var(--dark-green);
+  color: white;
+  font-weight: 500;
+  border-radius: 0px 5px 5px 0;
+}
+
 .menu-item {
   width: 100%;
   display: flex;
@@ -63,11 +73,11 @@
   white-space: nowrap;
   mat-icon {
     margin-right: 10px;
-    color: rgb(7, 106, 142);
+    color: var(--dark-green);
   }
   span {
     font-family: Poppins, Helvetica, "sans-serif" !important;
-    color: rgb(7, 106, 142);
+    color: var(--dark-green);
     font-size: 15px;
     background: transparent;
     word-break: keep-all !important;
@@ -86,7 +96,7 @@
   }
 
   &.active {
-    background-color: rgb(9, 171, 228);
+    background-color: var(--dark-blue);
     span {
       color: white;
     }
@@ -108,7 +118,8 @@
 
   &:hover {
     transition: all ease 0.5s;
-    background-color: rgb(9, 171, 228);
+    opacity: 0.9;
+    background-color: var(--dark-blue);
 
     mat-icon {
       color: white;

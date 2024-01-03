@@ -24,7 +24,7 @@
   </li>
 
   <ng-container *ngFor="let item of menuList">
-    <span *ngIf="item.section" class="title-card ml-1 my-5"
+    <span *ngIf="item.section" class="section-wrapper my-5"
       ><span [hidden]="!isPropertiesShown">{{ item.section }}</span>
     </span>
     <span *ngIf="!item.subItems && !item.section">

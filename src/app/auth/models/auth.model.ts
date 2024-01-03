@@ -13,6 +13,6 @@ export class IUserProfile {
   sobrenome: string;
   email: string;
   dtcadastro: Date;
-  // access: IAccess[];
+  modules: number[];
   perms: string;
 }

@@ -119,8 +119,9 @@
     background-size: 5px 5px, 5px 5px, 1px 1.5em;
     background-repeat: no-repeat;
     margin: 0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
+    appearance: none;
+    text-indent: 1px;
+    text-overflow: "";
     box-sizing: border-box;
   }
 
