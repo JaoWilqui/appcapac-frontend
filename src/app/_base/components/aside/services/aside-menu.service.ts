@@ -26,6 +26,16 @@ const PERMS_LIST: MenuObjectLiteral = {
       icon: 'account_circle',
       path: '/users',
     },
+    {
+      label: 'Campanha',
+      icon: 'account_circle',
+      path: '/campaing',
+    },
+    {
+      label: 'Categoria',
+      icon: 'account_circle',
+      path: '/category',
+    },
   ],
   [PERMS.USER]: [
     { section: 'Cadastro' },
