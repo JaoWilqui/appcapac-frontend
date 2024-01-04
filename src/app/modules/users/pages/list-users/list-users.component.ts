@@ -91,8 +91,16 @@ export class ListUsersComponent implements OnInit {
       this.loadData();
   }
 
-  navigateTo(param: string, id?: string) {
-    this.router.navigate([param], { relativeTo: this.activeRoute });
+  navigateTo(param: string, id?: number) {
+    if (id) {
+      this.router.navigate([param + '/' + `${id}`], {
+        relativeTo: this.activeRoute,
+      });
+      return;
+    }
+    this.router.navigate([param], {
+      relativeTo: this.activeRoute,
+    });
   }
 
   sortTable(sort: SortInterface) {

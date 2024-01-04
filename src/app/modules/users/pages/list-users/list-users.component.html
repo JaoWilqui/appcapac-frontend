@@ -14,5 +14,11 @@
     (sortData)="sortTable($event)"
     (changePageData)="changePage($event)"
     [isPageable]="true"
-  ></app-table>
+  >
+    <ng-template #actions let-user="element">
+      <button mat-icon-button (click)="navigateTo('edit', user.id)">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </ng-template>
+  </app-table>
 </section>

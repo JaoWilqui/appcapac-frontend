@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { FormFieldComponent } from './components/form-field/form-field.component';
@@ -22,7 +24,7 @@ const imports = [RouterModule, FormsModule, ReactiveFormsModule, CommonModule];
 
 const providers = [InputDirective];
 
-const materialModules = [MatIconModule];
+const materialModules = [MatIconModule, MatButtonModule, MatDividerModule];
 
 @NgModule({
   declarations: [...declarations],
