@@ -7,7 +7,6 @@
     #appTable
     [tableData]="data"
     [isLoading]="isLoading"
-    [options]="'Ações'"
     [pageSizeOptions]="[5, 10, 15]"
     [pageOptions]="{ pageIndex: 1, listLength: itemsCount }"
     [tableColumns]="displayedColumns"
@@ -15,10 +14,5 @@
     (changePageData)="changePage($event)"
     [isPageable]="true"
   >
-    <ng-template #actions let-user="element">
-      <button mat-icon-button (click)="navigateTo('edit', user.id)">
-        <mat-icon>edit</mat-icon>
-      </button>
-    </ng-template>
   </app-table>
 </section>

@@ -29,16 +29,23 @@ export class AsideComponent implements OnDestroy {
   user?: IUserProfile;
   show = false;
 
+  subscribes = new Subscription();
   private unsubscribe: Subscription[] = [];
 
   constructor(
     private asideMenuService: AsideMenuService,
     private store: Store<any>
   ) {
-    this.store.select(getUser).subscribe((value) => {
-      this.user = value.user;
-      this.menuList = this.asideMenuService.getListMenu(this.user.perms);
-    });
+    this.unsubscribe.push(
+      this.store.select(getUser).subscribe((value) => {
+        this.user = value.user;
+        this.menuList = this.asideMenuService.getListMenu(
+          this.user.perms,
+          this.user.modules
+        );
+        console.log(this.user.modules);
+      })
+    );
   }
 
   ngOnDestroy() {

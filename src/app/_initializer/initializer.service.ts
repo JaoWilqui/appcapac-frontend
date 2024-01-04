@@ -20,7 +20,7 @@ export class InitializerService {
         this.store.dispatch(setUser({ user: res }));
       })
       .catch((error) => {
-        this.authService.logout('auth');
+        this.authService.logout('login');
       });
 
     return req;

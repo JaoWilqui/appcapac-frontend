@@ -11,4 +11,9 @@ export const routeModules = [
     loadChildren: () =>
       import('./users/users.module').then((module) => module.UsersModule),
   },
+  {
+    path: 'videos',
+    loadChildren: () =>
+      import('./videos/videos.module').then((module) => module.VideosModule),
+  },
 ];

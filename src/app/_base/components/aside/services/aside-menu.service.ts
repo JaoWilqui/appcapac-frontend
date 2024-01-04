@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IModules } from '../../../../_shared/models/modules.model';
 import { PERMS } from '../../../../_shared/models/perms.enum';
 
 export interface MenuLink {
@@ -17,7 +18,7 @@ export interface MenuObjectLiteral {
   [key: string]: MenuLink[];
 }
 
-const MODULES_LIST: MenuObjectLiteral = {
+const PERMS_LIST: MenuObjectLiteral = {
   [PERMS.ADMIN]: [
     { section: 'Admnistrativo' },
     {
@@ -35,13 +36,43 @@ const MODULES_LIST: MenuObjectLiteral = {
     },
   ],
 };
+
+const MODULES_LITERAL = {
+  [1]: [
+    {
+      label: 'Imagens',
+      icon: 'account_circle',
+      path: '/users',
+    },
+  ],
+  [2]: [
+    {
+      label: 'Videos',
+      icon: 'play_circle_filled',
+      path: '/videos',
+    },
+  ],
+  [3]: [
+    {
+      label: 'Arquivos',
+      icon: 'account_circle',
+      path: '/videos',
+    },
+  ],
+};
 @Injectable({
   providedIn: 'root',
 })
 export class AsideMenuService {
   menuLinks: MenuLink[] = [];
 
-  getListMenu(permission: string) {
-    return MODULES_LIST[permission] || [];
+  getListMenu(permission: string, modules?: IModules[]) {
+    if (modules.length > 0) {
+      this.menuLinks = [...PERMS_LIST[permission], ...MODULES_LITERAL[2]];
+    } else {
+      this.menuLinks = PERMS_LIST[permission] || [];
+    }
+
+    return this.menuLinks;
   }
 }

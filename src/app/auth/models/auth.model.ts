@@ -1,3 +1,5 @@
+import { IModules } from '../../_shared/models/modules.model';
+
 export interface ILogin {
   email: string;
   password: string;
@@ -13,6 +15,6 @@ export class IUserProfile {
   sobrenome: string;
   email: string;
   dtcadastro: Date;
-  modules: number[];
+  modules: IModules[];
   perms: string;
 }

@@ -11,7 +11,7 @@ export class BaseGuard {
     if (localStorage.getItem('authToken')) {
       return true;
     }
-    this.router.navigate(['auth']);
+    this.router.navigate(['login']);
     return false;
   }
 }

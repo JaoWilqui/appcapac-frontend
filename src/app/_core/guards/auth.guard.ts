@@ -11,6 +11,7 @@ export class AuthGuard {
     if (localStorage.getItem('authToken')) {
       return false;
     }
+
     return true;
   }
 }

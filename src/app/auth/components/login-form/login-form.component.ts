@@ -42,16 +42,13 @@ export class LoginFormComponent implements OnInit {
     });
   }
 
-  registration() {
-    console.log('cadastrar');
-  }
+  registration() {}
 
   access() {
     this.isLoading = true;
 
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
-        console.log(res.access_token);
         localStorage.setItem('authToken', res.access_token);
         this.getUserData();
         this.route.navigate(['dashboard']);

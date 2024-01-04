@@ -12,6 +12,7 @@ import {
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { User } from '../_shared/models/user.model';
+import { AuthService } from '../auth/services/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -39,12 +40,9 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private renderer: Renderer2,
     private store: Store<any>,
+    private authService: AuthService,
     private router: Router
-  ) {
-    this.store.select('user').subscribe((res) => {
-      this.user = res;
-    });
-  }
+  ) {}
   ngOnDestroy(): void {}
 
   ngOnInit(): void {}
@@ -58,7 +56,9 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isPropertiesShown = true;
   }
 
-  logout() {}
+  logout() {
+    this.authService.logout('login');
+  }
 
   handleExpansion() {
     this.isExpanded = !this.isExpanded;
