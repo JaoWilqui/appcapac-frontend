@@ -130,8 +130,6 @@ export class VideosRegisterComponent implements OnInit {
   }
 
   registerVideo() {
-    console.log(this.registerVideoForm.value);
-
     if (this.registerVideoForm.valid) {
       this.videos = {
         ...this.registerVideoForm.value,

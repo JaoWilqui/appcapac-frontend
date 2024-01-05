@@ -1,6 +1,11 @@
 <form [formGroup]="loginForm">
   <div class="mb-3">
-    <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
+    <form-field
+      [setStyle]="{
+        width: '100%',
+        'min-width': '300px',
+      }"
+    >
       <input type="text" customInput formControlName="email" />
       <label>E-mail</label>
     </form-field>
@@ -10,8 +15,7 @@
       [setStyle]="{
         width: '100%',
         'min-width': '300px',
-        color: 'white',
-        'background-color': 'var(--dark-blue)'
+        'background-color': 'var(--white-smoke)'
       }"
     >
       <input

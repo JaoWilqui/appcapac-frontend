@@ -21,78 +21,78 @@ export interface MenuObjectLiteral {
   [key: string]: MenuLink[];
 }
 
-const PERMS_LIST: MenuObjectLiteral = {
-  [PERMS.ADMIN]: [
-    { section: 'Admnistrativo' },
-    {
-      label: 'Usuários',
-      icon: 'account_circle',
-      path: '/users',
-    },
-    {
-      label: 'Campanha',
-      icon: 'account_circle',
-      path: '/campaing',
-    },
-    {
-      label: 'Categoria',
-      icon: 'account_circle',
-      path: '/category',
-    },
-  ],
-  [PERMS.USER]: [
-    { section: 'Cadastro' },
-    {
-      label: 'Campanha',
-      icon: 'account_circle',
-      path: '/campaing',
-    },
-    {
-      label: 'Categoria',
-      icon: 'account_circle',
-      path: '/category',
-    },
-  ],
-};
-
-const MODULES_LITERAL: MenuObjectLiteral = {
-  [ModulesEnum.imagens]: [
-    { section: 'Imagens' },
-
-    {
-      label: 'Imagens',
-      icon: 'account_circle',
-      path: '/users',
-    },
-  ],
-  [ModulesEnum.videos]: [
-    { section: 'Videos' },
-    {
-      label: 'Videos',
-      icon: 'play_circle_filled',
-      path: '/videos',
-    },
-  ],
-  [ModulesEnum.arquivos]: [
-    { section: 'Arquivos' },
-    {
-      label: 'Arquivos',
-      icon: 'account_circle',
-      path: '/videos',
-    },
-  ],
-};
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AsideMenuService {
   menuLinks: MenuLink[] = [];
-  modulesList: MenuLink[] = [];
-  getListMenu(permission: string, modules?: IModules[]) {
-    modules.forEach((module) => {
-      this.modulesList.push(...MODULES_LITERAL[module.nome]);
-    });
+  PERMS_LIST: MenuObjectLiteral = {
+    [PERMS.ADMIN]: [
+      { section: 'Admnistrativo' },
+      {
+        label: 'Usuários',
+        icon: 'account_circle',
+        path: '/users',
+      },
+      {
+        label: 'Campanha',
+        icon: 'account_circle',
+        path: '/campaing',
+      },
+      {
+        label: 'Categoria',
+        icon: 'account_circle',
+        path: '/category',
+      },
+    ],
+    [PERMS.USER]: [
+      { section: 'Cadastro' },
+      {
+        label: 'Campanha',
+        icon: 'account_circle',
+        path: '/campaing',
+      },
+      {
+        label: 'Categoria',
+        icon: 'account_circle',
+        path: '/category',
+      },
+    ],
+  };
 
-    this.menuLinks = [...PERMS_LIST[permission], ...this.modulesList];
-    console.log(this.menuLinks);
+  MODULES_LITERAL: MenuObjectLiteral = {
+    [ModulesEnum.imagens]: [
+      { section: 'Imagens' },
+      {
+        label: 'Imagens',
+        icon: 'account_circle',
+        path: '/images',
+      },
+    ],
+    [ModulesEnum.videos]: [
+      { section: 'Videos' },
+      {
+        label: 'Videos',
+        icon: 'play_circle_filled',
+        path: '/videos',
+      },
+    ],
+    [ModulesEnum.arquivos]: [
+      { section: 'Arquivos' },
+      {
+        label: 'Arquivos',
+        icon: 'account_circle',
+        path: '/files',
+      },
+    ],
+  };
+
+  getListMenu(permission: string, modules?: IModules[]) {
+    this.menuLinks = [];
+    this.menuLinks = [...this.PERMS_LIST[permission]];
+    if (modules?.length > 0) {
+      modules.forEach((module) => {
+        this.menuLinks.push(...this.MODULES_LITERAL[module.nome]);
+      });
+    }
     return this.menuLinks;
   }
 }

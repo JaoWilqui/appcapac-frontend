@@ -96,7 +96,6 @@ export class UsersRegisterComponent implements OnInit {
     this.selectedModules.sort((a, b) => {
       return a - b;
     });
-    console.log(this.selectedModules);
   }
 
   sendForm() {

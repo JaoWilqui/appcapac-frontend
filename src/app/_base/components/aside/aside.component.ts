@@ -1,10 +1,8 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Input,
   OnDestroy,
-  OnInit,
   ViewChild,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -14,12 +12,14 @@ import { IUserProfile } from '../../../auth/models/auth.model';
 import { AsideMenuService, MenuLink } from './services/aside-menu.service';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-aside',
   templateUrl: './aside.component.html',
   styleUrls: ['./aside.component.scss'],
+  host: {
+    '(document:click)': 'onClickOutside($event)',
+  },
 })
-export class AsideComponent implements OnDestroy, OnInit {
+export class AsideComponent implements OnDestroy {
   @ViewChild('toggleButton') toggleButton: ElementRef;
   @ViewChild('menu') menu: ElementRef<any>;
   @Input('isShown') isPropertiesShown = true;
@@ -39,13 +39,11 @@ export class AsideComponent implements OnDestroy, OnInit {
     this.unsubscribe.push(
       this.store.select(getUser).subscribe((value) => {
         this.user = value.user;
+        this.menuList = this.asideMenuService.getListMenu(
+          this.user.perms,
+          this.user.modules
+        );
       })
-    );
-  }
-  ngOnInit(): void {
-    this.menuList = this.asideMenuService.getListMenu(
-      this.user.perms,
-      this.user.modules
     );
   }
 

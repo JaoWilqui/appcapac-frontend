@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { firstValueFrom } from 'rxjs';
 import { SwalService } from '../../../_shared/services/swal.service';
 import { setUser } from '../../../_store/user/user.actions';
 import { IUserProfile } from '../../models/auth.model';
@@ -47,31 +49,28 @@ export class LoginFormComponent implements OnInit {
   access() {
     this.isLoading = true;
 
-    this.authService.login(this.loginForm.value).subscribe({
-      next: (res) => {
-        localStorage.setItem('authToken', res.access_token);
-        this.getUserData();
-        this.route.navigate(['dashboard']);
-        this.isLoading = false;
-      },
-      error: (err) => {
-        this.isLoading = false;
+    if (this.loginForm.valid) {
+      this.authService.login(this.loginForm.value).subscribe({
+        next: async (res) => {
+          localStorage.setItem('authToken', res.access_token);
+          const value = await firstValueFrom(this.authService.getUserInfo());
+          this.store.dispatch(setUser({ user: value }));
+          this.route.navigate(['dashboard']);
+          this.isLoading = false;
+        },
+        error: (err: HttpErrorResponse) => {
+          this.isLoading = false;
 
-        if (err.status == 401) {
-          this.swalService.error.fire('Login ou senha incorretos!');
-          return;
-        }
+          if (err.status == 401) {
+            this.swalService.error.fire('Login ou senha incorretos!');
+            return;
+          }
 
-        this.swalService.error.fire('Um erro inesperado ocorreu!');
-      },
-    });
-  }
-
-  getUserData() {
-    this.authService.getUserInfo().subscribe({
-      next: (res) => {
-        this.store.dispatch(setUser({ user: res }));
-      },
-    });
+          this.swalService.error.fire(err.error.message);
+        },
+      });
+    } else {
+      this.swalService.warning.fire('Aviso', 'Há campos a serem preenchidos!');
+    }
   }
 }

@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getUser } from '../../../_store/user/user.actions';
 import { IUserProfile } from '../../../auth/models/auth.model';
 import { AuthService } from '../../../auth/services/auth.service';
 
@@ -14,11 +13,7 @@ export class UserInnerComponent implements OnInit {
   show = false;
   role: string;
 
-  constructor(private store: Store, private authService: AuthService) {
-    this.store.select(getUser).subscribe((data) => {
-      this.user = data.user;
-    });
-  }
+  constructor(private store: Store, private authService: AuthService) {}
 
   logout() {
     this.authService.logout('login');
