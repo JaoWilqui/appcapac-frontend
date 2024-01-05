@@ -10,14 +10,16 @@
       @for (video of videos; track $index) {
       <div class="video-card">
         <iframe
-          [src]="video.src | safe : 'resourceUrl'"
-          [title]="video.title"
+          [src]="video.link | safe : 'resourceUrl'"
+          [title]="video.descricao"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen
         ></iframe>
-        <div class="video-info my-5">Título: {{ video.title }}</div>
+        <div class="video-info my-5">Título: {{ video.descricao }}</div>
         <div class="video-info my-5">Nome: {{ video.nome }}</div>
+        <div class="video-info my-5">Categoria: {{ video.category.nome }}</div>
+        <div class="video-info my-5">Campanha: {{ video.campaing.nome }}</div>
       </div>
       }
     </div>

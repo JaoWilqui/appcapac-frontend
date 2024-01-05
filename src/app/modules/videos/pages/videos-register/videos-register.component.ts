@@ -1,6 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { ICampaing } from '../../../campaing/models/campaing.model';
@@ -16,7 +21,7 @@ import { VideosService } from './../../services/videos.service';
   styleUrls: ['./videos-register.component.scss'],
 })
 export class VideosRegisterComponent implements OnInit {
-  registerCategoryForm: FormGroup;
+  registerVideoForm: FormGroup;
   videos: IVideos;
   videosId: number;
 
@@ -53,12 +58,27 @@ export class VideosRegisterComponent implements OnInit {
   }
 
   initForm() {
-    this.registerCategoryForm = this.fb.group({
+    this.registerVideoForm = this.fb.group({
       nome: ['', [Validators.required]],
+      link: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
-      category: ['', Validators.required],
-      campaing: ['', Validators.required],
+      category: this.fb.control<number>(null, Validators.required),
+      campaing: this.fb.control<number>(null, Validators.required),
     });
+  }
+
+  get linkControl() {
+    return this.registerVideoForm.controls['link'] as FormControl;
+  }
+
+  getEmbedLink(url) {
+    const regExp =
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+
+    const videoId = match && match[2].length === 11 ? match[2] : null;
+
+    return 'https://www.youtube.com/embed/' + videoId;
   }
 
   getCategories() {
@@ -76,21 +96,21 @@ export class VideosRegisterComponent implements OnInit {
   }
 
   populateForms() {
-    this.registerCategoryForm.patchValue({ ...this.videos });
+    this.registerVideoForm.patchValue({ ...this.videos });
   }
 
   sendForm() {
     if (this.videosId) {
-      this.updateUser();
+      this.updateVideo();
       return;
     }
-    this.registerUser();
+    this.registerVideo();
   }
 
-  updateUser() {
-    if (this.registerCategoryForm.valid) {
+  updateVideo() {
+    if (this.registerVideoForm.valid) {
       this.videos = {
-        ...this.registerCategoryForm.value,
+        ...this.registerVideoForm.value,
       };
       this.videosService.updateVideos(this.videosId, this.videos).subscribe({
         next: (res) => {
@@ -109,11 +129,18 @@ export class VideosRegisterComponent implements OnInit {
     }
   }
 
-  registerUser() {
-    if (this.registerCategoryForm.valid) {
+  registerVideo() {
+    console.log(this.registerVideoForm.value);
+
+    if (this.registerVideoForm.valid) {
       this.videos = {
-        ...this.registerCategoryForm.value,
+        ...this.registerVideoForm.value,
       };
+
+      this.videos.link = this.getEmbedLink(
+        this.registerVideoForm.controls['link'].value
+      );
+
       this.videosService.postVideos(this.videos).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {

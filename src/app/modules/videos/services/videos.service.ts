@@ -11,7 +11,7 @@ import { IVideos } from '../models/videos.model';
 export class VideosService {
   constructor(private http: HttpClient) {}
 
-  getVideos(params: any): Observable<any> {
+  getVideos(params: any): Observable<IPaginationRes<IVideos>> {
     return this.http.get<IPaginationRes<IVideos>>('/videos', {
       params: { ...params },
     });

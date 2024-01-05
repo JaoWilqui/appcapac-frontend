@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IVideos } from '../../models/videos.model';
+import { VideosService } from '../../services/videos.service';
 
 @Component({
   selector: 'app-list-videos',
@@ -7,30 +9,25 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./list-videos.component.scss'],
 })
 export class ListVideosComponent implements OnInit {
-  videos = [
-    {
-      id: 1,
-      src: 'https://www.youtube.com/embed/bXbf_sfA8yE',
-      title: 'Quais são os sintomas da Depressão?',
-      nome: 'teste',
-    },
-    {
-      id: 2,
-      src: 'https://www.youtube.com/embed/PIQpHVXjAt4',
-      title: 'Transtorno de Ansiedade Generalizada: Como Tratar??',
-      nome: 'teste2',
-    },
-    {
-      id: 3,
-      src: 'https://www.youtube.com/embed/a1C8PxeLlGo',
-      title: 'CRISE DE ANSIEDADE: SINTOMAS da CRISE de ANSIEDADE (2021)',
-      nome: 'teste 3',
-    },
-  ];
+  videos: IVideos[] = [];
 
-  constructor(private router: Router, private activeRoute: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private activeRoute: ActivatedRoute,
+    private videosService: VideosService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadVideos();
+  }
+
+  loadVideos() {
+    this.videosService.getVideos({}).subscribe({
+      next: (res) => {
+        this.videos = res.data;
+      },
+    });
+  }
 
   navigateTo(param: string, id?: number) {
     if (id) {

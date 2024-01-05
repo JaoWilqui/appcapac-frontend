@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { IModules } from '../../../../_shared/models/modules.model';
+import {
+  IModules,
+  ModulesEnum,
+} from '../../../../_shared/models/modules.model';
 import { PERMS } from '../../../../_shared/models/perms.enum';
 
 export interface MenuLink {
@@ -40,29 +43,38 @@ const PERMS_LIST: MenuObjectLiteral = {
   [PERMS.USER]: [
     { section: 'Cadastro' },
     {
-      label: 'Usuarios',
-      icon: '../assets/svgs/diversity_1.svg',
-      path: '/usuarios',
+      label: 'Campanha',
+      icon: 'account_circle',
+      path: '/campaing',
+    },
+    {
+      label: 'Categoria',
+      icon: 'account_circle',
+      path: '/category',
     },
   ],
 };
 
-const MODULES_LITERAL = {
-  [1]: [
+const MODULES_LITERAL: MenuObjectLiteral = {
+  [ModulesEnum.imagens]: [
+    { section: 'Imagens' },
+
     {
       label: 'Imagens',
       icon: 'account_circle',
       path: '/users',
     },
   ],
-  [2]: [
+  [ModulesEnum.videos]: [
+    { section: 'Videos' },
     {
       label: 'Videos',
       icon: 'play_circle_filled',
       path: '/videos',
     },
   ],
-  [3]: [
+  [ModulesEnum.arquivos]: [
+    { section: 'Arquivos' },
     {
       label: 'Arquivos',
       icon: 'account_circle',
@@ -70,19 +82,17 @@ const MODULES_LITERAL = {
     },
   ],
 };
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AsideMenuService {
   menuLinks: MenuLink[] = [];
-
+  modulesList: MenuLink[] = [];
   getListMenu(permission: string, modules?: IModules[]) {
-    if (modules.length > 0) {
-      this.menuLinks = [...PERMS_LIST[permission], ...MODULES_LITERAL[2]];
-    } else {
-      this.menuLinks = PERMS_LIST[permission] || [];
-    }
+    modules.forEach((module) => {
+      this.modulesList.push(...MODULES_LITERAL[module.nome]);
+    });
 
+    this.menuLinks = [...PERMS_LIST[permission], ...this.modulesList];
+    console.log(this.menuLinks);
     return this.menuLinks;
   }
 }
