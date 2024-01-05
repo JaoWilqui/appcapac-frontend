@@ -1,18 +1,14 @@
-.remember-input {
-  width: 20px;
-}
-
-.remember-label {
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 15px;
-  color: #aaaaaa;
+.button-password {
+  background: none;
+  z-index: 1;
 }
 
 .enter-button {
-  background: rgb(9, 171, 228);
+  background: linear-gradient(
+    90deg,
+    rgba(194, 33, 39, 1) 14%,
+    rgba(0, 82, 129, 1) 99%
+  );
   border-radius: 1000px;
   font-family: "Roboto";
   font-style: normal;
@@ -26,12 +22,12 @@
     background-position: center;
     transition: background 0.8s;
   }
+
   &.ripple:hover {
-    background: rgb(6, 114, 152)
-      radial-gradient(circle, transparent 1%, rgb(6, 114, 152) 1%) center/15000%;
+    opacity: 0.9;
   }
   &.ripple:active {
-    background-color: rgb(6, 114, 152);
+    background-color: rgba(194, 33, 39, 1) 14%, rgba(0, 82, 129, 1) 99%;
     background-size: 100%;
     transition: background 0s;
   }
@@ -39,70 +35,5 @@
   &:active {
     transition: all 1s linear;
     transform: scale(0.95);
-  }
-}
-
-.cant-enter-button {
-  background: rgba(118, 127, 141, 0.1);
-  border-radius: 1000px;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 25px;
-  color: rgba(48, 55, 66, 1);
-  width: 100%;
-  height: 52px;
-  margin-top: 20px;
-  &.ripple {
-    background-position: center;
-    transition: background 0.8s;
-  }
-  &.ripple:hover {
-    background: #001f30 radial-gradient(circle, transparent 1%, #001f30 1%)
-      center/15000%;
-  }
-  &.ripple:active {
-    background-color: rgba(238, 238, 238, 1);
-    background-size: 100%;
-    transition: background 0s;
-  }
-  &:hover {
-    color: rgba(238, 238, 238, 1);
-  }
-  &:active {
-    transition: all 1s linear;
-    transform: scale(0.95);
-  }
-}
-
-.not-yet-div {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 10px;
-}
-
-.not-yet-black-text {
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: #303742;
-  margin-right: 4px;
-}
-
-.not-yet-blue-text {
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(41, 126, 253, 1);
-  &:hover {
-    text-decoration: underline;
   }
 }

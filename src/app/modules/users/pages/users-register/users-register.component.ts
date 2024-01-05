@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../../_shared/models/user.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { UsersService } from '../../services/users.service';
@@ -23,6 +23,7 @@ export class UsersRegisterComponent implements OnInit {
   ];
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private usersService: UsersService,
     private swalService: SwalService,
     private activeRoute: ActivatedRoute
@@ -41,6 +42,9 @@ export class UsersRegisterComponent implements OnInit {
     this.initForm();
   }
 
+  goBack(param: string) {
+    this.router.navigate([param]);
+  }
   initForm() {
     this.registerUserForm = this.fb.group({
       nome: ['', [Validators.required]],

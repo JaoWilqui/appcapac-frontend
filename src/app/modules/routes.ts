@@ -24,4 +24,12 @@ export const routeModules = [
         (module) => module.CampaingModule
       ),
   },
+
+  {
+    path: 'category',
+    loadChildren: () =>
+      import('./category/category.module').then(
+        (module) => module.CategoryModule
+      ),
+  },
 ];

@@ -1,0 +1,28 @@
+<div class="mb-5">
+  <back-btn (onClick)="goBack('category')"></back-btn>
+</div>
+<div class="main-body">
+  <span class="title-card mb-5">{{ categoryId ? "Editar" : "Cadastrar" }}</span>
+  <section class="content-body">
+    <span class="title-card mb-5">Informações</span>
+
+    <form [formGroup]="registerCategoryForm" class="grid grid-cols-3 gap-3">
+      <div class="mb-3">
+        <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
+          <input type="text" customInput formControlName="nome" />
+          <label>Nome</label>
+        </form-field>
+      </div>
+      <div class="mb-3">
+        <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
+          <input type="text" customInput formControlName="descricao" />
+          <label>descricao</label>
+        </form-field>
+      </div>
+    </form>
+  </section>
+
+  <div class="flex justify-center mt-5">
+    <button (click)="sendForm()" class="btn green">Enviar</button>
+  </div>
+</div>

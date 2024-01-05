@@ -3,28 +3,28 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SwalService } from '../../../../_shared/services/swal.service';
-import { ICampaing } from '../../models/campaing.model';
-import { CampaingService } from '../../services/campaing.service';
+import { ICategory } from '../../models/category.model';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
-  selector: 'app-campaing-register',
-  templateUrl: './campaing-register.component.html',
-  styleUrls: ['./campaing-register.component.scss'],
+  selector: 'app-category-register',
+  templateUrl: './category-register.component.html',
+  styleUrls: ['./category-register.component.scss'],
 })
-export class CampaingRegisterComponent implements OnInit {
-  registerCampaingForm: FormGroup;
-  campaing: ICampaing;
-  campaingId: number;
+export class CategoryRegisterComponent implements OnInit {
+  registerCategoryForm: FormGroup;
+  category: ICategory;
+  categoryId: number;
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private campaingService: CampaingService,
+    private categoryService: CategoryService,
     private swalService: SwalService,
     private activeRoute: ActivatedRoute
   ) {
     this.activeRoute.params.subscribe((params) => {
       if (params['id']) {
-        this.campaingId = +params['id'];
+        this.categoryId = +params['id'];
       }
     });
   }
@@ -34,37 +34,34 @@ export class CampaingRegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.campaingId) {
-      this.getCampaing();
+    if (this.categoryId) {
+      this.getCategory();
     }
     this.initForm();
   }
 
   initForm() {
-    this.registerCampaingForm = this.fb.group({
+    this.registerCategoryForm = this.fb.group({
       nome: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
-      status: ['', [Validators.required]],
-      dtinicio: ['', [Validators.required]],
-      dtfim: ['', [Validators.required]],
     });
   }
 
-  getCampaing() {
-    this.campaingService.getCampaingById(this.campaingId).subscribe({
+  getCategory() {
+    this.categoryService.getCategoryById(this.categoryId).subscribe({
       next: (res) => {
-        this.campaing = res;
+        this.category = res;
         this.populateForms();
       },
     });
   }
 
   populateForms() {
-    this.registerCampaingForm.patchValue({ ...this.campaing });
+    this.registerCategoryForm.patchValue({ ...this.category });
   }
 
   sendForm() {
-    if (this.campaingId) {
+    if (this.categoryId) {
       this.updateUser();
       return;
     }
@@ -72,23 +69,23 @@ export class CampaingRegisterComponent implements OnInit {
   }
 
   updateUser() {
-    if (this.registerCampaingForm.valid) {
-      this.campaing = {
-        ...this.registerCampaingForm.value,
+    if (this.registerCategoryForm.valid) {
+      this.category = {
+        ...this.registerCategoryForm.value,
       };
-      this.campaingService
-        .updateCampaing(this.campaingId, this.campaing)
+      this.categoryService
+        .updateCategory(this.categoryId, this.category)
         .subscribe({
           next: (res) => {
             this.swalService.success.fire('Sucesso!', res.message).then(() => {
-              this.goBack('campaing');
+              this.goBack('category');
             });
           },
           error: (error: HttpErrorResponse) => {
             this.swalService.error
               .fire('Erro', error.error.message)
               .then(() => {
-                this.goBack('campaing');
+                this.goBack('category');
               });
           },
         });
@@ -98,19 +95,19 @@ export class CampaingRegisterComponent implements OnInit {
   }
 
   registerUser() {
-    if (this.registerCampaingForm.valid) {
-      this.campaing = {
-        ...this.registerCampaingForm.value,
+    if (this.registerCategoryForm.valid) {
+      this.category = {
+        ...this.registerCategoryForm.value,
       };
-      this.campaingService.postCampaings(this.campaing).subscribe({
+      this.categoryService.postCategory(this.category).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {
-            this.goBack('campaing');
+            this.goBack('category');
           });
         },
         error: (error: HttpErrorResponse) => {
           this.swalService.error.fire('Erro', error.error.message).then(() => {
-            this.goBack('campaing');
+            this.goBack('category');
           });
         },
       });

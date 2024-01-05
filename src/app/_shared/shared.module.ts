@@ -4,27 +4,45 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSortModule } from '@angular/material/sort';
 import { RouterModule } from '@angular/router';
+import { BackBtnComponent } from './components/back-btn/back-btn/back-btn.component';
 import { FormFieldComponent } from './components/form-field/form-field.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { DynamicPipe } from './components/table/pipes/dynamic.pipe';
 import { TableComponent } from './components/table/table.component';
 import { InputDirective } from './directives/custom-input.directive';
 import { NumberPipe } from './pipes/number.pipe';
+import { SafePipe } from './pipes/sanitizer.pipe';
+
 const declarations = [
   NumberPipe,
   DynamicPipe,
   InputDirective,
+  BackBtnComponent,
   FormFieldComponent,
   TableComponent,
   PaginatorComponent,
+  SafePipe,
 ];
 
-const imports = [RouterModule, FormsModule, ReactiveFormsModule, CommonModule];
+const imports = [
+  RouterModule,
+  FormsModule,
+  ReactiveFormsModule,
+  CommonModule,
+  MatProgressBarModule,
+];
 
-const providers = [InputDirective];
+const providers = [InputDirective, SafePipe];
 
-const materialModules = [MatIconModule, MatButtonModule, MatDividerModule];
+const materialModules = [
+  MatIconModule,
+  MatButtonModule,
+  MatDividerModule,
+  MatSortModule,
+];
 
 @NgModule({
   declarations: [...declarations],

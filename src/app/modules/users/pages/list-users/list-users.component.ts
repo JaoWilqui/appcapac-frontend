@@ -105,7 +105,7 @@ export class ListUsersComponent implements OnInit {
 
   sortTable(sort: SortInterface) {
     this.sortParams = {
-      order: sort.orderDirection,
+      order: sort.orderDirection ?? Order.DESC,
       orderBy: sort.orderBy,
     };
     this.loadData();
