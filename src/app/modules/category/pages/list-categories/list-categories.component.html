@@ -1,6 +1,10 @@
 <div class="main-body">
   <section class="flex justify-end mb-5">
-    <button class="btn green" (click)="navigateTo('register')">
+    <button
+      *ngxPermissionsOnly="['ADMIN']"
+      class="btn green"
+      (click)="navigateTo('register')"
+    >
       Cadastrar
     </button>
   </section>

@@ -71,6 +71,7 @@ export class ListCampaingsComponent implements OnInit {
     private campaingService: CampaingService,
     private swalService: SwalService,
     private router: Router,
+
     private activeRoute: ActivatedRoute
   ) {}
 

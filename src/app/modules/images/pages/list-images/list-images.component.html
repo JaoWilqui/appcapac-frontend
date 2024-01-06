@@ -1,0 +1,21 @@
+<main class="main-body">
+  <div class="title-card">Videos</div>
+  <section class="flex justify-end mb-5">
+    <button class="btn green" (click)="navigateTo('register')">
+      Cadastrar
+    </button>
+  </section>
+  <section class="content-body mt-5">
+    <div class="grid grid-cols-3 gap-3">
+      @for (image of images; track $index) {
+      <div class="video-card">
+        <img [src]="'data:image/png;base64,' + image.imageRelativePath" />
+        <div class="video-info my-5">Título: {{ image.descricao }}</div>
+        <div class="video-info my-5">Nome: {{ image.nome }}</div>
+        <div class="video-info my-5">Categoria: {{ image.category.nome }}</div>
+        <div class="video-info my-5">Campanha: {{ image.campaing.nome }}</div>
+      </div>
+      }
+    </div>
+  </section>
+</main>

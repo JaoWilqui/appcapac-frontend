@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { NgxPermissionsService } from 'ngx-permissions';
 import { firstValueFrom } from 'rxjs';
 import { SwalService } from '../../../_shared/services/swal.service';
 import { setUser } from '../../../_store/user/user.actions';
@@ -21,6 +22,7 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private permissionsService: NgxPermissionsService,
     private route: Router,
     private authService: AuthService,
     private store: Store<IUserProfile>,
@@ -54,6 +56,8 @@ export class LoginFormComponent implements OnInit {
         next: async (res) => {
           localStorage.setItem('authToken', res.access_token);
           const value = await firstValueFrom(this.authService.getUserInfo());
+          this.permissionsService.loadPermissions([value.perms]);
+
           this.store.dispatch(setUser({ user: value }));
           this.route.navigate(['dashboard']);
           this.isLoading = false;

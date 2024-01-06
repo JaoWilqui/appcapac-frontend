@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { RouterModule } from '@angular/router';
+import { NgxPermissionsModule } from 'ngx-permissions';
 import { BackBtnComponent } from './components/back-btn/back-btn/back-btn.component';
 import { FormFieldComponent } from './components/form-field/form-field.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
@@ -33,6 +34,7 @@ const imports = [
   ReactiveFormsModule,
   CommonModule,
   MatProgressBarModule,
+  NgxPermissionsModule,
 ];
 
 const providers = [InputDirective, SafePipe];

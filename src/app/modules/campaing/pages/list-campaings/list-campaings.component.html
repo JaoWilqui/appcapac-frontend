@@ -1,5 +1,5 @@
 <div class="main-body">
-  <section class="flex justify-end mb-5">
+  <section *ngxPermissionsOnly="['ADMIN']" class="flex justify-end mb-5">
     <button class="btn green" (click)="navigateTo('register')">
       Cadastrar
     </button>
@@ -18,7 +18,11 @@
       (changePageData)="changePage($event)"
       [isPageable]="true"
     >
-      <ng-template #actions let-campaing="element">
+      <ng-template
+        *ngxPermissionsOnly="['ADMIN']"
+        #actions
+        let-campaing="element"
+      >
         <button (click)="navigateTo('edit', campaing.id)" mat-icon-button>
           <mat-icon>edit</mat-icon>
         </button>

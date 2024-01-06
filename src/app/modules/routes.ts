@@ -32,4 +32,10 @@ export const routeModules = [
         (module) => module.CategoryModule
       ),
   },
+
+  {
+    path: 'images',
+    loadChildren: () =>
+      import('./images/images.module').then((module) => module.ImagesModule),
+  },
 ];

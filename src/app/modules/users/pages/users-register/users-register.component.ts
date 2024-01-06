@@ -141,10 +141,14 @@ export class UsersRegisterComponent implements OnInit {
       };
       this.usersService.postUsers(this.user).subscribe({
         next: (res) => {
-          this.swalService.success.fire('Sucesso!', res.message);
+          this.swalService.success.fire('Sucesso!', res.message).then(() => {
+            this.goBack('users');
+          });
         },
         error: (error: HttpErrorResponse) => {
-          this.swalService.error.fire('Erro', error.error.message);
+          this.swalService.error.fire('Erro', error.error.message).then(() => {
+            this.goBack('users');
+          });
         },
       });
     } else if (this.registerUserForm.invalid) {
