@@ -106,6 +106,27 @@ export class ListCampaingsComponent implements OnInit {
       this.loadData();
   }
 
+  delete(id: number) {
+    this.swalService.warning
+      .fire({
+        title: 'Aviso',
+        text: `Deseja deletar a campanha ${id} ? Essa ação não pode ser desfeita!`,
+        confirmButtonText: 'Sim',
+        cancelButtonText: 'Não',
+        showCancelButton: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.campaingService.deleteCampaingById(id).subscribe({
+            next: (res) => {
+              this.swalService.success.fire('Sucesso', res.message);
+              this.loadData();
+            },
+          });
+        }
+      });
+  }
+
   navigateTo(param: string, id?: number) {
     if (id) {
       this.router.navigate([param + '/' + `${id}`], {

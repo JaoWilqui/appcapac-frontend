@@ -20,6 +20,14 @@
         <div class="video-info my-5">Nome: {{ video.nome }}</div>
         <div class="video-info my-5">Categoria: {{ video.category.nome }}</div>
         <div class="video-info my-5">Campanha: {{ video.campaing.nome }}</div>
+        <div class="mt-4 grid grid-cols-2 gap-4 justify-center">
+          <button class="btn green" (click)="navigateTo('edit', video.id)">
+            Editar <mat-icon class="ml-3">edit</mat-icon>
+          </button>
+          <button class="btn red" (click)="delete(video.id)">
+            Excluir <mat-icon class="ml-3">delete</mat-icon>
+          </button>
+        </div>
       </div>
       }
     </div>

@@ -17,11 +17,19 @@ export class VideosService {
     });
   }
 
+  getVideoById(id: number): Observable<IVideos> {
+    return this.http.get<IVideos>(`/videos/${id}`, {});
+  }
+
   postVideos(video: IVideos): Observable<HttpSuccess> {
     return this.http.post<HttpSuccess>('/videos/register', video);
   }
 
   updateVideos(id: number, video: IVideos): Observable<HttpSuccess> {
     return this.http.put<HttpSuccess>(`/videos/update/${id}`, video);
+  }
+
+  deleteVideosById(id: number) {
+    return this.http.delete<HttpSuccess>(`/videos/delete/${id}`);
   }
 }

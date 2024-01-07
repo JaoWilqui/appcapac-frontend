@@ -22,9 +22,16 @@
       (changePageData)="changePage($event)"
       [isPageable]="true"
     >
-      <ng-template #actions let-campaing="element">
-        <button (click)="navigateTo('edit', campaing.id)" mat-icon-button>
+      <ng-template #actions let-category="element">
+        <button (click)="navigateTo('edit', category.id)" mat-icon-button>
           <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          matTooltip="Deletar"
+          mat-icon-button
+          (click)="delete(category.id)"
+        >
+          <mat-icon color="red">delete</mat-icon>
         </button>
       </ng-template>
     </app-table>

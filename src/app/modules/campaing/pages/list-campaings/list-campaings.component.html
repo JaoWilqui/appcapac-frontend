@@ -26,6 +26,13 @@
         <button (click)="navigateTo('edit', campaing.id)" mat-icon-button>
           <mat-icon>edit</mat-icon>
         </button>
+        <button
+          matTooltip="Deletar"
+          mat-icon-button
+          (click)="delete(campaing.id)"
+        >
+          <mat-icon color="red">delete</mat-icon>
+        </button>
       </ng-template>
     </app-table>
   </section>

@@ -28,4 +28,8 @@ export class ImagesService {
   updateImages(id: number, video: IImages): Observable<HttpSuccess> {
     return this.http.put<HttpSuccess>(`/images/update/${id}`, video);
   }
+
+  deleteImagesById(id: number) {
+    return this.http.delete<HttpSuccess>(`/images/delete/${id}`);
+  }
 }

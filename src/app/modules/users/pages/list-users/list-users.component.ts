@@ -19,9 +19,9 @@ import { UsersService } from '../../services/users.service';
 export class ListUsersComponent implements OnInit {
   pagination = { page: 1, pageCount: 10 };
   sortParams = { order: Order.DESC, orderBy: 'id' };
-  data: User[] = [];
-
   isLoading: boolean = false;
+
+  data: User[] = [];
 
   itemsCount: number = 0;
   displayedColumns: Fields[] = [
@@ -101,6 +101,27 @@ export class ListUsersComponent implements OnInit {
     this.router.navigate([param], {
       relativeTo: this.activeRoute,
     });
+  }
+
+  delete(id: number) {
+    this.swalService.warning
+      .fire({
+        title: 'Aviso',
+        text: `Deseja deletar o usuário ${id} ? Essa ação não pode ser desfeita!`,
+        confirmButtonText: 'Sim',
+        cancelButtonText: 'Não',
+        showCancelButton: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.usersService.deleteUserById(id).subscribe({
+            next: (res) => {
+              this.swalService.success.fire('Sucesso', res.message);
+              this.loadData();
+            },
+          });
+        }
+      });
   }
 
   sortTable(sort: SortInterface) {

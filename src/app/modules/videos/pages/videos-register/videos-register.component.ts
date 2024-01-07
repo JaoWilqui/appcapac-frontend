@@ -51,6 +51,7 @@ export class VideosRegisterComponent implements OnInit {
 
   ngOnInit() {
     if (this.videosId) {
+      this.getVideo();
     }
     this.initForm();
     this.getCampaings();
@@ -79,6 +80,24 @@ export class VideosRegisterComponent implements OnInit {
     const videoId = match && match[2].length === 11 ? match[2] : null;
 
     return 'https://www.youtube.com/embed/' + videoId;
+  }
+
+  getVideo() {
+    this.videosService.getVideoById(this.videosId).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.videos = res;
+        this.populateForm();
+      },
+    });
+  }
+
+  populateForm() {
+    this.registerVideoForm.patchValue({
+      ...this.videos,
+      category: this.videos.category.id,
+      campaing: this.videos.campaing.id,
+    });
   }
 
   getCategories() {
@@ -112,6 +131,10 @@ export class VideosRegisterComponent implements OnInit {
       this.videos = {
         ...this.registerVideoForm.value,
       };
+
+      this.videos.link = this.getEmbedLink(
+        this.registerVideoForm.controls['link'].value
+      );
       this.videosService.updateVideos(this.videosId, this.videos).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {

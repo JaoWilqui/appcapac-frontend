@@ -26,4 +26,8 @@ export class CampaingService {
   updateCampaing(id: number, campaing: ICampaing): Observable<HttpSuccess> {
     return this.http.put<HttpSuccess>(`/campaing/update/${id}`, campaing);
   }
+
+  deleteCampaingById(id: number) {
+    return this.http.delete<HttpSuccess>(`/campaing/delete/${id}`);
+  }
 }

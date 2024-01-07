@@ -18,8 +18,8 @@ export class UsersRegisterComponent implements OnInit {
   selectedModules: number[] = [];
   modules = [
     { id: 1, label: 'Imagens', icon: 'crop_original', active: false },
-    { id: 2, label: 'Arquivos', icon: 'description', active: false },
-    { id: 3, label: 'Videos', icon: 'movie', active: false },
+    { id: 2, label: 'Videos', icon: 'movie', active: false },
+    { id: 3, label: 'Arquivos', icon: 'description', active: false },
   ];
   constructor(
     private fb: FormBuilder,
@@ -114,10 +114,14 @@ export class UsersRegisterComponent implements OnInit {
       };
       this.usersService.updateUser(this.userId, this.user).subscribe({
         next: (res) => {
-          this.swalService.success.fire('Sucesso!', res.message);
+          this.swalService.success.fire('Sucesso!', res.message).then(() => {
+            this.goBack('users');
+          });
         },
         error: (error: HttpErrorResponse) => {
-          this.swalService.error.fire('Erro', error.error.message);
+          this.swalService.error.fire('Erro', error.error.message).then(() => {
+            this.goBack('users');
+          });
         },
       });
     } else if (this.registerUserForm.invalid) {

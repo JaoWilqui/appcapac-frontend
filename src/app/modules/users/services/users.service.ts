@@ -26,4 +26,8 @@ export class UsersService {
   updateUser(id: number, user: User): Observable<HttpSuccess> {
     return this.http.put<HttpSuccess>(`/user/update/${id}`, user);
   }
+
+  deleteUserById(id: number) {
+    return this.http.delete<HttpSuccess>(`/user/delete/${id}`);
+  }
 }

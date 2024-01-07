@@ -28,4 +28,8 @@ export class CategoryService {
   updateCategory(id: number, category: ICategory): Observable<HttpSuccess> {
     return this.http.put<HttpSuccess>(`/category/update/${id}`, category);
   }
+
+  deleteCategoryById(id: number) {
+    return this.http.delete<HttpSuccess>(`/category/delete/${id}`);
+  }
 }

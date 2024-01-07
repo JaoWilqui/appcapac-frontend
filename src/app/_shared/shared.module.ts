@@ -6,6 +6,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSortModule } from '@angular/material/sort';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { BackBtnComponent } from './components/back-btn/back-btn/back-btn.component';
@@ -40,6 +41,7 @@ const imports = [
 const providers = [InputDirective, SafePipe];
 
 const materialModules = [
+  MatTooltipModule,
   MatIconModule,
   MatButtonModule,
   MatDividerModule,

@@ -32,6 +32,7 @@ export class AsideMenuService {
         icon: 'account_circle',
         path: '/users',
       },
+      { section: 'Gerenciamento' },
       {
         label: 'Campanha',
         icon: 'account_circle',
@@ -43,19 +44,7 @@ export class AsideMenuService {
         path: '/category',
       },
     ],
-    [PERMS.USER]: [
-      { section: 'Cadastro' },
-      {
-        label: 'Campanha',
-        icon: 'account_circle',
-        path: '/campaing',
-      },
-      {
-        label: 'Categoria',
-        icon: 'account_circle',
-        path: '/category',
-      },
-    ],
+    [PERMS.USER]: [],
   };
 
   MODULES_LITERAL: MenuObjectLiteral = {
