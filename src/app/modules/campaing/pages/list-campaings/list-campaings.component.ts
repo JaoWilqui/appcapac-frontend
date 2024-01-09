@@ -1,7 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ControlTypeEnum } from '../../../../_shared/components/filter/enum/control-type.enum';
+import { FiltersFields } from '../../../../_shared/components/filter/interface/filter-interface.model';
 import { PaginatorEvent } from '../../../../_shared/components/paginator/models/page-event.model';
 import { SortInterface } from '../../../../_shared/components/table/interface/sort.model';
 import { Fields } from '../../../../_shared/components/table/interface/tableColumn.interface';
@@ -20,7 +23,7 @@ export class ListCampaingsComponent implements OnInit {
   pagination = { page: 1, pageCount: 10 };
   sortParams = { order: Order.DESC, orderBy: 'id' };
   data: ICampaing[] = [];
-
+  filterForm: FormGroup;
   isLoading: boolean = false;
 
   itemsCount: number = 0;
@@ -67,6 +70,40 @@ export class ListCampaingsComponent implements OnInit {
       isSortable: true,
     },
   ];
+
+  filterControls: FiltersFields[] = [
+    {
+      control: new FormControl(''),
+      name: 'nome',
+      label: 'Nome',
+      type: ControlTypeEnum.FORM,
+    },
+    {
+      control: new FormControl(''),
+      name: 'sobrenome',
+      label: 'Sobrenome',
+      type: ControlTypeEnum.FORM,
+    },
+    {
+      label: 'Data de Inicio',
+      control: new FormControl(''),
+      name: 'dtinicio',
+      type: ControlTypeEnum.DATE_PICKER,
+    },
+    {
+      label: 'Data de Fim',
+      control: new FormControl(''),
+      name: 'dtfim',
+      type: ControlTypeEnum.DATE_PICKER,
+    },
+
+    {
+      label: 'Data de cadastro',
+      control: new FormControl(null),
+      name: 'dtcadastro',
+      type: ControlTypeEnum.DATE_PICKER,
+    },
+  ];
   constructor(
     private campaingService: CampaingService,
     private swalService: SwalService,
@@ -81,11 +118,13 @@ export class ListCampaingsComponent implements OnInit {
 
   loadData() {
     this.isLoading = true;
+    const filters = this.getFilters();
+
     const params: IParams = {
+      ...filters,
       ...this.pagination,
       ...this.sortParams,
     };
-
     this.campaingService.getCampaings(params).subscribe({
       next: (res) => {
         this.data = res.data;
@@ -125,6 +164,31 @@ export class ListCampaingsComponent implements OnInit {
           });
         }
       });
+  }
+
+  getFilters() {
+    let filters = {};
+    if (this.filterForm) {
+      filters = this.filterForm.value;
+
+      Object.keys(filters).forEach((key) => {
+        if (!filters[key]) {
+          delete filters[key];
+        }
+      });
+    }
+
+    return filters;
+  }
+  submitFilters(formGroup: FormGroup) {
+    this.filterForm = formGroup;
+    this.pagination.page = 1;
+    this.loadData();
+  }
+
+  clearFilters(formGroup: FormGroup) {
+    this.filterForm = formGroup;
+    this.loadData();
   }
 
   navigateTo(param: string, id?: number) {

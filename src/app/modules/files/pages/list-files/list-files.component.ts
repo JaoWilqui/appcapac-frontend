@@ -1,31 +1,27 @@
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ControlTypeEnum } from '../../../../_shared/components/filter/enum/control-type.enum';
-import { FiltersFields } from '../../../../_shared/components/filter/interface/filter-interface.model';
 import { PaginatorEvent } from '../../../../_shared/components/paginator/models/page-event.model';
 import { SortInterface } from '../../../../_shared/components/table/interface/sort.model';
 import { Fields } from '../../../../_shared/components/table/interface/tableColumn.interface';
 import { Order } from '../../../../_shared/models/pagination.model';
 import { IParams } from '../../../../_shared/models/params.model';
-import { User } from '../../../../_shared/models/user.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
-import { UsersService } from '../../services/users.service';
+import { IFiles } from '../../models/files.model';
+import { FilesService } from '../../services/files.service';
 
 @Component({
-  selector: 'app-list-users',
-  templateUrl: './list-users.component.html',
-  styleUrls: ['./list-users.component.scss'],
+  selector: 'app-list-files',
+  templateUrl: './list-files.component.html',
+  styleUrls: ['./list-files.component.scss'],
 })
-export class ListUsersComponent implements OnInit {
+export class ListFilesComponent implements OnInit {
   pagination = { page: 1, pageCount: 10 };
   sortParams = { order: Order.DESC, orderBy: 'id' };
   isLoading: boolean = false;
-  filterForm: FormGroup;
 
-  data: User[] = [];
+  data: IFiles[] = [];
 
   itemsCount: number = 0;
   displayedColumns: Fields[] = [
@@ -39,14 +35,16 @@ export class ListUsersComponent implements OnInit {
       dataKey: 'nome',
       isSortable: true,
     },
+
     {
-      name: 'Sobrenome',
-      dataKey: 'sobrenome',
+      name: 'Descricao',
+      dataKey: 'descricao',
       isSortable: true,
     },
+
     {
-      name: 'Email',
-      dataKey: 'email',
+      name: 'Tipo',
+      dataKey: 'tipo',
       isSortable: true,
     },
     {
@@ -57,58 +55,23 @@ export class ListUsersComponent implements OnInit {
       pipeArgs: ['dd/MM/yy'],
     },
   ];
-
-  filterControls: FiltersFields[] = [
-    {
-      control: new FormControl(''),
-      name: 'nome',
-      label: 'Nome',
-      type: ControlTypeEnum.FORM,
-    },
-    {
-      control: new FormControl(''),
-      name: 'sobrenome',
-      label: 'Sobrenome',
-      type: ControlTypeEnum.FORM,
-    },
-    {
-      control: new FormControl(''),
-      name: 'email',
-      label: 'E-mail',
-      type: ControlTypeEnum.FORM,
-    },
-
-    {
-      label: 'Data de cadastro',
-      control: new FormControl(null),
-      secondControl: new FormControl(null),
-      name: 'dtcadastro',
-      type: ControlTypeEnum.DATE_PICKER,
-    },
-  ];
   constructor(
-    private usersService: UsersService,
+    private filesService: FilesService,
     private swalService: SwalService,
     private router: Router,
     private activeRoute: ActivatedRoute
   ) {}
 
-  ngOnInit() {
-    this.loadData();
-  }
+  ngOnInit() {}
 
   loadData() {
     this.isLoading = true;
-
-    const filters = this.getFilters();
-
     const params: IParams = {
-      ...filters,
       ...this.pagination,
       ...this.sortParams,
     };
 
-    this.usersService.getUsers(params).subscribe({
+    this.filesService.getFiles(params).subscribe({
       next: (res) => {
         this.data = res.data;
         this.itemsCount = res.itemCount;
@@ -128,20 +91,6 @@ export class ListUsersComponent implements OnInit {
       this.loadData();
   }
 
-  getFilters() {
-    let filters = {};
-    if (this.filterForm) {
-      filters = this.filterForm.value;
-
-      Object.keys(filters).forEach((key) => {
-        if (!filters[key]) {
-          delete filters[key];
-        }
-      });
-    }
-
-    return filters;
-  }
   navigateTo(param: string, id?: number) {
     if (id) {
       this.router.navigate([param + '/' + `${id}`], {
@@ -165,7 +114,7 @@ export class ListUsersComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          this.usersService.deleteUserById(id).subscribe({
+          this.filesService.deleteFilesById(id).subscribe({
             next: (res) => {
               this.swalService.success.fire('Sucesso', res.message);
               this.loadData();
@@ -173,17 +122,6 @@ export class ListUsersComponent implements OnInit {
           });
         }
       });
-  }
-
-  submitFilters(formGroup: FormGroup) {
-    this.filterForm = formGroup;
-    this.pagination.page = 1;
-    this.loadData();
-  }
-  clearFilters(formGroup: FormGroup) {
-    this.filterForm = formGroup;
-
-    this.loadData();
   }
 
   sortTable(sort: SortInterface) {

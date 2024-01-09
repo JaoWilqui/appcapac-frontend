@@ -10,8 +10,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { BackBtnComponent } from './components/back-btn/back-btn/back-btn.component';
+import { FilterComponent } from './components/filter/filter.component';
 import { FormFieldComponent } from './components/form-field/form-field.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { SearchBtnComponent } from './components/search-btn/search-btn.component';
 import { DynamicPipe } from './components/table/pipes/dynamic.pipe';
 import { TableComponent } from './components/table/table.component';
 import { InputDirective } from './directives/custom-input.directive';
@@ -23,8 +25,10 @@ const declarations = [
   DynamicPipe,
   InputDirective,
   BackBtnComponent,
+  FilterComponent,
   FormFieldComponent,
   TableComponent,
+  SearchBtnComponent,
   PaginatorComponent,
   SafePipe,
 ];

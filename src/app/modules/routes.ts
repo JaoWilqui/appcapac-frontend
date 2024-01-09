@@ -38,4 +38,10 @@ export const routeModules = [
     loadChildren: () =>
       import('./images/images.module').then((module) => module.ImagesModule),
   },
+
+  {
+    path: 'files',
+    loadChildren: () =>
+      import('./files/files.module').then((module) => module.FilesModule),
+  },
 ];

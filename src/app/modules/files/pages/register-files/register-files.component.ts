@@ -12,29 +12,29 @@ import { ICampaing } from '../../../campaing/models/campaing.model';
 import { CampaingService } from '../../../campaing/services/campaing.service';
 import { ICategory } from '../../../category/models/category.model';
 import { CategoryService } from '../../../category/services/category.service';
-import { IImages } from '../../../images/models/images.model';
-import { ImagesService } from '../../../images/services/images.service';
+import { IFiles } from '../../models/files.model';
+import { FilesService } from '../../services/files.service';
 
 @Component({
-  selector: 'app-images-register',
-  templateUrl: './images-register.component.html',
-  styleUrls: ['./images-register.component.scss'],
+  selector: 'app-register-files',
+  templateUrl: './register-files.component.html',
+  styleUrls: ['./register-files.component.scss'],
 })
-export class ImagesRegisterComponent implements OnInit {
-  registerImageForm: FormGroup;
-  images: IImages;
-  imagesId: number;
+export class RegisterFilesComponent implements OnInit {
+  registerFileForm: FormGroup;
+  fileId: number;
 
-  imageSrc: string;
+  file: IFiles;
 
-  file: File;
+  uploadedFile: File;
+
   campaings: ICampaing[] = [];
 
   categories: ICategory[] = [];
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private imagesService: ImagesService,
+    private filesService: FilesService,
     private categoryService: CategoryService,
     private campaingService: CampaingService,
 
@@ -43,7 +43,7 @@ export class ImagesRegisterComponent implements OnInit {
   ) {
     this.activeRoute.params.subscribe((params) => {
       if (params['id']) {
-        this.imagesId = +params['id'];
+        this.fileId = +params['id'];
       }
     });
   }
@@ -53,8 +53,8 @@ export class ImagesRegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.imagesId) {
-      this.getImage();
+    if (this.fileId) {
+      this.getFile();
     }
     this.initForm();
     this.getCampaings();
@@ -62,17 +62,16 @@ export class ImagesRegisterComponent implements OnInit {
   }
 
   initForm() {
-    this.registerImageForm = this.fb.group({
+    this.registerFileForm = this.fb.group({
       nome: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
       category: this.fb.control<number>(null, Validators.required),
-      campaing: this.fb.control<number>(null, Validators.required),
-      image: [''],
+      file: [''],
     });
   }
 
-  get imageControl() {
-    return this.registerImageForm.controls['imageControl'] as FormControl;
+  get fileControl() {
+    return this.registerFileForm.controls['file'] as FormControl;
   }
 
   getCategories() {
@@ -89,26 +88,24 @@ export class ImagesRegisterComponent implements OnInit {
     });
   }
 
-  getImage() {
-    this.imagesService.getImageById(this.imagesId).subscribe({
+  getFile() {
+    this.filesService.getFileById(this.fileId).subscribe({
       next: (res) => {
-        this.images = res;
-        this.imageSrc = res.imageRelativePath;
+        this.file = res;
         this.populateForms();
       },
     });
   }
 
   populateForms() {
-    this.registerImageForm.patchValue({
-      ...this.images,
-      campaing: this.images.campaing.id,
-      category: this.images.category.id,
+    this.registerFileForm.patchValue({
+      ...this.file,
+      category: this.file.category.id,
     });
   }
 
   sendForm() {
-    if (this.imagesId) {
+    if (this.fileId) {
       this.updateImage();
       return;
     }
@@ -116,25 +113,25 @@ export class ImagesRegisterComponent implements OnInit {
   }
 
   updateImage() {
-    if (this.registerImageForm.valid && this.file) {
-      this.images = {
-        ...this.registerImageForm.value,
+    if (this.registerFileForm.valid && this.uploadedFile) {
+      this.file = {
+        ...this.registerFileForm.value,
       };
 
       let formData = new FormData();
 
-      formData.append('image', this.file);
-      formData.append('imageInfo', JSON.stringify(this.images));
+      formData.append('file', this.uploadedFile);
+      formData.append('fileInfo', JSON.stringify(this.file));
 
-      this.imagesService.updateImages(this.imagesId, formData).subscribe({
+      this.filesService.updateFile(this.fileId, formData).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {
-            this.goBack('images');
+            this.goBack('files');
           });
         },
         error: (error: HttpErrorResponse) => {
           this.swalService.error.fire('Erro', error.error.message).then(() => {
-            this.goBack('images');
+            this.goBack('files');
           });
         },
       });
@@ -143,29 +140,24 @@ export class ImagesRegisterComponent implements OnInit {
     }
   }
 
-  processFile(imageInput: any) {
-    this.file = null;
-    this.file = imageInput.files[0];
-    const reader = new FileReader();
-    reader.addEventListener('load', (event: any) => {
-      this.imageSrc = event.target.result;
-    });
-
-    reader.readAsDataURL(this.file);
+  processFile(fileInput: any) {
+    this.uploadedFile = null;
+    this.uploadedFile = fileInput.files[0];
+    console.log(fileInput.files[0]);
   }
 
   registerImage() {
-    if (this.registerImageForm.valid && this.file) {
-      this.images = {
-        ...this.registerImageForm.value,
+    if (this.registerFileForm.valid && this.uploadedFile) {
+      this.file = {
+        ...this.registerFileForm.value,
       };
 
       let formData = new FormData();
 
-      formData.append('image', this.file);
-      formData.append('imageInfo', JSON.stringify(this.images));
+      formData.append('file', this.uploadedFile);
+      formData.append('fileInfo', JSON.stringify(this.file));
 
-      this.imagesService.uploadImage(formData).subscribe({
+      this.filesService.uploadFile(formData).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {});
         },

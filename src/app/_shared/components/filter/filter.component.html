@@ -1,0 +1,80 @@
+<form [formGroup]="filterForm" class="flex justify-center gap-2 flex-wrap">
+  <ng-container *ngFor="let filter of filters">
+    <ng-container *ngIf="filter.type === 'form'">
+      <div class="">
+        <form-field
+          [setStyle]="{
+            width: '100%',
+            'min-width': '300px',
+            background: 'white'
+          }"
+        >
+          <input
+            *ngIf="filter.maskOptions"
+            customInput
+            matPrefix
+            [formControlName]="filter.name"
+            [mask]="filter.maskOptions.mask"
+            type="{{ filter.inputType ?? 'text' }}"
+          />
+          <input
+            *ngIf="!filter.maskOptions"
+            [formControlName]="filter.name"
+            customInput
+            type="{{ filter.inputType ?? 'text' }}"
+          />
+          <label>{{ filter.label }}</label>
+        </form-field>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="filter.type === 'select'">
+      <div>
+        <form-field
+          [setStyle]="{
+            width: '100%',
+            'min-width': '300px',
+            background: 'white'
+          }"
+        >
+          <select customInput [formControlName]="filter.name">
+            <option [value]="''">--</option>
+            <option
+              *ngFor="let option of filter.options"
+              [value]="
+                option[filter.valueKey ? filter.valueKey : filter.optionKey]
+              "
+            >
+              {{ option[filter.optionKey] }}
+            </option>
+          </select>
+          <label>{{ filter.label }}</label>
+        </form-field>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="filter.type === 'datePicker'">
+      <div>
+        <form-field
+          [setStyle]="{
+            width: '100%',
+            'min-width': '300px',
+            background: 'white'
+          }"
+        >
+          <input type="date" customInput [formControlName]="filter.name" />
+          <label>{{ filter.label }}</label>
+        </form-field>
+      </div>
+    </ng-container>
+  </ng-container>
+</form>
+<section class="flex justify-center mt-2">
+  <div class="">
+    <search-btn
+      [disabled]="isLoading"
+      (clickSearch)="submitFilters()"
+    ></search-btn>
+  </div>
+  <div class="mt-2 ms-2">
+    <button mat-raised-button (click)="clearFilter()">Limpar</button>
+  </div>
+</section>
