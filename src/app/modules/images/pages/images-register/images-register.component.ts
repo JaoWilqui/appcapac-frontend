@@ -54,6 +54,7 @@ export class ImagesRegisterComponent implements OnInit {
 
   ngOnInit() {
     if (this.imagesId) {
+      this.getImage();
     }
     this.initForm();
     this.getCampaings();
@@ -87,6 +88,16 @@ export class ImagesRegisterComponent implements OnInit {
     });
   }
 
+  getImage() {
+    this.imagesService.getImageById(this.imagesId).subscribe({
+      next: (res) => {
+        this.images = res;
+        this.imageSrc = res.imageRelativePath;
+        this.populateForms();
+      },
+    });
+  }
+
   populateForms() {
     this.registerImageForm.patchValue({ ...this.images });
   }
@@ -104,7 +115,13 @@ export class ImagesRegisterComponent implements OnInit {
       this.images = {
         ...this.registerImageForm.value,
       };
-      this.imagesService.updateImages(this.imagesId, this.images).subscribe({
+
+      let formData = new FormData();
+
+      formData.append('image', this.file);
+      formData.append('imageInfo', JSON.stringify(this.images));
+
+      this.imagesService.updateImages(this.imagesId, formData).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {
             this.goBack('images');

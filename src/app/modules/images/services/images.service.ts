@@ -17,6 +17,9 @@ export class ImagesService {
     });
   }
 
+  getImageById(id: number): Observable<IImages> {
+    return this.http.get<IImages>(`/images/${id}`);
+  }
   postImage(image: IImages): Observable<HttpSuccess> {
     return this.http.post<HttpSuccess>('/images/register', image);
   }
@@ -25,8 +28,8 @@ export class ImagesService {
     return this.http.post<HttpSuccess>('/images/upload', image);
   }
 
-  updateImages(id: number, video: IImages): Observable<HttpSuccess> {
-    return this.http.put<HttpSuccess>(`/images/update/${id}`, video);
+  updateImages(id: number, image: FormData): Observable<HttpSuccess> {
+    return this.http.put<HttpSuccess>(`/images/upload/${id}`, image);
   }
 
   deleteImagesById(id: number) {
