@@ -27,7 +27,7 @@ export class ImagesRegisterComponent implements OnInit {
 
   imageSrc: string;
 
-  file: File;
+  imageFile: File;
   campaings: ICampaing[] = [];
 
   categories: ICategory[] = [];
@@ -67,7 +67,7 @@ export class ImagesRegisterComponent implements OnInit {
       descricao: ['', [Validators.required]],
       category: this.fb.control<number>(null, Validators.required),
       campaing: this.fb.control<number>(null, Validators.required),
-      image: [''],
+      imageFile: [''],
     });
   }
 
@@ -116,14 +116,16 @@ export class ImagesRegisterComponent implements OnInit {
   }
 
   updateImage() {
-    if (this.registerImageForm.valid && this.file) {
+    if (this.registerImageForm.valid && this.imageFile) {
       this.images = {
         ...this.registerImageForm.value,
       };
 
+      console.log(this.imageFile);
+
       let formData = new FormData();
 
-      formData.append('image', this.file);
+      formData.append('image', this.imageFile);
       formData.append('imageInfo', JSON.stringify(this.images));
 
       this.imagesService.updateImages(this.imagesId, formData).subscribe({
@@ -144,25 +146,25 @@ export class ImagesRegisterComponent implements OnInit {
   }
 
   processFile(imageInput: any) {
-    this.file = null;
-    this.file = imageInput.files[0];
+    this.imageFile = null;
+    this.imageFile = imageInput.files[0];
     const reader = new FileReader();
     reader.addEventListener('load', (event: any) => {
       this.imageSrc = event.target.result;
     });
 
-    reader.readAsDataURL(this.file);
+    reader.readAsDataURL(this.imageFile);
   }
 
   registerImage() {
-    if (this.registerImageForm.valid && this.file) {
+    if (this.registerImageForm.valid && this.imageFile) {
       this.images = {
         ...this.registerImageForm.value,
       };
 
       let formData = new FormData();
 
-      formData.append('image', this.file);
+      formData.append('image', this.imageFile);
       formData.append('imageInfo', JSON.stringify(this.images));
 
       this.imagesService.uploadImage(formData).subscribe({

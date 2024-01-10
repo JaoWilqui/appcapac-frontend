@@ -24,9 +24,9 @@ export class RegisterFilesComponent implements OnInit {
   registerFileForm: FormGroup;
   fileId: number;
 
-  file: IFiles;
+  fileObject: IFiles;
 
-  uploadedFile: File;
+  file: File;
 
   campaings: ICampaing[] = [];
 
@@ -66,7 +66,8 @@ export class RegisterFilesComponent implements OnInit {
       nome: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
       category: this.fb.control<number>(null, Validators.required),
-      file: [''],
+      file: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
     });
   }
 
@@ -91,7 +92,7 @@ export class RegisterFilesComponent implements OnInit {
   getFile() {
     this.filesService.getFileById(this.fileId).subscribe({
       next: (res) => {
-        this.file = res;
+        this.fileObject = res;
         this.populateForms();
       },
     });
@@ -99,8 +100,8 @@ export class RegisterFilesComponent implements OnInit {
 
   populateForms() {
     this.registerFileForm.patchValue({
-      ...this.file,
-      category: this.file.category.id,
+      ...this.fileObject,
+      category: this.fileObject.category.id,
     });
   }
 
@@ -112,16 +113,22 @@ export class RegisterFilesComponent implements OnInit {
     this.registerImage();
   }
 
+  processFile(fileInput: any) {
+    this.file = null;
+    this.file = fileInput.files[0];
+    console.log(fileInput.files[0]);
+  }
+
   updateImage() {
-    if (this.registerFileForm.valid && this.uploadedFile) {
-      this.file = {
+    if (this.registerFileForm.valid && this.file) {
+      this.fileObject = {
         ...this.registerFileForm.value,
       };
 
       let formData = new FormData();
 
-      formData.append('file', this.uploadedFile);
-      formData.append('fileInfo', JSON.stringify(this.file));
+      formData.append('file', this.file);
+      formData.append('fileInfo', JSON.stringify(this.fileObject));
 
       this.filesService.updateFile(this.fileId, formData).subscribe({
         next: (res) => {
@@ -140,22 +147,16 @@ export class RegisterFilesComponent implements OnInit {
     }
   }
 
-  processFile(fileInput: any) {
-    this.uploadedFile = null;
-    this.uploadedFile = fileInput.files[0];
-    console.log(fileInput.files[0]);
-  }
-
   registerImage() {
-    if (this.registerFileForm.valid && this.uploadedFile) {
-      this.file = {
+    if (this.registerFileForm.valid && this.file) {
+      this.fileObject = {
         ...this.registerFileForm.value,
       };
 
       let formData = new FormData();
 
-      formData.append('file', this.uploadedFile);
-      formData.append('fileInfo', JSON.stringify(this.file));
+      formData.append('file', this.file);
+      formData.append('fileInfo', JSON.stringify(this.fileObject));
 
       this.filesService.uploadFile(formData).subscribe({
         next: (res) => {

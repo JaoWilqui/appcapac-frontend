@@ -43,6 +43,17 @@
           <label>descricao</label>
         </form-field>
       </div>
+      <div class="mb-3">
+        <form-field
+          [setStyle]="{
+            width: '100%',
+            'min-width': '300px',
+          }"
+        >
+          <input type="text" customInput formControlName="tipo" />
+          <label>Tipo</label>
+        </form-field>
+      </div>
       <div>
         <form-field>
           <select type="number" customInput formControlName="category">
