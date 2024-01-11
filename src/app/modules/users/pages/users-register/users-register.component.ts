@@ -51,6 +51,7 @@ export class UsersRegisterComponent implements OnInit {
       sobrenome: ['', [Validators.required]],
       senha: ['', [Validators.required, Validators.minLength(6)]],
       perms: ['', [Validators.required]],
+      cpf: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
     });
 

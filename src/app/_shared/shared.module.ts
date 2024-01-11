@@ -8,6 +8,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { BackBtnComponent } from './components/back-btn/back-btn/back-btn.component';
 import { FilterComponent } from './components/filter/filter.component';
@@ -38,6 +39,8 @@ const imports = [
   FormsModule,
   ReactiveFormsModule,
   CommonModule,
+  NgxMaskDirective,
+  NgxMaskPipe,
   MatProgressBarModule,
   NgxPermissionsModule,
 ];
@@ -55,7 +58,7 @@ const materialModules = [
 @NgModule({
   declarations: [...declarations],
   imports: [...imports, ...materialModules],
-  providers: [...providers],
+  providers: [...providers, provideNgxMask()],
   exports: [...imports, ...materialModules, ...providers, ...declarations],
 })
 export class SharedModule {}

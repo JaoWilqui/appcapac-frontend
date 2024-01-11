@@ -1,6 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ControlTypeEnum } from '../../../../_shared/components/filter/enum/control-type.enum';
+import { FiltersFields } from '../../../../_shared/components/filter/interface/filter-interface.model';
 import { PaginatorEvent } from '../../../../_shared/components/paginator/models/page-event.model';
 import { SortInterface } from '../../../../_shared/components/table/interface/sort.model';
 import { Fields } from '../../../../_shared/components/table/interface/tableColumn.interface';
@@ -19,6 +22,7 @@ export class ListCategoriesComponent implements OnInit {
   pagination = { page: 1, pageCount: 10 };
   sortParams = { order: Order.DESC, orderBy: 'id' };
   data: ICategory[] = [];
+  filterForm: FormGroup;
 
   isLoading: boolean = false;
 
@@ -39,6 +43,33 @@ export class ListCategoriesComponent implements OnInit {
       dataKey: 'descricao',
       isSortable: true,
     },
+    {
+      name: 'Data de cadastro',
+      dataKey: 'dtcadastro',
+      isSortable: true,
+    },
+  ];
+
+  filterControls: FiltersFields[] = [
+    {
+      control: new FormControl(''),
+      name: 'nome',
+      label: 'Nome',
+      type: ControlTypeEnum.FORM,
+    },
+    {
+      label: 'Descrição',
+      control: new FormControl(''),
+      name: 'descricao',
+      type: ControlTypeEnum.FORM,
+    },
+
+    {
+      label: 'Data de cadastro',
+      control: new FormControl(null),
+      name: 'dtcadastro',
+      type: ControlTypeEnum.DATE_PICKER,
+    },
   ];
   constructor(
     private categoryService: CategoryService,
@@ -53,11 +84,13 @@ export class ListCategoriesComponent implements OnInit {
 
   loadData() {
     this.isLoading = true;
+    const filters = this.getFilters();
+
     const params: IParams = {
+      ...filters,
       ...this.pagination,
       ...this.sortParams,
     };
-
     this.categoryService.getCategories(params).subscribe({
       next: (res) => {
         this.data = res.data;
@@ -68,14 +101,6 @@ export class ListCategoriesComponent implements OnInit {
         this.swalService.error.fire('Error', error.message);
       },
     });
-  }
-
-  changePage(event: PaginatorEvent) {
-    (this.pagination = {
-      page: event.pageIndex,
-      pageCount: event.pageSize,
-    }),
-      this.loadData();
   }
 
   delete(id: number) {
@@ -109,6 +134,44 @@ export class ListCategoriesComponent implements OnInit {
     this.router.navigate([param], {
       relativeTo: this.activeRoute,
     });
+  }
+
+  getFilters() {
+    let filters = {};
+    if (this.filterForm) {
+      filters = this.filterForm.value;
+
+      if (filters['dtcadastro']) {
+        filters['dtcadastro'] = new Date(filters['dtcadastro']).toISOString();
+      }
+
+      Object.keys(filters).forEach((key) => {
+        if (!filters[key]) {
+          delete filters[key];
+        }
+      });
+    }
+
+    return filters;
+  }
+
+  changePage(event: PaginatorEvent) {
+    (this.pagination = {
+      page: event.pageIndex,
+      pageCount: event.pageSize,
+    }),
+      this.loadData();
+  }
+
+  submitFilters(formGroup: FormGroup) {
+    this.filterForm = formGroup;
+    this.pagination.page = 1;
+    this.loadData();
+  }
+
+  clearFilters(formGroup: FormGroup) {
+    this.filterForm = formGroup;
+    this.loadData();
   }
 
   sortTable(sort: SortInterface) {

@@ -22,6 +22,7 @@ registerLocaleData(localePT);
     BrowserAnimationsModule,
     SharedModule,
     InitializerModule,
+
     CoreModule,
     NgxPermissionsModule.forRoot(),
     StoreModule.forRoot({

@@ -27,6 +27,17 @@
       </div>
       <div class="mb-3">
         <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
+          <input
+            mask="000.000.000-00"
+            type="text"
+            customInput
+            formControlName="cpf"
+          />
+          <label>CPF</label>
+        </form-field>
+      </div>
+      <div class="mb-3">
+        <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
           <input type="text" customInput formControlName="senha" />
           <label>senha</label>
         </form-field>

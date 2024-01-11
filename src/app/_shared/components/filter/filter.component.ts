@@ -17,14 +17,17 @@ export class FilterComponent implements OnInit {
   set setControls(fields: FiltersFields[]) {
     this.filters = fields;
     for (let field of fields) {
-      this.filterForm.addControl(field.name, field.control);
+      this.filterForm.addControl(field.name, field.control, {
+        emitEvent: false,
+      });
     }
-    this.filterFormValueChanges();
   }
 
   constructor(private fb: FormBuilder) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.filterFormValueChanges();
+  }
 
   filterFormValueChanges() {
     this.filterForm.valueChanges.subscribe((form) => {

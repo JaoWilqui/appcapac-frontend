@@ -1,7 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ControlTypeEnum } from '../../../../_shared/components/filter/enum/control-type.enum';
+import { FiltersFields } from '../../../../_shared/components/filter/interface/filter-interface.model';
 import { PaginatorEvent } from '../../../../_shared/components/paginator/models/page-event.model';
 import { SortInterface } from '../../../../_shared/components/table/interface/sort.model';
 import { Fields } from '../../../../_shared/components/table/interface/tableColumn.interface';
@@ -21,9 +24,11 @@ export class ListFilesComponent implements OnInit {
   sortParams = { order: Order.DESC, orderBy: 'id' };
   isLoading: boolean = false;
 
+  filterForm: FormGroup;
+  itemsCount: number = 0;
+
   data: IFiles[] = [];
 
-  itemsCount: number = 0;
   displayedColumns: Fields[] = [
     {
       name: 'Id',
@@ -55,6 +60,29 @@ export class ListFilesComponent implements OnInit {
       pipeArgs: ['dd/MM/yy'],
     },
   ];
+
+  filterControls: FiltersFields[] = [
+    {
+      control: new FormControl(''),
+      name: 'nome',
+      label: 'Nome',
+      type: ControlTypeEnum.FORM,
+    },
+    {
+      control: new FormControl(''),
+      name: 'descricao',
+      label: 'Descricao',
+      type: ControlTypeEnum.FORM,
+    },
+
+    {
+      label: 'Data de cadastro',
+      control: new FormControl(null),
+      name: 'dtcadastro',
+      type: ControlTypeEnum.DATE_PICKER,
+    },
+  ];
+
   constructor(
     private filesService: FilesService,
     private swalService: SwalService,
@@ -62,15 +90,20 @@ export class ListFilesComponent implements OnInit {
     private activeRoute: ActivatedRoute
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadData();
+  }
 
   loadData() {
     this.isLoading = true;
+
+    const filters = this.getFilters();
+
     const params: IParams = {
+      ...filters,
       ...this.pagination,
       ...this.sortParams,
     };
-
     this.filesService.getFiles(params).subscribe({
       next: (res) => {
         this.data = res.data;
@@ -78,17 +111,11 @@ export class ListFilesComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error: HttpErrorResponse) => {
+        this.isLoading = false;
+
         this.swalService.error.fire('Error', error.message);
       },
     });
-  }
-
-  changePage(event: PaginatorEvent) {
-    (this.pagination = {
-      page: event.pageIndex,
-      pageCount: event.pageSize,
-    }),
-      this.loadData();
   }
 
   navigateTo(param: string, id?: number) {
@@ -100,6 +127,20 @@ export class ListFilesComponent implements OnInit {
     }
     this.router.navigate([param], {
       relativeTo: this.activeRoute,
+    });
+  }
+
+  downloadFile(path: string) {
+    this.filesService.downloadFile(path).subscribe({
+      next: (res) => {
+        const link = document.createElement('a');
+        const file = new Blob([res], { type: 'application/pdf' });
+        const fileURL = URL.createObjectURL(file);
+        link.href = fileURL;
+        link.target = '_blank';
+        document.body.append(link);
+        link.click();
+      },
     });
   }
 
@@ -122,6 +163,44 @@ export class ListFilesComponent implements OnInit {
           });
         }
       });
+  }
+
+  getFilters() {
+    let filters = {};
+    if (this.filterForm) {
+      filters = this.filterForm.value;
+
+      if (filters['dtcadastro']) {
+        filters['dtcadastro'] = new Date(filters['dtcadastro']).toISOString();
+      }
+
+      Object.keys(filters).forEach((key) => {
+        if (!filters[key]) {
+          delete filters[key];
+        }
+      });
+    }
+
+    return filters;
+  }
+
+  changePage(event: PaginatorEvent) {
+    (this.pagination = {
+      page: event.pageIndex,
+      pageCount: event.pageSize,
+    }),
+      this.loadData();
+  }
+
+  submitFilters(formGroup: FormGroup) {
+    this.filterForm = formGroup;
+    this.pagination.page = 1;
+    this.loadData();
+  }
+
+  clearFilters(formGroup: FormGroup) {
+    this.filterForm = formGroup;
+    this.loadData();
   }
 
   sortTable(sort: SortInterface) {

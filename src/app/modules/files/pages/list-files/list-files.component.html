@@ -1,10 +1,18 @@
 <main class="main-body">
-  <section class="flex justify-end mb-5">
+  <section class="flex justify-center mb-5">
+    <div>
+      <filter
+        [setControls]="filterControls"
+        (emitFilterValue)="submitFilters($event)"
+        (emitClearFilter)="clearFilters($event)"
+      ></filter>
+    </div>
+  </section>
+  <div class="flex justify-end mb-2">
     <button class="btn green" (click)="navigateTo('register')">
       Cadastrar
     </button>
-  </section>
-
+  </div>
   <section>
     <app-table
       #appTable
@@ -18,13 +26,16 @@
       (changePageData)="changePage($event)"
       [isPageable]="true"
     >
-      <ng-template #actions let-user="element">
+      <ng-template #actions let-file="element">
         <button
-          matTooltip="Editar"
+          matTooltip="Download"
           mat-icon-button
-          (click)="navigateTo('edit', user.id)"
+          (click)="downloadFile(file.fileRelativePath)"
         >
           <mat-icon>download</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Excluir" (click)="delete(image.id)">
+          <mat-icon class="ml-3">delete</mat-icon>
         </button>
       </ng-template>
     </app-table>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { SharedModule } from '../../_shared/shared.module';
 import { ListUsersComponent } from './pages/list-users/list-users.component';
 import { UsersRegisterComponent } from './pages/users-register/users-register.component';
@@ -8,7 +9,8 @@ import { UsersComponent } from './users.component';
 
 @NgModule({
   declarations: [UsersComponent, ListUsersComponent, UsersRegisterComponent],
-  imports: [SharedModule, UserRoutingModule],
-  providers: [],
+  imports: [SharedModule, UserRoutingModule, NgxMaskDirective, NgxMaskPipe],
+
+  providers: [provideNgxMask()],
 })
 export class UsersModule {}

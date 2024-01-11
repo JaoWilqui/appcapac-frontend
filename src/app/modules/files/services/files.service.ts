@@ -17,6 +17,12 @@ export class FilesService {
     });
   }
 
+  downloadFile(path: string): Observable<any> {
+    return this.http.get(`/files/download/${path}`, {
+      responseType: 'blob',
+    });
+  }
+
   getFileById(id: number): Observable<IFiles> {
     return this.http.get<IFiles>(`/files/${id}`);
   }

@@ -50,6 +50,11 @@ export class ListUsersComponent implements OnInit {
       isSortable: true,
     },
     {
+      name: 'CPF',
+      dataKey: 'cpf',
+      isSortable: true,
+    },
+    {
       name: 'Data de cadastro',
       dataKey: 'dtcadastro',
       isSortable: true,
@@ -69,6 +74,13 @@ export class ListUsersComponent implements OnInit {
       control: new FormControl(''),
       name: 'sobrenome',
       label: 'Sobrenome',
+      type: ControlTypeEnum.FORM,
+    },
+    {
+      control: new FormControl(''),
+      name: 'cpf',
+      label: 'CPF',
+      maskOptions: { mask: '000.000.000-00' },
       type: ControlTypeEnum.FORM,
     },
     {
@@ -101,7 +113,6 @@ export class ListUsersComponent implements OnInit {
     this.isLoading = true;
 
     const filters = this.getFilters();
-
     const params: IParams = {
       ...filters,
       ...this.pagination,
@@ -125,13 +136,18 @@ export class ListUsersComponent implements OnInit {
       page: event.pageIndex,
       pageCount: event.pageSize,
     }),
-      this.loadData();
+      console.log('aqui');
+
+    this.loadData();
   }
 
   getFilters() {
     let filters = {};
     if (this.filterForm) {
       filters = this.filterForm.value;
+      if (filters['dtcadastro']) {
+        filters['dtcadastro'] = new Date(filters['dtcadastro']).toISOString();
+      }
 
       Object.keys(filters).forEach((key) => {
         if (!filters[key]) {
@@ -178,10 +194,12 @@ export class ListUsersComponent implements OnInit {
   submitFilters(formGroup: FormGroup) {
     this.filterForm = formGroup;
     this.pagination.page = 1;
+    console.log('aqui');
     this.loadData();
   }
   clearFilters(formGroup: FormGroup) {
     this.filterForm = formGroup;
+    console.log('aqui');
 
     this.loadData();
   }
@@ -191,6 +209,8 @@ export class ListUsersComponent implements OnInit {
       order: sort.orderDirection ?? Order.DESC,
       orderBy: sort.orderBy,
     };
+    console.log('aqui');
+
     this.loadData();
   }
 }

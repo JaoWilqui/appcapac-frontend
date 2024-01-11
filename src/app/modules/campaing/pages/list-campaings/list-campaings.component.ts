@@ -71,6 +71,11 @@ export class ListCampaingsComponent implements OnInit {
     },
   ];
 
+  selectFilterOptions = [
+    { label: 'ATIVO', value: 'ATIVO' },
+    { label: 'INATIVO', value: 'INATIVO' },
+  ];
+
   filterControls: FiltersFields[] = [
     {
       control: new FormControl(''),
@@ -80,9 +85,12 @@ export class ListCampaingsComponent implements OnInit {
     },
     {
       control: new FormControl(''),
-      name: 'sobrenome',
-      label: 'Sobrenome',
-      type: ControlTypeEnum.FORM,
+      name: 'status',
+      label: 'Status',
+      options: this.selectFilterOptions,
+      optionKey: 'label',
+      valueKey: 'value',
+      type: ControlTypeEnum.SELECT,
     },
     {
       label: 'Data de Inicio',
@@ -170,6 +178,17 @@ export class ListCampaingsComponent implements OnInit {
     let filters = {};
     if (this.filterForm) {
       filters = this.filterForm.value;
+
+      if (filters['dtcadastro']) {
+        filters['dtcadastro'] = new Date(filters['dtcadastro']).toISOString();
+      }
+
+      if (filters['dtinicio']) {
+        filters['dtinicio'] = new Date(filters['dtinicio']).toISOString();
+      }
+      if (filters['dtfim']) {
+        filters['dtfim'] = new Date(filters['dtfim']).toISOString();
+      }
 
       Object.keys(filters).forEach((key) => {
         if (!filters[key]) {

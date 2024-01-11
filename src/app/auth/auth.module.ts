@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { SharedModule } from '../_shared/shared.module';
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
@@ -16,8 +17,8 @@ import { LoginComponent } from './pages/login/login.component';
     AuthFooterComponent,
     AuthHeaderComponent,
   ],
-  imports: [AuthRoutingModule, SharedModule],
+  imports: [AuthRoutingModule, SharedModule, NgxMaskDirective, NgxMaskPipe],
 
-  providers: [],
+  providers: [provideNgxMask()],
 })
 export class AuthModule {}

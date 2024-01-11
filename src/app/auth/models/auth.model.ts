@@ -1,7 +1,7 @@
 import { IModules } from '../../_shared/models/modules.model';
 
 export interface ILogin {
-  email: string;
+  cpf: string;
   password: string;
 }
 

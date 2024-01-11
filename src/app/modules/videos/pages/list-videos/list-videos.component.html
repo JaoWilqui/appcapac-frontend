@@ -1,10 +1,18 @@
 <main class="main-body">
-  <div class="title-card">Videos</div>
-  <section class="flex justify-end mb-5">
+  <section class="flex justify-center mb-5">
+    <div>
+      <filter
+        [setControls]="filterControls"
+        (emitFilterValue)="submitFilters($event)"
+        (emitClearFilter)="clearFilters($event)"
+      ></filter>
+    </div>
+  </section>
+  <div class="flex justify-end mb-2">
     <button class="btn green" (click)="navigateTo('register')">
       Cadastrar
     </button>
-  </section>
+  </div>
   <section class="content-body mt-5">
     <div class="grid grid-cols-3 gap-3">
       @for (video of videos; track $index) {

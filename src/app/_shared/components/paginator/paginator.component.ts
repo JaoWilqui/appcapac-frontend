@@ -55,7 +55,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['pageOptions']) {
       this._updatePages(this.pageIndex);
-      this.pageSizeControl.setValue(this.pageSize);
+      this.pageSizeControl.setValue(this.pageSize, { emitEvent: false });
     }
   }
 

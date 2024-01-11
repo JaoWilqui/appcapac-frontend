@@ -1,10 +1,19 @@
 <main class="main-body">
   <div class="title-card">Imagens</div>
-  <section class="flex justify-end mb-5">
+  <section class="flex justify-center mb-5">
+    <div>
+      <filter
+        [setControls]="filterControls"
+        (emitFilterValue)="submitFilters($event)"
+        (emitClearFilter)="clearFilters($event)"
+      ></filter>
+    </div>
+  </section>
+  <div class="flex justify-end mb-2">
     <button class="btn green" (click)="navigateTo('register')">
       Cadastrar
     </button>
-  </section>
+  </div>
   <section class="content-body mt-5">
     <div class="grid grid-cols-3 gap-3">
       @for (image of images; track $index) {
@@ -14,10 +23,10 @@
         <div class="video-info my-5">Nome: {{ image.nome }}</div>
         <div class="video-info my-5">Categoria: {{ image.category.nome }}</div>
         <div class="video-info my-5">Campanha: {{ image.campaing.nome }}</div>
-        <div class="mt-4 grid grid-cols-2 gap-4 justify-center">
-          <button class="btn green" (click)="navigateTo('edit', image.id)">
+        <div class="mt-4 flex justify-center">
+          <!-- <button class="btn green" (click)="navigateTo('edit', image.id)">
             Editar <mat-icon class="ml-3">edit</mat-icon>
-          </button>
+          </button> -->
           <button class="btn red" (click)="delete(image.id)">
             Excluir <mat-icon class="ml-3">delete</mat-icon>
           </button>
