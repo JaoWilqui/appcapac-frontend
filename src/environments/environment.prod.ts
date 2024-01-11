@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://api.portalcapnegocios.com.br',
+  apiUrl: 'https://www.api.portalcapnegocios.com.br',
 };
