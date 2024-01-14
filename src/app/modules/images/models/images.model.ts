@@ -1,5 +1,7 @@
+import { AdhesionEnum } from '../../../_shared/models/adhesion.model';
 import { ICampaing } from '../../campaing/models/campaing.model';
 import { ICategory } from '../../category/models/category.model';
+import { IOperator } from '../../operators/models/operators.model';
 
 export class IImages {
   id?: number;
@@ -10,11 +12,13 @@ export class IImages {
 
   imageRelativePath?: string;
 
+  adesao: AdhesionEnum;
+
+  operator: IOperator;
+
   category: ICategory;
 
   campaing: ICampaing;
-
-  deletado?: string;
 
   dtcadastro?: Date;
 }

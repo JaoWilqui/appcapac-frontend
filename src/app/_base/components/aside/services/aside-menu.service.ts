@@ -43,8 +43,12 @@ export class AsideMenuService {
         icon: 'account_circle',
         path: '/category',
       },
+      {
+        label: 'Operadoras',
+        icon: 'account_circle',
+        path: '/operators',
+      },
     ],
-    [PERMS.USER]: [],
   };
 
   MODULES_LITERAL: MenuObjectLiteral = {

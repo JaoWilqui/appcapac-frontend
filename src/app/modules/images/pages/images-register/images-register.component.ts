@@ -7,6 +7,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import {
+  AdhesionOption,
+  adhesionOptions,
+} from '../../../../_shared/models/adhesion.model';
+import { BrlState, brlStates } from '../../../../_shared/models/states.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { ICampaing } from '../../../campaing/models/campaing.model';
 import { CampaingService } from '../../../campaing/services/campaing.service';
@@ -14,6 +19,8 @@ import { ICategory } from '../../../category/models/category.model';
 import { CategoryService } from '../../../category/services/category.service';
 import { IImages } from '../../../images/models/images.model';
 import { ImagesService } from '../../../images/services/images.service';
+import { IOperator } from '../../../operators/models/operators.model';
+import { OperatorsService } from '../../../operators/services/operators.service';
 
 @Component({
   selector: 'app-images-register',
@@ -27,8 +34,14 @@ export class ImagesRegisterComponent implements OnInit {
 
   imageSrc: string;
 
+  states: BrlState[] = brlStates;
+
+  adhesions: AdhesionOption[] = adhesionOptions;
+
   imageFile: File;
   campaings: ICampaing[] = [];
+
+  operators: IOperator[] = [];
 
   categories: ICategory[] = [];
   constructor(
@@ -37,7 +50,7 @@ export class ImagesRegisterComponent implements OnInit {
     private imagesService: ImagesService,
     private categoryService: CategoryService,
     private campaingService: CampaingService,
-
+    private operatorsService: OperatorsService,
     private swalService: SwalService,
     private activeRoute: ActivatedRoute
   ) {
@@ -58,6 +71,7 @@ export class ImagesRegisterComponent implements OnInit {
     }
     this.initForm();
     this.getCampaings();
+    this.getOperators();
     this.getCategories();
   }
 
@@ -68,6 +82,9 @@ export class ImagesRegisterComponent implements OnInit {
       category: this.fb.control<number>(null, Validators.required),
       campaing: this.fb.control<number>(null, Validators.required),
       imageFile: [''],
+      adesao: ['', [Validators.required]],
+      uf: ['', [Validators.required]],
+      operator: this.fb.control<number>(null, Validators.required),
     });
   }
 
@@ -78,6 +95,12 @@ export class ImagesRegisterComponent implements OnInit {
   getCategories() {
     this.categoryService.getCategories({}).subscribe((res) => {
       this.categories = res.data;
+    });
+  }
+
+  getOperators() {
+    this.operatorsService.getOperators({}).subscribe((res) => {
+      this.operators = res.data;
     });
   }
 
@@ -104,6 +127,7 @@ export class ImagesRegisterComponent implements OnInit {
       ...this.images,
       campaing: this.images.campaing.id,
       category: this.images.category.id,
+      operator: this.images.operator.id,
     });
   }
 
@@ -169,12 +193,14 @@ export class ImagesRegisterComponent implements OnInit {
 
       this.imagesService.uploadImage(formData).subscribe({
         next: (res) => {
-          this.swalService.success.fire('Sucesso!', res.message).then(() => {});
+          this.swalService.success.fire('Sucesso!', res.message).then(() => {
+            this.goBack('images');
+          });
         },
         error: (error: HttpErrorResponse) => {
-          this.swalService.error
-            .fire('Erro', error.error.message)
-            .then(() => {});
+          this.swalService.error.fire('Erro', error.error.message).then(() => {
+            this.goBack('images');
+          });
         },
       });
     } else {

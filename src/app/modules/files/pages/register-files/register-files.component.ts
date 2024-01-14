@@ -7,13 +7,21 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import {
+  AdhesionOption,
+  adhesionOptions,
+} from '../../../../_shared/models/adhesion.model';
+import { brlStates } from '../../../../_shared/models/states.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { ICampaing } from '../../../campaing/models/campaing.model';
 import { CampaingService } from '../../../campaing/services/campaing.service';
 import { ICategory } from '../../../category/models/category.model';
 import { CategoryService } from '../../../category/services/category.service';
+import { IOperator } from '../../../operators/models/operators.model';
+import { OperatorsService } from '../../../operators/services/operators.service';
 import { IFiles } from '../../models/files.model';
 import { FilesService } from '../../services/files.service';
+import { BrlState } from './../../../../_shared/models/states.model';
 
 @Component({
   selector: 'app-register-files',
@@ -26,7 +34,12 @@ export class RegisterFilesComponent implements OnInit {
 
   fileObject: IFiles;
 
+  states: BrlState[] = brlStates;
+
   file: File;
+  operators: IOperator[] = [];
+
+  adhesions: AdhesionOption[] = adhesionOptions;
 
   campaings: ICampaing[] = [];
 
@@ -37,6 +50,7 @@ export class RegisterFilesComponent implements OnInit {
     private filesService: FilesService,
     private categoryService: CategoryService,
     private campaingService: CampaingService,
+    private operatorsService: OperatorsService,
 
     private swalService: SwalService,
     private activeRoute: ActivatedRoute
@@ -68,6 +82,9 @@ export class RegisterFilesComponent implements OnInit {
       category: this.fb.control<number>(null, Validators.required),
       file: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
+      uf: ['', [Validators.required]],
+      adesao: ['', [Validators.required]],
+      operator: this.fb.control<number>(null, Validators.required),
     });
   }
 
@@ -78,6 +95,12 @@ export class RegisterFilesComponent implements OnInit {
   getCategories() {
     this.categoryService.getCategories({}).subscribe((res) => {
       this.categories = res.data;
+    });
+  }
+
+  getOperators() {
+    this.operatorsService.getOperators({}).subscribe((res) => {
+      this.operators = res.data;
     });
   }
 
@@ -160,12 +183,14 @@ export class RegisterFilesComponent implements OnInit {
 
       this.filesService.uploadFile(formData).subscribe({
         next: (res) => {
-          this.swalService.success.fire('Sucesso!', res.message).then(() => {});
+          this.swalService.success.fire('Sucesso!', res.message).then(() => {
+            this.goBack('files');
+          });
         },
         error: (error: HttpErrorResponse) => {
-          this.swalService.error
-            .fire('Erro', error.error.message)
-            .then(() => {});
+          this.swalService.error.fire('Erro', error.error.message).then(() => {
+            this.goBack('files');
+          });
         },
       });
     } else {

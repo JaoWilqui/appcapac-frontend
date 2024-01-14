@@ -44,4 +44,12 @@ export const routeModules = [
     loadChildren: () =>
       import('./files/files.module').then((module) => module.FilesModule),
   },
+
+  {
+    path: 'operators',
+    loadChildren: () =>
+      import('./operators/operators.module').then(
+        (module) => module.OperatorsModule
+      ),
+  },
 ];

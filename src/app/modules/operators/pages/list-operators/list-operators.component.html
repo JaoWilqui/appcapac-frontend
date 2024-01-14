@@ -1,0 +1,47 @@
+<div class="main-body">
+  <section class="flex justify-center mb-5">
+    <div>
+      <filter
+        [setControls]="filterControls"
+        (emitFilterValue)="submitFilters($event)"
+        (emitClearFilter)="clearFilters($event)"
+      ></filter>
+    </div>
+  </section>
+  <div class="flex justify-end mb-2">
+    <button class="btn green" (click)="navigateTo('register')">
+      Cadastrar
+    </button>
+  </div>
+  <section>
+    <app-table
+      #appTable
+      [tableData]="data"
+      [isLoading]="isLoading"
+      [options]="'Ações'"
+      [pageSizeOptions]="[5, 10, 15]"
+      [pageOptions]="{ pageIndex: 1, listLength: itemsCount }"
+      [tableColumns]="displayedColumns"
+      (sortData)="sortTable($event)"
+      (changePageData)="changePage($event)"
+      [isPageable]="true"
+    >
+      <ng-template
+        *ngxPermissionsOnly="['ADMIN']"
+        #actions
+        let-campaing="element"
+      >
+        <button (click)="navigateTo('edit', campaing.id)" mat-icon-button>
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          matTooltip="Deletar"
+          mat-icon-button
+          (click)="delete(campaing.id)"
+        >
+          <mat-icon color="red">delete</mat-icon>
+        </button>
+      </ng-template>
+    </app-table>
+  </section>
+</div>

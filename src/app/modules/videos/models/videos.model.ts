@@ -4,13 +4,13 @@ import { ICategory } from '../../category/models/category.model';
 export class IVideos {
   id?: number;
 
-  deletado?: string;
-
   descricao: string;
 
   link: string;
 
   nome: string;
+
+  dtcadastro?: Date;
 
   category: ICategory;
 

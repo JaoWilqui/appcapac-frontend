@@ -53,7 +53,7 @@
       </div>
       <div>
         <form-field>
-          <select type="number" customInput formControlName="category">
+          <select customInput formControlName="category">
             @for (category of categories; track $index) {
             <option [value]="category.id">{{ category.nome }}</option>
 
@@ -64,12 +64,42 @@
       </div>
       <div>
         <form-field>
-          <select type="number" customInput formControlName="campaing">
+          <select customInput formControlName="campaing">
             @for (campaing of campaings; track $index) {
             <option [value]="campaing.id">{{ campaing.nome }}</option>
             }
           </select>
           <label>Campanhas</label>
+        </form-field>
+      </div>
+      <div>
+        <form-field>
+          <select customInput formControlName="operator">
+            @for (operator of operators; track $index) {
+            <option [value]="operator.id">{{ operator.nome }}</option>
+            }
+          </select>
+          <label>Operadoras</label>
+        </form-field>
+      </div>
+      <div>
+        <form-field>
+          <select customInput formControlName="uf">
+            @for (state of states; track $index) {
+            <option [value]="state.sigla">{{ state.nome }}</option>
+            }
+          </select>
+          <label>UF</label>
+        </form-field>
+      </div>
+      <div>
+        <form-field>
+          <select customInput formControlName="adesao">
+            @for (adhesion of adhesions; track $index) {
+            <option [value]="adhesion.value">{{ adhesion.nome }}</option>
+            }
+          </select>
+          <label>Adesão</label>
         </form-field>
       </div>
     </form>
