@@ -1,7 +1,12 @@
 import localePT from '@angular/common/locales/pt';
 import { LOCALE_ID, NgModule } from '@angular/core';
 
-import { CommonModule, registerLocaleData } from '@angular/common';
+import {
+  CommonModule,
+  HashLocationStrategy,
+  LocationStrategy,
+  registerLocaleData,
+} from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,7 +35,10 @@ registerLocaleData(localePT);
     }),
   ],
   exports: [CommonModule, BrowserModule],
-  providers: [{ provide: LOCALE_ID, useValue: 'pt-br' }],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt-br' },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
