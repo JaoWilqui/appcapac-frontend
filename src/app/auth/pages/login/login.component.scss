@@ -1,13 +1,16 @@
 .auth-card {
   width: 100%;
-  min-width: 410px;
-  max-width: 410px;
-  margin-left: auto;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 500px;
-  background-color: var(--white);
-  border-radius: 6px;
+  min-width: 464px;
+  max-width: 464px;
+  max-height: 663px;
+  height: 60vh;
+  padding: 44px;
+  background-color: white;
+  border-radius: 10px;
+
+  .img-container {
+    img {
+      width: 60%;
+    }
+  }
 }

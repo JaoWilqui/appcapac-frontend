@@ -1,5 +1,5 @@
-<form [formGroup]="loginForm">
-  <div class="mb-3">
+<form [formGroup]="loginForm" class="">
+  <div class="mb-7">
     <form-field
       [setStyle]="{
         width: '100%',
@@ -38,7 +38,7 @@
   </div>
 
   <button
-    class="enter-button ripple mt-5"
+    class="enter-button mt-5"
     [class.spinner]="isLoading"
     [disabled]="isLoading"
     (click)="access()"

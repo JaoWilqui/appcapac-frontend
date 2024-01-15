@@ -1,14 +1,11 @@
 main {
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(
-    90deg,
-    rgba(194, 33, 39, 1) 14%,
-    rgba(0, 82, 129, 1) 99%
-  );
+  background: var(--gray-blue);
 
-  justify-content: space-between;
-  background-color: #161616;
+  justify-content: center;
+  align-items: center;
+  display: flex;
   background-repeat: no-repeat;
   background-size: cover;
 }

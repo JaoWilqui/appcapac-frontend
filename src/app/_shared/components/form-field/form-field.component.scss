@@ -1,20 +1,20 @@
 :host ::ng-deep div {
   position: relative;
-  border: 1px solid #bca9a9;
+  border: 1px solid #dbdbdb;
   border-radius: 10px;
   display: flex;
+  padding: 5px;
   width: 100%;
 
   label {
     position: absolute;
-    top: 12px;
+    top: -25px;
     z-index: 0;
     font-size: 10pt;
     display: block;
-    left: 20px;
-    color: #bcc0cf;
+    font-weight: 500;
+    color: black;
     cursor: text;
-    transition: 0.2s ease-in-out transform;
   }
 
   input {
@@ -25,43 +25,44 @@
     z-index: 1;
     background: transparent;
     height: 30px;
+    border-radius: 10px;
     width: 100%;
     padding: 7px 0 0 10px;
     width: 100%;
     align-items: center;
     &:not(:placeholder-shown) {
-      + label {
-        visibility: visible;
-        z-index: 0;
-        opacity: 1;
-        font-size: 7pt;
-        transform: translateY(-10px) translateX(-10px);
-        transition: 0.2s ease-in-out transform;
-      }
+      // + label {
+      //   visibility: visible;
+      //   z-index: 0;
+      //   opacity: 1;
+      //   font-size: 7pt;
+      //   transform: translateY(-10px) translateX(-10px);
+      //   transition: 0.2s ease-in-out transform;
+      // }
     }
 
     &:focus {
-      & + label {
-        visibility: visible;
-        z-index: 0;
-        opacity: 1;
-        font-size: 7pt;
-        transform: translateY(-10px) translateX(-10px);
-        transition: 0.2s ease-in-out transform;
-      }
+      // & + label {
+      //   visibility: visible;
+      //   z-index: 0;
+      //   opacity: 1;
+      //   font-size: 7pt;
+      //   transform: translateY(-10px) translateX(-10px);
+      //   transition: 0.2s ease-in-out transform;
+      // }
 
       outline: none;
     }
   }
 
-  input::placeholder {
-    visibility: hidden;
-  }
-  input::placeholder-shown + label {
-    visibility: hidden;
-    z-index: -1;
-    transition: 0.2s ease-in-out;
-  }
+  // input::placeholder {
+  //   visibility: hidden;
+  // }
+  // input::placeholder-shown + label {
+  //   visibility: hidden;
+  //   z-index: -1;
+  //   transition: 0.2s ease-in-out;
+  // }
 
   //select css
 
@@ -71,7 +72,6 @@
     outline: 0;
     background: transparent;
     padding: 0 1em;
-
     color: #727880;
     position: relative;
     padding: 7px 0 0 10px;
@@ -81,32 +81,32 @@
     cursor: pointer;
 
     &:focus {
-      & + label {
-        visibility: visible;
-        z-index: 0;
-        opacity: 1;
-        font-size: 7pt;
-        transform: translateY(-10px) translateX(-10px);
-        transition: 0.2s ease-in-out transform;
-      }
-      outline: none;
+      // & + label {
+      //   visibility: visible;
+      //   z-index: 0;
+      //   opacity: 1;
+      //   font-size: 7pt;
+      //   transform: translateY(-10px) translateX(-10px);
+      //   transition: 0.2s ease-in-out transform;
+      // }
+      // outline: none;
     }
 
-    &:placeholder-shown + label {
-      visibility: hidden;
-      z-index: 1;
-      transition: 0.2s ease-in-out;
-    }
+    // &:placeholder-shown + label {
+    //   visibility: hidden;
+    //   z-index: 1;
+    //   transition: 0.2s ease-in-out;
+    // }
 
     &:valid {
-      & + label {
-        visibility: none;
-        z-index: 0;
-        opacity: 1;
-        font-size: 7pt;
-        transform: translateY(-10px) translateX(-10px);
-        transition: 0.2s ease-in-out transform;
-      }
+      // & + label {
+      //   visibility: none;
+      //   z-index: 0;
+      //   opacity: 1;
+      //   font-size: 7pt;
+      //   transform: translateY(-10px) translateX(-10px);
+      //   transition: 0.2s ease-in-out transform;
+      // }
     }
   }
 
@@ -141,34 +141,34 @@
     align-items: center;
 
     &:not(:placeholder-shown) {
-      + label {
-        visibility: visible;
-        z-index: 0;
-        opacity: 1;
-        font-size: 7pt;
-        transform: translateY(-10px) translateX(-10px);
-        transition: 0.2s ease-in-out transform;
-      }
+      // + label {
+      //   visibility: visible;
+      //   z-index: 0;
+      //   opacity: 1;
+      //   font-size: 7pt;
+      //   transform: translateY(-10px) translateX(-10px);
+      //   transition: 0.2s ease-in-out transform;
+      // }
     }
 
     &:focus {
-      & + label {
-        visibility: visible;
-        z-index: 0;
-        opacity: 1;
-        font-size: 7pt;
-        transform: translateY(-10px) translateX(-10px);
-        transition: 0.2s ease-in-out transform;
-      }
+      // & + label {
+      //   visibility: visible;
+      //   z-index: 0;
+      //   opacity: 1;
+      //   font-size: 7pt;
+      //   transform: translateY(-10px) translateX(-10px);
+      //   transition: 0.2s ease-in-out transform;
+      // }
     }
     outline: none;
   }
 
-  textarea::placeholder-shown + label {
-    visibility: hidden;
-    z-index: -1;
-    transition: 0.2s ease-in-out;
-  }
+  // textarea::placeholder-shown + label {
+  //   visibility: hidden;
+  //   z-index: -1;
+  //   transition: 0.2s ease-in-out;
+  // }
 }
 
 :host ::ng-deep .invalid-input {
