@@ -80,8 +80,10 @@ button {
   padding: 0 !important;
 
   &.selected {
+    border: solid 1px var(--blue);
+
     background: var(--dark-cian);
-    color: white;
+    color: var(--blue);
   }
 
   &:disabled {

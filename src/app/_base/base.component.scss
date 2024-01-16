@@ -1,5 +1,6 @@
 .app-body {
   position: relative;
+  background-color: var(--gray);
 }
 
 .app-content {
@@ -18,8 +19,8 @@
   position: absolute;
   height: calc(100vh - 150px);
   &.open {
-    width: calc(100% - 350px);
-    margin-left: 350px;
+    width: calc(100% - 275px);
+    margin-left: 275px;
     transition: all ease 0.3s;
   }
   &.closed {
@@ -29,10 +30,11 @@
   }
 }
 
-.header {
+.app-header {
   margin-left: auto;
-  width: calc(100% - 350px);
+  width: calc(100% - 275px);
   height: 150px;
+  background: transparent;
 }
 
 .sidenav {
@@ -41,7 +43,10 @@
   background-color: white;
   position: absolute;
   z-index: 100;
-  width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 275px;
   box-shadow: 20px 0px 9px 0px rgba(0, 0, 0, 0.02);
   .menu {
     width: 100%;

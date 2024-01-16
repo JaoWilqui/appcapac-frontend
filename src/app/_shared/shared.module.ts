@@ -1,8 +1,9 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -20,6 +21,7 @@ import { DynamicPipe } from './components/table/pipes/dynamic.pipe';
 import { TableComponent } from './components/table/table.component';
 import { InputDirective } from './directives/custom-input.directive';
 import { NumberPipe } from './pipes/number.pipe';
+
 import { SafePipe } from './pipes/sanitizer.pipe';
 
 const declarations = [
@@ -37,6 +39,7 @@ const declarations = [
 
 const imports = [
   RouterModule,
+  MatDialogModule,
   FormsModule,
   ReactiveFormsModule,
   CommonModule,
@@ -47,7 +50,7 @@ const imports = [
   NgxPermissionsModule,
 ];
 
-const providers = [InputDirective, SafePipe];
+const providers = [InputDirective, SafePipe, DatePipe];
 
 const materialModules = [
   MatTooltipModule,

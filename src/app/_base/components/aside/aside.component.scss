@@ -6,51 +6,19 @@
 }
 .main-list {
   height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
-
-  &.sub-list-closed {
-    display: none;
-    width: 100%;
-    animation: 300ms ease-in-out forwards;
-  }
-  &.sub-list-open {
-    display: block;
-    animation: 300ms ease-in-out forwards;
-  }
-}
-
-.tab-container {
-  position: relative;
-  width: 100%;
-
-  mat-icon {
-    min-width: 20px;
-    color: rgb(7, 106, 142);
-    min-height: 20px;
-    transition: all 0.4s;
-    &.open {
-      transform: rotate(180deg);
-    }
-    &.closed {
-      transform: rotate(360deg);
-    }
-
-    &.opened {
-      opacity: 1;
-    }
-
-    &.hidden {
-      opacity: 0;
-    }
-  }
 }
 
 .menu-title {
-  width: 100%;
   align-items: center;
   height: 42px;
   padding-left: 12px;
+  border-radius: 20px;
   font-size: 22px;
   white-space: nowrap;
   color: rgb(7, 106, 142);
@@ -66,6 +34,16 @@
   border-radius: 0px 5px 5px 0;
 }
 
+ul {
+  &.list-open {
+    display: block;
+  }
+
+  &.list-closed {
+    display: none;
+  }
+}
+
 .menu-item {
   width: 100%;
   display: flex;
@@ -73,12 +51,25 @@
   height: 54px;
   cursor: pointer;
   padding: 20px 15px 20px 15px;
-  transition: all ease 0.5s;
+  transition: all ease 0.2s;
   white-space: nowrap;
-  mat-icon {
+  .icon-img {
     margin-right: 10px;
-    color: var(--dark-green);
+    width: 20px;
+    height: 20px;
   }
+  .arrow-icon {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+  }
+
+  &.sub {
+    padding-left: 30px;
+  }
+
   span {
     font-family: Poppins, Helvetica, "sans-serif" !important;
     color: var(--dark-green);
@@ -100,33 +91,13 @@
   }
 
   &.active {
-    background-color: var(--dark-blue);
-    span {
-      color: white;
-    }
-
-    mat-icon {
-      color: white;
-    }
-  }
-
-  &:focus {
-    mat-icon {
-      color: white;
-    }
-
-    span {
-      color: white;
-    }
+    background-color: var(--white-blue);
+    color: var(--blue);
   }
 
   &:hover {
-    transition: all ease 0.5s;
+    background-color: var(--white-blue);
+    transition: all ease 0.2s;
     opacity: 0.9;
-  }
-
-  &.sub-menu-item {
-    padding-left: 10px !important;
-    white-space: nowrap;
   }
 }

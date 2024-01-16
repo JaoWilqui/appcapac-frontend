@@ -9,6 +9,17 @@
   border-radius: 3px 5px 5px 0;
 }
 
+.title {
+  width: 100%;
+  h1 {
+    margin: 0;
+    padding: 0;
+    color: #303030;
+    font-size: 2.5rem;
+  }
+  border-bottom: solid 2px rgb(231, 236, 238);
+}
+
 .title-card::after {
   content: "";
   position: absolute;

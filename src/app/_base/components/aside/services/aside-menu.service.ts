@@ -26,54 +26,75 @@ export class AsideMenuService {
   menuLinks: MenuLink[] = [];
   PERMS_LIST: MenuObjectLiteral = {
     [PERMS.ADMIN]: [
-      { section: 'Admnistrativo' },
       {
-        label: 'Usuários',
-        icon: 'account_circle',
-        path: '/users',
+        label: 'Admnistrativo',
+        expanded: false,
+        icon: '../../assets/svgs/setting.svg',
+        subItems: [
+          {
+            label: 'Usuários',
+            path: '/users',
+          },
+        ],
       },
-      { section: 'Gerenciamento' },
+
       {
-        label: 'Campanha',
-        icon: 'account_circle',
-        path: '/campaing',
-      },
-      {
-        label: 'Categoria',
-        icon: 'account_circle',
-        path: '/category',
-      },
-      {
-        label: 'Operadoras',
-        icon: 'account_circle',
-        path: '/operators',
+        label: 'Gerenciamento',
+        expanded: false,
+        icon: '../../assets/svgs/chart.svg',
+        subItems: [
+          {
+            label: 'Categoria',
+            path: '/category',
+          },
+          {
+            label: 'Campanha',
+            path: '/campaing',
+          },
+        ],
       },
     ],
   };
 
   MODULES_LITERAL: MenuObjectLiteral = {
     [ModulesEnum.imagens]: [
-      { section: 'Imagens' },
       {
         label: 'Imagens',
-        icon: 'account_circle',
-        path: '/images',
+        icon: '../../assets/svgs/image.svg',
+        expanded: false,
+        subItems: [
+          {
+            label: 'Imagens',
+            path: '/images',
+          },
+        ],
       },
     ],
     [ModulesEnum.videos]: [
-      { section: 'Videos' },
       {
         label: 'Videos',
-        icon: 'play_circle_filled',
-        path: '/videos',
+        expanded: false,
+        icon: '../../assets/svgs/video.svg',
+        subItems: [
+          {
+            label: 'Videos',
+            path: '/videos',
+          },
+        ],
       },
     ],
     [ModulesEnum.arquivos]: [
-      { section: 'Arquivos' },
       {
         label: 'Arquivos',
-        icon: 'account_circle',
-        path: '/files',
+        expanded: false,
+
+        icon: '../../assets/svgs/file.svg',
+        subItems: [
+          {
+            label: 'Arquivos',
+            path: '/files',
+          },
+        ],
       },
     ],
   };

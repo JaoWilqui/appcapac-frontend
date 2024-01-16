@@ -1,11 +1,26 @@
 .top-bar {
   width: 100%;
+  border-radius: 10px;
+  height: 75px;
   display: flex;
   align-items: center;
+  justify-content: end;
+  background-color: white;
+}
+.icon-img {
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+}
+header {
   height: 150px;
-  box-shadow: 0 0.1rem 1rem 0.25rem #0000000d !important;
+  display: flex;
   position: sticky;
+  padding: 3% 1.5% 5% 1.5%;
   top: 0;
+  justify-content: center;
   left: 100%;
   z-index: 100;
+  align-items: center;
+  background: transparent;
 }

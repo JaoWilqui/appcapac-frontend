@@ -2,7 +2,7 @@
   <back-btn (onClick)="goBack('operator')"></back-btn>
 </div>
 <div class="main-body">
-  <span class="title-card mb-5">{{ operatorId ? "Editar" : "Cadastrar" }}</span>
+  <span class="title-card mb-5">{{ operatorId ? "Editar" : "Adicionar" }}</span>
   <section class="content-body">
     <span class="title-card mb-5">Informações</span>
 
@@ -17,6 +17,6 @@
   </section>
 
   <div class="flex justify-center mt-5">
-    <button (click)="sendForm()" class="btn green">Enviar</button>
+    <button (click)="sendForm()" class="btn blue">Enviar</button>
   </div>
 </div>

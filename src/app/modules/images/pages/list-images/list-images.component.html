@@ -10,9 +10,7 @@
     </div>
   </section>
   <div class="flex justify-end mb-2">
-    <button class="btn green" (click)="navigateTo('register')">
-      Cadastrar
-    </button>
+    <button class="btn blue" (click)="navigateTo('register')">Adicionar</button>
   </div>
   <section class="content-body mt-5">
     <div class="grid grid-cols-3 gap-3">
@@ -24,7 +22,7 @@
         <div class="video-info my-5">Categoria: {{ image.category.nome }}</div>
         <div class="video-info my-5">Campanha: {{ image.campaing.nome }}</div>
         <div class="mt-4 flex justify-center">
-          <!-- <button class="btn green" (click)="navigateTo('edit', image.id)">
+          <!-- <button class="btn blue" (click)="navigateTo('edit', image.id)">
             Editar <mat-icon class="ml-3">edit</mat-icon>
           </button> -->
           <button class="btn red" (click)="delete(image.id)">

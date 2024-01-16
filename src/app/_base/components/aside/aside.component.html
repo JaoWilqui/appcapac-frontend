@@ -8,35 +8,30 @@
     [routerLink]="['/dashboard']"
     [routerLinkActive]="'active'"
   >
-    <mat-icon>home</mat-icon>
+    <img class="icon-img" [src]="'../../assets/svgs/home.svg'" alt="" />
     <span [ngClass]="isPropertiesShown ? 'open' : 'closed'">Dashboard</span>
   </li>
 
   <ng-container *ngFor="let item of menuList">
-    <span *ngIf="item.section" class="section-wrapper my-5"
-      ><span [hidden]="!isPropertiesShown">{{ item.section }}</span>
-    </span>
-    <span *ngIf="!item.subItems && !item.section">
+    <ng-container *ngIf="!item.subItems">
       <li
         class="menu-item"
         [routerLink]="[item.path]"
         [routerLinkActive]="'active'"
       >
-        <mat-icon>{{ item.icon }}</mat-icon>
+        <img [src]="item.icon" />
         <span [ngClass]="isPropertiesShown ? 'open' : 'closed'">{{
           item.label
         }}</span>
       </li>
-    </span>
-    <span *ngIf="item.subItems">
+    </ng-container>
+    <ng-container *ngIf="item.subItems">
       <li
         class="menu-item"
         (click)="item.expanded = !item.expanded"
         [routerLinkActive]="item.expanded ? 'active' : ''"
       >
-        <div class="icon-wrapper">
-          <img class="icon-img" [src]="item.link" />
-        </div>
+        <img class="icon-img" [src]="item.icon" />
         <span [ngClass]="isPropertiesShown ? 'open' : 'closed'">{{
           item.label
         }}</span>
@@ -44,32 +39,27 @@
           class="arrow-icon"
           [ngStyle]="
             item.expanded
-              ? { transform: 'rotate(135deg)' }
-              : { transition: 'rotate(45deg)' }
+              ? { transform: 'rotate(225deg)' }
+              : { transform: 'rotate(45deg)' }
           "
         ></span>
       </li>
       <ul
         [hidden]="!isPropertiesShown"
-        [disableRipple]="true"
-        [ngClass]="item.expanded ? 'sub-list-open' : 'sub-list-closed'"
+        [ngClass]="item.expanded ? 'list-open' : 'list-closed'"
       >
         <ng-container *ngFor="let subItem of item.subItems">
           <li
-            class="sub-menu-item"
+            class="menu-item sub"
             [routerLink]="[subItem.path]"
             [routerLinkActive]="'active'"
           >
-            <div class="icon-wrapper">
-              <img class="icon-img" [src]="item.link" />
-            </div>
-            >
             <span [ngClass]="isPropertiesShown ? 'open' : 'closed'">{{
               subItem.label
             }}</span>
           </li>
         </ng-container>
       </ul>
-    </span>
+    </ng-container>
   </ng-container>
 </ul>

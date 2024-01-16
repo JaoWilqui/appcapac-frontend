@@ -12,6 +12,16 @@
 
 @include mat.core();
 
+body {
+  font-family: "Poppins" !important;
+}
+
+.icon-btn {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+}
+
 $appcapac-frontend-primary: mat.define-palette(mat.$indigo-palette);
 $appcapac-frontend-accent: mat.define-palette(
   mat.$pink-palette,
