@@ -16,10 +16,7 @@ import {
 import { MatSort, Sort } from '@angular/material/sort';
 import { PaginatorEvent } from '../paginator/models/page-event.model';
 
-import { DatePipe } from '@angular/common';
 import { Order } from '../../models/pagination.model';
-import { NumberPipe } from '../../pipes/number.pipe';
-import { PhonePipe } from '../../pipes/phone.pipe';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { TableCustomColumnDirective } from './directives/table-custom-column.directive';
 import { SortInterface } from './interface/sort.model';
@@ -27,7 +24,7 @@ import { DynamicPipe } from './pipes/dynamic.pipe';
 
 @Component({
   selector: 'app-table',
-  providers: [DatePipe, NumberPipe, PhonePipe, DynamicPipe],
+  providers: [DynamicPipe],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })

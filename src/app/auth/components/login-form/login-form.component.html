@@ -36,13 +36,16 @@
       </button>
     </form-field>
   </div>
-
-  <button
-    class="enter-button mt-5"
-    [class.spinner]="isLoading"
-    [disabled]="isLoading"
-    (click)="access()"
-  >
-    Entrar
-  </button>
 </form>
+<div class="options-container">
+  <mat-checkbox>Lembrar</mat-checkbox>
+  <div><a>Esqueceu a senha?</a></div>
+</div>
+<button
+  class="enter-button mt-5"
+  [class.spinner]="isLoading"
+  [disabled]="isLoading"
+  (click)="access()"
+>
+  Entrar
+</button>
