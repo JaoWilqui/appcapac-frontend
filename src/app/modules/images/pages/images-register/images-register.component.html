@@ -30,7 +30,7 @@
         type="file"
         #imageInput
         accept="image/*"
-        (change)="processFile(imageInput)"
+        (change)="processFile(imageInput.files[0])"
         customInput
         [formControl]="imageControl"
         name="picture__input"

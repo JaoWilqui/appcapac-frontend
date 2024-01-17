@@ -8,15 +8,18 @@
   </div>
 </section>
 <div class="flex justify-end mb-2">
-  <button class="btn blue" (click)="register()">Adicionar</button>
+  <button class="btn blue" (click)="register()">
+    <img class="icon-btn mr-2" [src]="'../../assets/svgs/add.svg'" />
+    Adicionar
+  </button>
 </div>
 <main class="p-10">
   <div class="title mb-5">
-    <h1>Videos</h1>
+    <h1>Imagens</h1>
   </div>
 
   <section>
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-3 gap-7">
       @for (image of images; track $index) {
       <div class="image-card">
         <img [src]="image.imageRelativePath" />
@@ -27,13 +30,26 @@
             <p class="image-info">Categoria: {{ image.category.nome }}</p>
             <p class="image-info">Campanha: {{ image.campaing.nome }}</p>
           </div>
-          <div class="flex justify-center">
-            <button class="btn red" (click)="delete(image.id)">
-              <div class="mr-3">
-                <img class="icon-btn" [src]="'../../assets/svgs/delete.svg'" />
-              </div>
-              Excluir
-            </button>
+          <div class="flex w-12/12 my-2">
+            <div class="w-6/12 flex justify-start">
+              <button class="btn green w-40" (click)="edit(image.id)">
+                <div class="mr-3">
+                  <img class="icon-btn" [src]="'../../assets/svgs/edit.svg'" />
+                </div>
+                editar
+              </button>
+            </div>
+            <div class="w-6/12 flex justify-end">
+              <button class="btn red w-40" (click)="delete(image.id)">
+                <div class="mr-3">
+                  <img
+                    class="icon-btn"
+                    [src]="'../../assets/svgs/delete.svg'"
+                  />
+                </div>
+                Excluir
+              </button>
+            </div>
           </div>
         </div>
       </div>

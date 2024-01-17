@@ -46,12 +46,10 @@ export class LoginFormComponent implements OnInit {
     });
   }
 
-  registration() {}
-
   access() {
-    this.isLoading = true;
-
     if (this.loginForm.valid) {
+      this.isLoading = true;
+
       this.authService.login(this.loginForm.value).subscribe({
         next: async (res) => {
           localStorage.setItem('authToken', res.access_token);

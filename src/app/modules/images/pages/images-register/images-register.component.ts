@@ -13,7 +13,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import {
   AdhesionOption,
   adhesionOptions,
@@ -55,21 +55,15 @@ export class ImagesRegisterComponent implements OnInit {
   categories: ICategory[] = [];
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private imagesService: ImagesService,
     private categoryService: CategoryService,
     private campaingService: CampaingService,
     private operatorsService: OperatorsService,
     private swalService: SwalService,
-    private activeRoute: ActivatedRoute,
     private dialogRef: MatDialogRef<ImagesRegisterComponent>,
     @Inject(MAT_DIALOG_DATA) private data: { id: number }
   ) {
-    this.activeRoute.params.subscribe((params) => {
-      if (params['id']) {
-        this.imagesId = +params['id'];
-      }
-    });
+    if (this.data) this.imagesId = data.id;
   }
 
   goBack() {
@@ -125,9 +119,17 @@ export class ImagesRegisterComponent implements OnInit {
 
   getImage() {
     this.imagesService.getImageById(this.imagesId).subscribe({
-      next: (res) => {
+      next: async (res) => {
         this.images = res;
         this.imageSrc = res.imageRelativePath;
+
+        const img = await firstValueFrom(
+          this.imagesService.downloadImage(this.imageSrc)
+        );
+        const imageFile = new File([img], 'name');
+        console.log(imageFile);
+        this.processFile(imageFile);
+
         this.populateForms();
       },
     });
@@ -182,7 +184,7 @@ export class ImagesRegisterComponent implements OnInit {
 
   processFile(imageInput: any) {
     this.imageFile = null;
-    this.imageFile = imageInput.files[0];
+    this.imageFile = imageInput;
     const reader = new FileReader();
 
     reader.addEventListener('load', (event: any) => {

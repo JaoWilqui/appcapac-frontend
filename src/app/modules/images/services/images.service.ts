@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpSuccess } from '../../../_shared/models/http-success.model';
@@ -9,8 +9,11 @@ import { IImages } from '../models/images.model';
   providedIn: 'root',
 })
 export class ImagesService {
-  constructor(private http: HttpClient) {}
+  private httpClient: HttpClient;
 
+  constructor(private http: HttpClient, handler: HttpBackend) {
+    this.httpClient = new HttpClient(handler);
+  }
   getImages(params: any): Observable<IPaginationRes<IImages>> {
     return this.http.get<IPaginationRes<IImages>>('/images', {
       params: { ...params },
@@ -28,6 +31,9 @@ export class ImagesService {
     return this.http.post<HttpSuccess>('/images/upload', image);
   }
 
+  downloadImage(imagePath: string): Observable<any> {
+    return this.httpClient.get(imagePath, { responseType: 'blob' });
+  }
   updateImages(id: number, image: FormData): Observable<HttpSuccess> {
     return this.http.put<HttpSuccess>(`/images/upload/${id}`, image);
   }

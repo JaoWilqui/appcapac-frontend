@@ -11,6 +11,10 @@
   &:hover {
     opacity: 0.9;
   }
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
 
   &:active {
     transition: all 1s linear;
