@@ -1,12 +1,22 @@
-<div class="mb-5">
-  <back-btn (onClick)="goBack('files')"></back-btn>
-</div>
-<div class="main-body">
-  <span class="title-card mb-5">{{ fileId ? "Editar" : "Adicionar" }}</span>
-  <section class="content-body">
-    <span class="title-card mb-5">Informações</span>
-    <div class="mb-3 video-container flex justify-center"></div>
-    <form [formGroup]="registerFileForm" class="grid grid-cols-3 gap-3">
+<section class="dialog-header flex items-center justify-between">
+  <div>
+    <span class="mb-5">
+      <h1>{{ fileId ? "Editar arquivo" : "Adicionar arquivo" }}</h1>
+    </span>
+  </div>
+
+  <div>
+    <img
+      mat-dialog-close
+      class="icon-btn"
+      src="../../assets/svgs/close.svg"
+      alt=""
+    />
+  </div>
+</section>
+<main mat-dialog-content class="main-body">
+  <section>
+    <form [formGroup]="registerFileForm" class="grid grid-cols-1">
       <div class="">
         <form-field
           [setStyle]="{
@@ -23,7 +33,7 @@
             customInput
             [formControl]="fileControl"
           />
-          <label>Image Input</label>
+          <label>Arquivo Input</label>
         </form-field>
       </div>
       <div class="mb-3">
@@ -97,8 +107,12 @@
       </div>
     </form>
   </section>
-
-  <div class="flex justify-center mt-5">
-    <button (click)="sendForm()" class="btn blue">Enviar</button>
+</main>
+<section class="dialog-footer flex justify-end">
+  <div class="flex justify-center mr-3">
+    <button mat-dialog-close class="btn white">Cancelar</button>
   </div>
-</div>
+  <div class="flex justify-centers">
+    <button (click)="sendForm()" class="btn blue-btn">Salvar</button>
+  </div>
+</section>

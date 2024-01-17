@@ -1,11 +1,18 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   AdhesionOption,
@@ -28,6 +35,8 @@ import { OperatorsService } from '../../../operators/services/operators.service'
   styleUrls: ['./images-register.component.scss'],
 })
 export class ImagesRegisterComponent implements OnInit {
+  @ViewChild('pictureImg') pictureImage: ElementRef;
+
   registerImageForm: FormGroup;
   images: IImages;
   imagesId: number;
@@ -52,7 +61,9 @@ export class ImagesRegisterComponent implements OnInit {
     private campaingService: CampaingService,
     private operatorsService: OperatorsService,
     private swalService: SwalService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private dialogRef: MatDialogRef<ImagesRegisterComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: { id: number }
   ) {
     this.activeRoute.params.subscribe((params) => {
       if (params['id']) {
@@ -61,8 +72,8 @@ export class ImagesRegisterComponent implements OnInit {
     });
   }
 
-  goBack(param: string) {
-    this.router.navigate([param]);
+  goBack() {
+    this.dialogRef.close(true);
   }
 
   ngOnInit() {
@@ -155,12 +166,12 @@ export class ImagesRegisterComponent implements OnInit {
       this.imagesService.updateImages(this.imagesId, formData).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {
-            this.goBack('images');
+            this.goBack();
           });
         },
         error: (error: HttpErrorResponse) => {
           this.swalService.error.fire('Erro', error.error.message).then(() => {
-            this.goBack('images');
+            this.goBack();
           });
         },
       });
@@ -173,6 +184,7 @@ export class ImagesRegisterComponent implements OnInit {
     this.imageFile = null;
     this.imageFile = imageInput.files[0];
     const reader = new FileReader();
+
     reader.addEventListener('load', (event: any) => {
       this.imageSrc = event.target.result;
     });
@@ -194,12 +206,12 @@ export class ImagesRegisterComponent implements OnInit {
       this.imagesService.uploadImage(formData).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {
-            this.goBack('images');
+            this.goBack();
           });
         },
         error: (error: HttpErrorResponse) => {
           this.swalService.error.fire('Erro', error.error.message).then(() => {
-            this.goBack('images');
+            this.goBack();
           });
         },
       });

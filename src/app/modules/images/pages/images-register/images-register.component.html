@@ -1,39 +1,43 @@
-<div class="mb-5">
-  <back-btn (onClick)="goBack('images')"></back-btn>
-</div>
-<div class="main-body">
-  <span class="title-card mb-5">{{ imagesId ? "Editar" : "Adicionar" }}</span>
-  <section class="content-body">
-    <span class="title-card mb-5">Informações</span>
-    <div class="mb-3 video-container flex justify-center">
-      <div class="video-card">
+<section class="dialog-header flex items-center justify-between">
+  <div>
+    <span class="mb-5">
+      <h1>{{ imagesId ? "Editar imagem" : "Adicionar imagem" }}</h1>
+    </span>
+  </div>
+
+  <div>
+    <img
+      mat-dialog-close
+      class="icon-btn"
+      src="../../assets/svgs/close.svg"
+      alt=""
+    />
+  </div>
+</section>
+<main mat-dialog-content class="main-body">
+  <section>
+    <div class="mb-3 img-container flex justify-center">
+      <label class="picture" for="picture__input" tabIndex="0">
         @if(imageSrc){
-        <img [src]="imageSrc" alt="" />
-        }@else{
-        <div class="image-box"><mat-icon>upload</mat-icon></div>
+
+        <img [src]="imageSrc" />
+        }@else {
+
+        <span>Adicionar foto</span>
         }
-        <div class="mt-3">
-          <form-field
-            [setStyle]="{
-              width: '100%',
-              'min-width': '300px',
-              background: 'white'
-            }"
-          >
-            <input
-              #imageInput
-              type="file"
-              accept="image/*"
-              (change)="processFile(imageInput)"
-              customInput
-              [formControl]="imageControl"
-            />
-            <label>Image Input</label>
-          </form-field>
-        </div>
-      </div>
+      </label>
+      <input
+        type="file"
+        #imageInput
+        accept="image/*"
+        (change)="processFile(imageInput)"
+        customInput
+        [formControl]="imageControl"
+        name="picture__input"
+        id="picture__input"
+      />
     </div>
-    <form [formGroup]="registerImageForm" class="grid grid-cols-3 gap-3">
+    <form [formGroup]="registerImageForm" class="grid grid-cols-1">
       <div class="mb-3">
         <form-field
           [setStyle]="{
@@ -104,8 +108,12 @@
       </div>
     </form>
   </section>
-
-  <div class="flex justify-center mt-5">
-    <button (click)="sendForm()" class="btn blue">Enviar</button>
+</main>
+<section class="dialog-footer flex justify-end">
+  <div class="flex justify-center mr-3">
+    <button mat-dialog-close class="btn white">Cancelar</button>
   </div>
-</div>
+  <div class="flex justify-centers">
+    <button (click)="sendForm()" class="btn blue-btn">Salvar</button>
+  </div>
+</section>

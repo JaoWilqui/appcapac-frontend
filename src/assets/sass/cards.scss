@@ -1,0 +1,24 @@
+.dialog-header {
+  h1 {
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
+
+  padding: 20px;
+  border-bottom: solid 2px rgb(231, 236, 238);
+}
+
+.dialog-footer {
+  .blue-btn {
+    background: rgb(0, 16, 247);
+    color: white;
+  }
+
+  .white {
+    background: white;
+    color: #001f30;
+  }
+
+  padding: 20px;
+  border-top: solid 2px rgb(231, 236, 238);
+}

@@ -1,17 +1,19 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { ICampaing } from '../../../campaing/models/campaing.model';
 import { CampaingService } from '../../../campaing/services/campaing.service';
 import { ICategory } from '../../../category/models/category.model';
 import { CategoryService } from '../../../category/services/category.service';
+import { ImagesRegisterComponent } from '../../../images/pages/images-register/images-register.component';
 import { IVideos } from '../../models/videos.model';
 import { VideosService } from './../../services/videos.service';
 
@@ -36,17 +38,15 @@ export class VideosRegisterComponent implements OnInit {
     private campaingService: CampaingService,
 
     private swalService: SwalService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private dialogRef: MatDialogRef<ImagesRegisterComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: { id: number }
   ) {
-    this.activeRoute.params.subscribe((params) => {
-      if (params['id']) {
-        this.videosId = +params['id'];
-      }
-    });
+    if (this.data) this.videosId = this.data?.id;
   }
 
-  goBack(param: string) {
-    this.router.navigate([param]);
+  goBack() {
+    this.dialogRef.close(true);
   }
 
   ngOnInit() {
@@ -138,12 +138,12 @@ export class VideosRegisterComponent implements OnInit {
       this.videosService.updateVideos(this.videosId, this.videos).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {
-            this.goBack('videos');
+            this.goBack();
           });
         },
         error: (error: HttpErrorResponse) => {
           this.swalService.error.fire('Erro', error.error.message).then(() => {
-            this.goBack('videos');
+            this.goBack();
           });
         },
       });
@@ -165,12 +165,12 @@ export class VideosRegisterComponent implements OnInit {
       this.videosService.postVideos(this.videos).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {
-            this.goBack('videos');
+            this.goBack();
           });
         },
         error: (error: HttpErrorResponse) => {
           this.swalService.error.fire('Erro', error.error.message).then(() => {
-            this.goBack('videos');
+            this.goBack();
           });
         },
       });

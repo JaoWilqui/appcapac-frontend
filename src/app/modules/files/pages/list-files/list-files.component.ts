@@ -2,7 +2,8 @@ import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { ControlTypeEnum } from '../../../../_shared/components/filter/enum/control-type.enum';
 import { FiltersFields } from '../../../../_shared/components/filter/interface/filter-interface.model';
 import { PaginatorEvent } from '../../../../_shared/components/paginator/models/page-event.model';
@@ -13,6 +14,7 @@ import { IParams } from '../../../../_shared/models/params.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { IFiles } from '../../models/files.model';
 import { FilesService } from '../../services/files.service';
+import { RegisterFilesComponent } from '../register-files/register-files.component';
 
 @Component({
   selector: 'app-list-files',
@@ -86,12 +88,31 @@ export class ListFilesComponent implements OnInit {
   constructor(
     private filesService: FilesService,
     private swalService: SwalService,
-    private router: Router,
+    private dialog: MatDialog,
+
     private activeRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.loadData();
+  }
+
+  register(): void {
+    const dialogRef = this.dialog.open(RegisterFilesComponent, {});
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.loadData();
+    });
+  }
+
+  edit(id: number) {
+    const dialogRef = this.dialog.open(RegisterFilesComponent, {
+      data: { id },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.loadData();
+    });
   }
 
   loadData() {
@@ -115,18 +136,6 @@ export class ListFilesComponent implements OnInit {
 
         this.swalService.error.fire('Error', error.message);
       },
-    });
-  }
-
-  navigateTo(param: string, id?: number) {
-    if (id) {
-      this.router.navigate([param + '/' + `${id}`], {
-        relativeTo: this.activeRoute,
-      });
-      return;
-    }
-    this.router.navigate([param], {
-      relativeTo: this.activeRoute,
     });
   }
 

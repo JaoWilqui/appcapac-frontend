@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ControlTypeEnum } from '../../../../_shared/components/filter/enum/control-type.enum';
 import { FiltersFields } from '../../../../_shared/components/filter/interface/filter-interface.model';
@@ -15,6 +16,7 @@ import { ICategory } from '../../../category/models/category.model';
 import { CategoryService } from '../../../category/services/category.service';
 import { IVideos } from '../../models/videos.model';
 import { VideosService } from '../../services/videos.service';
+import { VideosRegisterComponent } from '../videos-register/videos-register.component';
 
 @Component({
   selector: 'app-list-videos',
@@ -61,8 +63,27 @@ export class ListVideosComponent implements OnInit {
     private videosService: VideosService,
     private swalService: SwalService,
     private categoryService: CategoryService,
-    private campaingService: CampaingService
+    private campaingService: CampaingService,
+    private dialog: MatDialog
   ) {}
+
+  register(): void {
+    const dialogRef = this.dialog.open(VideosRegisterComponent, {});
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.loadData();
+    });
+  }
+
+  edit(id: number) {
+    const dialogRef = this.dialog.open(VideosRegisterComponent, {
+      data: { id },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.loadData();
+    });
+  }
 
   ngOnInit() {
     this.loadData();

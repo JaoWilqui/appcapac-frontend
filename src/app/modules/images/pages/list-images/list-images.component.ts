@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ControlTypeEnum } from '../../../../_shared/components/filter/enum/control-type.enum';
 import { FiltersFields } from '../../../../_shared/components/filter/interface/filter-interface.model';
@@ -11,6 +12,7 @@ import { IParams } from '../../../../_shared/models/params.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { IImages } from '../../../images/models/images.model';
 import { ImagesService } from '../../../images/services/images.service';
+import { ImagesRegisterComponent } from '../images-register/images-register.component';
 
 @Component({
   selector: 'app-list-images',
@@ -52,9 +54,27 @@ export class ListImagesComponent implements OnInit {
     private router: Router,
     private activeRoute: ActivatedRoute,
     private imagesService: ImagesService,
-    private swalService: SwalService
+    private swalService: SwalService,
+    private dialog: MatDialog
   ) {}
 
+  register(): void {
+    const dialogRef = this.dialog.open(ImagesRegisterComponent, {});
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.loadData();
+    });
+  }
+
+  edit(id: number) {
+    const dialogRef = this.dialog.open(ImagesRegisterComponent, {
+      data: { id },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.loadData();
+    });
+  }
   ngOnInit() {
     this.loadData();
   }

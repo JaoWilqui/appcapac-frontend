@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { User } from '../../../../_shared/models/user.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { UsersService } from '../../services/users.service';
@@ -14,7 +15,7 @@ import { UsersService } from '../../services/users.service';
 export class UsersRegisterComponent implements OnInit {
   registerUserForm: FormGroup;
   user: User;
-  userId: number;
+  userId: number = null;
   selectedModules: number[] = [];
   modules = [
     { id: 1, label: 'Imagens', icon: 'crop_original', active: false },
@@ -26,13 +27,10 @@ export class UsersRegisterComponent implements OnInit {
     private router: Router,
     private usersService: UsersService,
     private swalService: SwalService,
-    private activeRoute: ActivatedRoute
+    public dialogRef: MatDialogRef<UsersRegisterComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: { id: number }
   ) {
-    this.activeRoute.params.subscribe((params) => {
-      if (params['id']) {
-        this.userId = +params['id'];
-      }
-    });
+    if (this.data) this.userId = this.data?.id;
   }
 
   ngOnInit() {
@@ -42,8 +40,8 @@ export class UsersRegisterComponent implements OnInit {
     this.initForm();
   }
 
-  goBack(param: string) {
-    this.router.navigate([param]);
+  goBack() {
+    this.dialogRef.close(true);
   }
   initForm() {
     this.registerUserForm = this.fb.group({
@@ -116,12 +114,12 @@ export class UsersRegisterComponent implements OnInit {
       this.usersService.updateUser(this.userId, this.user).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {
-            this.goBack('users');
+            this.goBack();
           });
         },
         error: (error: HttpErrorResponse) => {
           this.swalService.error.fire('Erro', error.error.message).then(() => {
-            this.goBack('users');
+            this.goBack();
           });
         },
       });
@@ -147,12 +145,12 @@ export class UsersRegisterComponent implements OnInit {
       this.usersService.postUsers(this.user).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {
-            this.goBack('users');
+            this.goBack();
           });
         },
         error: (error: HttpErrorResponse) => {
           this.swalService.error.fire('Erro', error.error.message).then(() => {
-            this.goBack('users');
+            this.goBack();
           });
         },
       });

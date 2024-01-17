@@ -51,6 +51,10 @@ export class AsideMenuService {
             label: 'Campanha',
             path: '/campaing',
           },
+          {
+            label: 'Operadoras',
+            path: '/operators',
+          },
         ],
       },
     ],

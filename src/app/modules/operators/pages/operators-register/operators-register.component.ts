@@ -1,8 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SwalService } from '../../../../_shared/services/swal.service';
+import { CampaingRegisterComponent } from '../../../campaing/pages/campaing-register/campaing-register.component';
 import { IOperator } from '../../models/operators.model';
 import { OperatorsService } from '../../services/operators.service';
 
@@ -20,17 +22,15 @@ export class OperatorsRegisterComponent implements OnInit {
     private router: Router,
     private operatorService: OperatorsService,
     private swalService: SwalService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private dialogRef: MatDialogRef<CampaingRegisterComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: { id: number }
   ) {
-    this.activeRoute.params.subscribe((params) => {
-      if (params['id']) {
-        this.operatorId = +params['id'];
-      }
-    });
+    if (this.data) this.operatorId = this.data?.id;
   }
 
-  goBack(param: string) {
-    this.router.navigate([param]);
+  goBack() {
+    this.dialogRef.close(true);
   }
 
   ngOnInit() {
@@ -50,6 +50,7 @@ export class OperatorsRegisterComponent implements OnInit {
     this.operatorService.getOperatorById(this.operatorId).subscribe({
       next: (res) => {
         this.operator = res;
+        console.log(res);
         this.populateForms();
       },
     });
@@ -77,14 +78,14 @@ export class OperatorsRegisterComponent implements OnInit {
         .subscribe({
           next: (res) => {
             this.swalService.success.fire('Sucesso!', res.message).then(() => {
-              this.goBack('operators');
+              this.goBack();
             });
           },
           error: (error: HttpErrorResponse) => {
             this.swalService.error
               .fire('Erro', error.error.message)
               .then(() => {
-                this.goBack('operators');
+                this.goBack();
               });
           },
         });
@@ -101,12 +102,12 @@ export class OperatorsRegisterComponent implements OnInit {
       this.operatorService.postOperator(this.operator).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {
-            this.goBack('operators');
+            this.goBack();
           });
         },
         error: (error: HttpErrorResponse) => {
           this.swalService.error.fire('Erro', error.error.message).then(() => {
-            this.goBack('operators');
+            this.goBack();
           });
         },
       });

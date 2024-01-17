@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ControlTypeEnum } from '../../../../_shared/components/filter/enum/control-type.enum';
 import { FiltersFields } from '../../../../_shared/components/filter/interface/filter-interface.model';
@@ -13,6 +14,7 @@ import { IParams } from '../../../../_shared/models/params.model';
 import { User } from '../../../../_shared/models/user.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { UsersService } from '../../services/users.service';
+import { UsersRegisterComponent } from '../users-register/users-register.component';
 
 @Component({
   selector: 'app-list-users',
@@ -102,11 +104,33 @@ export class ListUsersComponent implements OnInit {
     private usersService: UsersService,
     private swalService: SwalService,
     private router: Router,
+    private dialog: MatDialog,
     private activeRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.loadData();
+  }
+
+  register(): void {
+    const dialogRef = this.dialog.open(UsersRegisterComponent, {
+      height: '80vh',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.loadData();
+    });
+  }
+
+  edit(id: number) {
+    const dialogRef = this.dialog.open(UsersRegisterComponent, {
+      height: '80vh',
+      data: { id },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.loadData();
+    });
   }
 
   loadData() {

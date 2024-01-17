@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { ICampaing } from '../../models/campaing.model';
@@ -20,17 +21,15 @@ export class CampaingRegisterComponent implements OnInit {
     private router: Router,
     private campaingService: CampaingService,
     private swalService: SwalService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private dialogRef: MatDialogRef<CampaingRegisterComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: { id: number }
   ) {
-    this.activeRoute.params.subscribe((params) => {
-      if (params['id']) {
-        this.campaingId = +params['id'];
-      }
-    });
+    if (this.data) this.campaingId = this.data?.id;
   }
 
-  goBack(param: string) {
-    this.router.navigate([param]);
+  goBack() {
+    this.dialogRef.close(true);
   }
 
   ngOnInit() {
@@ -81,14 +80,14 @@ export class CampaingRegisterComponent implements OnInit {
         .subscribe({
           next: (res) => {
             this.swalService.success.fire('Sucesso!', res.message).then(() => {
-              this.goBack('campaing');
+              this.goBack();
             });
           },
           error: (error: HttpErrorResponse) => {
             this.swalService.error
               .fire('Erro', error.error.message)
               .then(() => {
-                this.goBack('campaing');
+                this.goBack();
               });
           },
         });
@@ -105,12 +104,12 @@ export class CampaingRegisterComponent implements OnInit {
       this.campaingService.postCampaings(this.campaing).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {
-            this.goBack('campaing');
+            this.goBack();
           });
         },
         error: (error: HttpErrorResponse) => {
           this.swalService.error.fire('Erro', error.error.message).then(() => {
-            this.goBack('campaing');
+            this.goBack();
           });
         },
       });

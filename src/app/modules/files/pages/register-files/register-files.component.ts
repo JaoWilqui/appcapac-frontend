@@ -1,11 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   AdhesionOption,
@@ -51,21 +52,17 @@ export class RegisterFilesComponent implements OnInit {
     private categoryService: CategoryService,
     private campaingService: CampaingService,
     private operatorsService: OperatorsService,
-
+    private dialogRef: MatDialogRef<RegisterFilesComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: { id: number },
     private swalService: SwalService,
     private activeRoute: ActivatedRoute
   ) {
-    this.activeRoute.params.subscribe((params) => {
-      if (params['id']) {
-        this.fileId = +params['id'];
-      }
-    });
+    if (this.data) this.fileId = this.data?.id;
   }
 
-  goBack(param: string) {
-    this.router.navigate([param]);
+  goBack() {
+    this.dialogRef.close(true);
   }
-
   ngOnInit() {
     if (this.fileId) {
       this.getFile();
@@ -73,6 +70,7 @@ export class RegisterFilesComponent implements OnInit {
     this.initForm();
     this.getCampaings();
     this.getCategories();
+    this.getOperators();
   }
 
   initForm() {
@@ -156,12 +154,12 @@ export class RegisterFilesComponent implements OnInit {
       this.filesService.updateFile(this.fileId, formData).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {
-            this.goBack('files');
+            this.goBack();
           });
         },
         error: (error: HttpErrorResponse) => {
           this.swalService.error.fire('Erro', error.error.message).then(() => {
-            this.goBack('files');
+            this.goBack();
           });
         },
       });
@@ -184,12 +182,12 @@ export class RegisterFilesComponent implements OnInit {
       this.filesService.uploadFile(formData).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {
-            this.goBack('files');
+            this.goBack();
           });
         },
         error: (error: HttpErrorResponse) => {
           this.swalService.error.fire('Erro', error.error.message).then(() => {
-            this.goBack('files');
+            this.goBack();
           });
         },
       });

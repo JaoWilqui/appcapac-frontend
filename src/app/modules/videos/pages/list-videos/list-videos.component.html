@@ -1,41 +1,57 @@
-<main class="main-body">
-  <section class="flex justify-center mb-5">
-    <div>
-      <filter
-        [setControls]="filterControls"
-        (emitFilterValue)="submitFilters($event)"
-        (emitClearFilter)="clearFilters($event)"
-      ></filter>
-    </div>
-  </section>
-  <div class="flex justify-end mb-2">
-    <button class="btn blue" (click)="navigateTo('register')">Adicionar</button>
+<section class="flex justify-center mb-5">
+  <div>
+    <filter
+      [setControls]="filterControls"
+      (emitFilterValue)="submitFilters($event)"
+      (emitClearFilter)="clearFilters($event)"
+    ></filter>
   </div>
-  <section class="content-body mt-5">
-    <div class="grid grid-cols-3 gap-3">
-      @for (video of videos; track $index) {
-      <div class="video-card">
-        <iframe
-          [src]="video.link | safe : 'resourceUrl'"
-          [title]="video.descricao"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-        ></iframe>
-        <div class="video-info my-5">Título: {{ video.descricao }}</div>
-        <div class="video-info my-5">Nome: {{ video.nome }}</div>
-        <div class="video-info my-5">Categoria: {{ video.category.nome }}</div>
-        <div class="video-info my-5">Campanha: {{ video.campaing.nome }}</div>
-        <div class="mt-4 grid grid-cols-2 gap-4 justify-center">
-          <button class="btn blue" (click)="navigateTo('edit', video.id)">
-            Editar <mat-icon class="ml-3">edit</mat-icon>
-          </button>
-          <button class="btn red" (click)="delete(video.id)">
-            Excluir <mat-icon class="ml-3">delete</mat-icon>
-          </button>
+</section>
+<div class="flex justify-end mb-2">
+  <button class="btn blue" (click)="register()">Adicionar</button>
+</div>
+<main class="p-10">
+  <div class="title mb-5">
+    <h1>Videos</h1>
+  </div>
+
+  <div class="grid grid-cols-3 gap-3">
+    @for (video of videos; track $index) {
+    <div class="video-card">
+      <iframe
+        [src]="video.link | safe : 'resourceUrl'"
+        [title]="video.descricao"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
+      <div class="video-info-container">
+        <div>
+          <h1 class="video-title">{{ video.descricao }}</h1>
+          <p class="video-info">Nome: {{ video.nome }}</p>
+          <p class="video-info">Categoria: {{ video.category.nome }}</p>
+          <p class="video-info">Campanha: {{ video.campaing.nome }}</p>
+        </div>
+        <div class="flex justify-center">
+          <div class="mr-2">
+            <button class="btn green" (click)="edit(video.id)">
+              <div class="mr-3">
+                <img class="icon-btn" [src]="'../../assets/svgs/edit.svg'" />
+              </div>
+              editar
+            </button>
+          </div>
+          <div>
+            <button class="btn red" (click)="delete(video.id)">
+              <div class="mr-3">
+                <img class="icon-btn" [src]="'../../assets/svgs/delete.svg'" />
+              </div>
+              Excluir
+            </button>
+          </div>
         </div>
       </div>
-      }
     </div>
-  </section>
+    }
+  </div>
 </main>

@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ControlTypeEnum } from '../../../../_shared/components/filter/enum/control-type.enum';
 import { FiltersFields } from '../../../../_shared/components/filter/interface/filter-interface.model';
@@ -13,6 +14,7 @@ import { IParams } from '../../../../_shared/models/params.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { ICampaing } from '../../models/campaing.model';
 import { CampaingService } from '../../services/campaing.service';
+import { CampaingRegisterComponent } from '../campaing-register/campaing-register.component';
 
 @Component({
   selector: 'app-list-campaings',
@@ -116,10 +118,28 @@ export class ListCampaingsComponent implements OnInit {
     private campaingService: CampaingService,
     private swalService: SwalService,
     private router: Router,
+    private dialog: MatDialog,
 
     private activeRoute: ActivatedRoute
   ) {}
 
+  register(): void {
+    const dialogRef = this.dialog.open(CampaingRegisterComponent, {});
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.loadData();
+    });
+  }
+
+  edit(id: number) {
+    const dialogRef = this.dialog.open(CampaingRegisterComponent, {
+      data: { id },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.loadData();
+    });
+  }
   ngOnInit() {
     this.loadData();
   }

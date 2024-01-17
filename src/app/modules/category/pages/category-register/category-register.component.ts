@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { ICategory } from '../../models/category.model';
 import { CategoryService } from '../../services/category.service';
@@ -17,20 +17,16 @@ export class CategoryRegisterComponent implements OnInit {
   categoryId: number;
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private categoryService: CategoryService,
     private swalService: SwalService,
-    private activeRoute: ActivatedRoute
+    private dialogRef: MatDialogRef<CategoryRegisterComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: { id: number }
   ) {
-    this.activeRoute.params.subscribe((params) => {
-      if (params['id']) {
-        this.categoryId = +params['id'];
-      }
-    });
+    if (this.data) this.categoryId = this.data?.id;
   }
 
-  goBack(param: string) {
-    this.router.navigate([param]);
+  goBack() {
+    this.dialogRef.close(true);
   }
 
   ngOnInit() {
@@ -78,14 +74,14 @@ export class CategoryRegisterComponent implements OnInit {
         .subscribe({
           next: (res) => {
             this.swalService.success.fire('Sucesso!', res.message).then(() => {
-              this.goBack('category');
+              this.goBack();
             });
           },
           error: (error: HttpErrorResponse) => {
             this.swalService.error
               .fire('Erro', error.error.message)
               .then(() => {
-                this.goBack('category');
+                this.goBack();
               });
           },
         });
@@ -102,12 +98,12 @@ export class CategoryRegisterComponent implements OnInit {
       this.categoryService.postCategory(this.category).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {
-            this.goBack('category');
+            this.goBack();
           });
         },
         error: (error: HttpErrorResponse) => {
           this.swalService.error.fire('Erro', error.error.message).then(() => {
-            this.goBack('category');
+            this.goBack();
           });
         },
       });

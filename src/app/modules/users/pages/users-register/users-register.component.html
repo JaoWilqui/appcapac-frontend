@@ -1,12 +1,22 @@
-<div class="mb-5">
-  <back-btn (onClick)="goBack('users')"></back-btn>
-</div>
-<main class="main-body">
-  <span class="title-card mb-5">Adicionar</span>
-  <section class="content-body">
-    <span class="title-card mb-5">Informações</span>
+<section class="dialog-header flex items-center justify-between">
+  <div>
+    <span class="mb-5">
+      <h1>{{ userId ? "Editar usuário" : "Adicionar usuário" }}</h1>
+    </span>
+  </div>
 
-    <form [formGroup]="registerUserForm" class="grid grid-cols-3 gap-3">
+  <div>
+    <img
+      mat-dialog-close
+      class="icon-btn"
+      src="../../assets/svgs/close.svg"
+      alt=""
+    />
+  </div>
+</section>
+<main mat-dialog-content class="main-body">
+  <section>
+    <form [formGroup]="registerUserForm" class="grid grid-cols-1">
       <div class="mb-3">
         <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
           <input type="text" customInput formControlName="nome" />
@@ -53,8 +63,6 @@
   </section>
 
   <section class="content-body mt-5">
-    <span class="title-card mb-5">Acessos</span>
-
     <div class="modules-container">
       <div class="module-area" *ngFor="let module of modules">
         <input
@@ -75,8 +83,12 @@
       </div>
     </div>
   </section>
-
-  <div class="flex justify-center mt-5">
-    <button (click)="sendForm()" class="btn blue">Enviar</button>
-  </div>
 </main>
+<section class="dialog-footer flex justify-end">
+  <div class="flex justify-center mr-3">
+    <button mat-dialog-close class="btn white">Cancelar</button>
+  </div>
+  <div class="flex justify-centers">
+    <button (click)="sendForm()" class="btn blue-btn">Salvar</button>
+  </div>
+</section>

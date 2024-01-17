@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ControlTypeEnum } from '../../../../_shared/components/filter/enum/control-type.enum';
 import { FiltersFields } from '../../../../_shared/components/filter/interface/filter-interface.model';
@@ -12,6 +13,7 @@ import { IParams } from '../../../../_shared/models/params.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { IOperator } from '../../models/operators.model';
 import { OperatorsService } from '../../services/operators.service';
+import { OperatorsRegisterComponent } from '../operators-register/operators-register.component';
 
 @Component({
   selector: 'app-list-operators',
@@ -56,12 +58,30 @@ export class ListOperatorsComponent implements OnInit {
     private operatorsService: OperatorsService,
     private swalService: SwalService,
     private router: Router,
-
+    private dialog: MatDialog,
     private activeRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.loadData();
+  }
+
+  register(): void {
+    const dialogRef = this.dialog.open(OperatorsRegisterComponent, {});
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.loadData();
+    });
+  }
+
+  edit(id: number) {
+    const dialogRef = this.dialog.open(OperatorsRegisterComponent, {
+      data: { id },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.loadData();
+    });
   }
 
   loadData() {

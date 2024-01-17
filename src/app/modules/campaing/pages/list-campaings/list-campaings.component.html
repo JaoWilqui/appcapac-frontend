@@ -1,3 +1,6 @@
+<div class="flex justify-end mb-2">
+  <button class="btn blue" (click)="register()">Adicionar</button>
+</div>
 <div class="main-body">
   <section class="flex justify-center mb-5">
     <div>
@@ -8,8 +11,8 @@
       ></filter>
     </div>
   </section>
-  <div class="flex justify-end mb-2">
-    <button class="btn blue" (click)="navigateTo('register')">Adicionar</button>
+  <div class="title mb-5">
+    <h1>Campanhas</h1>
   </div>
   <section>
     <app-table
@@ -29,15 +32,15 @@
         #actions
         let-campaing="element"
       >
-        <button (click)="navigateTo('edit', campaing.id)" mat-icon-button>
-          <mat-icon>edit</mat-icon>
+        <button matTooltip="Editar" mat-icon-button (click)="edit(campaing.id)">
+          <img class="icon-btn" [src]="'../../assets/svgs/edit.svg'" />
         </button>
         <button
           matTooltip="Deletar"
           mat-icon-button
           (click)="delete(campaing.id)"
         >
-          <mat-icon color="red">delete</mat-icon>
+          <img class="icon-btn" [src]="'../../assets/svgs/delete.svg'" />
         </button>
       </ng-template>
     </app-table>

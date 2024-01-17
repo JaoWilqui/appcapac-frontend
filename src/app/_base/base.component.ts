@@ -34,7 +34,7 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    this.handleResize();
+    // this.handleResize();
   }
 
   constructor(

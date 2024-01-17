@@ -27,6 +27,7 @@
         customInput
         [type]="showPassword ? 'text' : 'password'"
         formControlName="password"
+        autocomplete="on"
       />
       <label>Senha</label>
       <button class="button-password" (click)="changePasswordVisibility()">

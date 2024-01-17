@@ -1,5 +1,5 @@
 <div class="flex justify-end mb-2">
-  <button class="btn blue" (click)="navigateTo('register')">Adicionar</button>
+  <button class="btn blue" (click)="register()">Adicionar</button>
 </div>
 <main class="main-body">
   <section class="flex justify-center mb-5">
@@ -30,15 +30,11 @@
       [isPageable]="true"
     >
       <ng-template #actions let-user="element">
-        <button
-          matTooltip="Editar"
-          mat-icon-button
-          (click)="navigateTo('edit', user.id)"
-        >
-          <img class="icon-img" [src]="'../../assets/svgs/edit.svg'" />
+        <button matTooltip="Editar" mat-icon-button (click)="edit(user.id)">
+          <img class="icon-btn" [src]="'../../assets/svgs/edit.svg'" />
         </button>
         <button matTooltip="Deletar" mat-icon-button (click)="delete(user.id)">
-          <img class="icon-img" [src]="'../../assets/svgs/delete.svg'" />
+          <img class="icon-btn" [src]="'../../assets/svgs/delete.svg'" />
         </button>
       </ng-template>
     </app-table>
