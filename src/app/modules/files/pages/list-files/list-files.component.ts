@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { NgxPermissionsObject, NgxPermissionsService } from 'ngx-permissions';
 import { ControlTypeEnum } from '../../../../_shared/components/filter/enum/control-type.enum';
 import { FiltersFields } from '../../../../_shared/components/filter/interface/filter-interface.model';
 import { PaginatorEvent } from '../../../../_shared/components/paginator/models/page-event.model';
@@ -26,8 +27,11 @@ export class ListFilesComponent implements OnInit {
   sortParams = { order: Order.DESC, orderBy: 'id' };
   isLoading: boolean = false;
 
+  showFilters: boolean = false;
+
   filterForm: FormGroup;
   itemsCount: number = 0;
+  perm: NgxPermissionsObject = null;
 
   data: IFiles[] = [];
 
@@ -89,10 +93,11 @@ export class ListFilesComponent implements OnInit {
     private filesService: FilesService,
     private swalService: SwalService,
     private dialog: MatDialog,
-
-    private activeRoute: ActivatedRoute
-  ) {}
-
+    private activeRoute: ActivatedRoute,
+    private permissionsService: NgxPermissionsService
+  ) {
+    this.perm = this.permissionsService.getPermissions();
+  }
   ngOnInit() {
     this.loadData();
   }

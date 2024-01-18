@@ -24,15 +24,15 @@ import { VideosRegisterComponent } from '../videos-register/videos-register.comp
   styleUrls: ['./list-videos.component.scss'],
 })
 export class ListVideosComponent implements OnInit {
-  pagination = { page: 1, pageCount: 10 };
+  pagination = { page: 1, pageCount: 6 };
   sortParams = { order: Order.DESC, orderBy: 'id' };
   isLoading: boolean = false;
   filterForm: FormGroup;
   itemsCount: number = 0;
-
+  showFilters: boolean = false;
   campaings: ICampaing[] = [];
   categories: ICategory[] = [];
-
+  length: number;
   videos: IVideos[] = [];
 
   filterControls: FiltersFields[] = [

@@ -26,6 +26,8 @@ export class ListImagesComponent implements OnInit {
   filterForm: FormGroup;
   itemsCount: number = 0;
 
+  showFilters: boolean = false;
+
   images: IImages[] = [];
 
   filterControls: FiltersFields[] = [

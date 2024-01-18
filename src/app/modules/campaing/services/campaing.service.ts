@@ -9,7 +9,7 @@ import { ICampaing } from '../models/campaing.model';
 export class CampaingService {
   constructor(private http: HttpClient) {}
 
-  getCampaings(params: any): Observable<any> {
+  getCampaings(params: any): Observable<IPaginationRes<ICampaing>> {
     return this.http.get<IPaginationRes<ICampaing>>('/campaing', {
       params: { ...params },
     });

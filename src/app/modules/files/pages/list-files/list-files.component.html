@@ -1,8 +1,17 @@
 <div class="flex justify-end mb-2">
-  <button class="btn blue" (click)="register()">Adicionar</button>
+  <button class="btn white" (click)="showFilters = !showFilters">
+    <img class="icon-btn mr-2" [src]="'../../assets/svgs/circle.svg'" />Filtros
+  </button>
+  <button
+    *ngxPermissionsOnly="['ADMIN']"
+    class="btn blue ml-2"
+    (click)="register()"
+  >
+    <img class="icon-btn mr-2" [src]="'../../assets/svgs/add.svg'" />Adicionar
+  </button>
 </div>
-<main class="main-body">
-  <section class="flex justify-center mb-5">
+<mat-expansion-panel class="mat-elevation-z0" [expanded]="showFilters">
+  <section class="flex justify-center mb-5 w-12/12 pt-10">
     <div>
       <filter
         [setControls]="filterControls"
@@ -11,7 +20,8 @@
       ></filter>
     </div>
   </section>
-
+</mat-expansion-panel>
+<main class="main-body">
   <div class="title mb-5">
     <h1>Arquivos</h1>
   </div>
@@ -21,7 +31,7 @@
       #appTable
       [tableData]="data"
       [isLoading]="isLoading"
-      [options]="'Ações'"
+      [options]="perm['ADMIN'] ? 'Ações' : ''"
       [pageSizeOptions]="[5, 10, 15]"
       [pageOptions]="{ pageIndex: 1, listLength: itemsCount }"
       [tableColumns]="displayedColumns"
@@ -29,7 +39,7 @@
       (changePageData)="changePage($event)"
       [isPageable]="true"
     >
-      <ng-template #actions let-file="element">
+      <ng-template *ngxPermissionsOnly="'ADMIN'" #actions let-file="element">
         <button
           matTooltip="Download"
           mat-icon-button

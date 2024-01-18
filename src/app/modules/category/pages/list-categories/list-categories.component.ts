@@ -27,7 +27,7 @@ export class ListCategoriesComponent implements OnInit {
   data: ICategory[] = [];
   filterForm: FormGroup;
   perm: NgxPermissionsObject = null;
-
+  showFilters: boolean = false;
   isLoading: boolean = false;
 
   itemsCount: number = 0;
@@ -80,8 +80,8 @@ export class ListCategoriesComponent implements OnInit {
     private swalService: SwalService,
     private router: Router,
     private dialog: MatDialog,
-    private permissionsService: NgxPermissionsService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private permissionsService: NgxPermissionsService
   ) {
     this.perm = this.permissionsService.getPermissions();
   }

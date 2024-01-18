@@ -1,17 +1,26 @@
-<section class="flex justify-center mb-5">
-  <div>
-    <filter
-      [setControls]="filterControls"
-      (emitFilterValue)="submitFilters($event)"
-      (emitClearFilter)="clearFilters($event)"
-    ></filter>
-  </div>
-</section>
 <div class="flex justify-end mb-2">
-  <button class="btn blue" (click)="register()">
-    <img class="icon-btn mr-2" [src]="'../../assets/svgs/add.svg'" /> Adicionar
+  <button class="btn white" (click)="showFilters = !showFilters">
+    <img class="icon-btn mr-2" [src]="'../../assets/svgs/circle.svg'" />Filtros
+  </button>
+  <button
+    *ngxPermissionsOnly="['ADMIN']"
+    class="btn blue ml-2"
+    (click)="register()"
+  >
+    <img class="icon-btn mr-2" [src]="'../../assets/svgs/add.svg'" />Adicionar
   </button>
 </div>
+<mat-expansion-panel class="mat-elevation-z0" [expanded]="showFilters">
+  <section class="flex justify-center mb-5 w-12/12 pt-10">
+    <div>
+      <filter
+        [setControls]="filterControls"
+        (emitFilterValue)="submitFilters($event)"
+        (emitClearFilter)="clearFilters($event)"
+      ></filter>
+    </div>
+  </section>
+</mat-expansion-panel>
 <main class="p-10">
   <div class="title mb-5">
     <h1>Videos</h1>
@@ -30,11 +39,11 @@
       <div class="video-info-container">
         <div>
           <h1 class="video-title">{{ video.descricao }}</h1>
-          <p class="video-info">Nome: {{ video.nome }}</p>
-          <p class="video-info">Categoria: {{ video.category.nome }}</p>
-          <p class="video-info">Campanha: {{ video.campaing.nome }}</p>
+          <p class="video-info"><b>Nome</b>: {{ video.nome }}</p>
+          <p class="video-info"><b>Categoria</b>: {{ video.category.nome }}</p>
+          <p class="video-info"><b>Campanha</b>: {{ video.campaing.nome }}</p>
         </div>
-        <div class="flex w-12/12 my-2">
+        <div *ngxPermissionsOnly="'ADMIN'" class="flex w-12/12 my-2">
           <div class="flex justify-start w-6/12">
             <button class="btn green w-40" (click)="edit(video.id)">
               <div class="mr-3">
@@ -56,4 +65,10 @@
     </div>
     }
   </div>
+  <paginator
+    #paginator
+    [pageSize]="pagination.pageCount"
+    [pageOptions]="{ pageIndex: 1, listLength: itemsCount }"
+    (onPageChange)="changePage($event)"
+  ></paginator>
 </main>

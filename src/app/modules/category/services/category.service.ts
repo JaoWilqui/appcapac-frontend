@@ -11,7 +11,7 @@ import { ICategory } from '../../category/models/category.model';
 export class CategoryService {
   constructor(private http: HttpClient) {}
 
-  getCategories(params: any): Observable<any> {
+  getCategories(params: any): Observable<IPaginationRes<ICategory>> {
     return this.http.get<IPaginationRes<ICategory>>('/category', {
       params: { ...params },
     });

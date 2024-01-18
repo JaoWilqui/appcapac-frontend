@@ -1,1 +1,39 @@
-<main class="main-body"></main>
+<main>
+  <section class="welcome-container w-12/12">
+    <h1>Bem vindo {{ user.nome }}</h1>
+    <p>Aproveite o CapNegócios e melhore suas vendas</p>
+  </section>
+
+  <section class="w-12/12 charts_orb mt-10">
+    <article class="orb">
+      <div class="orb_graphic">
+        <svg>
+          <circle class="fill"></circle>
+          <circle class="progress"></circle>
+        </svg>
+        <div class="orb_value count">{{ campaingsCount }}</div>
+        <div>Campanhas</div>
+      </div>
+    </article>
+    <article class="orb">
+      <div class="orb_graphic">
+        <svg>
+          <circle class="fill"></circle>
+          <circle class="progress"></circle>
+        </svg>
+        <div class="orb_value count">{{ categoriesCount }}</div>
+        <div>Categorias</div>
+      </div>
+    </article>
+    <article class="orb">
+      <div class="orb_graphic">
+        <svg>
+          <circle class="fill"></circle>
+          <circle class="progress"></circle>
+        </svg>
+        <div class="orb_value count">{{ operatorsCount }}</div>
+        <p>Operadoras</p>
+      </div>
+    </article>
+  </section>
+</main>

@@ -1,10 +1,17 @@
 <div class="flex justify-end mb-2">
-  <button *ngxPermissionsOnly="'ADMIN'" class="btn blue" (click)="register()">
-    <img class="icon-btn mr-2" [src]="'../../assets/svgs/add.svg'" /> Adicionar
+  <button class="btn white" (click)="showFilters = !showFilters">
+    <img class="icon-btn mr-2" [src]="'../../assets/svgs/circle.svg'" />Filtros
+  </button>
+  <button
+    *ngxPermissionsOnly="['ADMIN']"
+    class="btn blue ml-2"
+    (click)="register()"
+  >
+    <img class="icon-btn mr-2" [src]="'../../assets/svgs/add.svg'" />Adicionar
   </button>
 </div>
-<div class="main-body">
-  <section class="flex justify-center mb-5">
+<mat-expansion-panel class="mat-elevation-z0" [expanded]="showFilters">
+  <section class="flex justify-center mb-5 w-12/12 pt-10">
     <div>
       <filter
         [setControls]="filterControls"
@@ -13,6 +20,8 @@
       ></filter>
     </div>
   </section>
+</mat-expansion-panel>
+<main class="main-body">
   <div class="title mb-5">
     <h1>Campanhas</h1>
   </div>
@@ -47,4 +56,4 @@
       </ng-template>
     </app-table>
   </section>
-</div>
+</main>

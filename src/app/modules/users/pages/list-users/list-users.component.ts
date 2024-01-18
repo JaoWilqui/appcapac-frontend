@@ -27,6 +27,8 @@ export class ListUsersComponent implements OnInit {
   isLoading: boolean = false;
   filterForm: FormGroup;
 
+  showFilters: boolean = false;
+
   data: User[] = [];
 
   itemsCount: number = 0;

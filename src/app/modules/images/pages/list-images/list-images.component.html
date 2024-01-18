@@ -1,18 +1,26 @@
-<section class="flex justify-center mb-5">
-  <div>
-    <filter
-      [setControls]="filterControls"
-      (emitFilterValue)="submitFilters($event)"
-      (emitClearFilter)="clearFilters($event)"
-    ></filter>
-  </div>
-</section>
 <div class="flex justify-end mb-2">
-  <button class="btn blue" (click)="register()">
-    <img class="icon-btn mr-2" [src]="'../../assets/svgs/add.svg'" />
-    Adicionar
+  <button class="btn white" (click)="showFilters = !showFilters">
+    <img class="icon-btn mr-2" [src]="'../../assets/svgs/circle.svg'" />Filtros
+  </button>
+  <button
+    *ngxPermissionsOnly="['ADMIN']"
+    class="btn blue ml-2"
+    (click)="register()"
+  >
+    <img class="icon-btn mr-2" [src]="'../../assets/svgs/add.svg'" />Adicionar
   </button>
 </div>
+<mat-expansion-panel class="mat-elevation-z0" [expanded]="showFilters">
+  <section class="flex justify-center mb-5 w-12/12 pt-10">
+    <div>
+      <filter
+        [setControls]="filterControls"
+        (emitFilterValue)="submitFilters($event)"
+        (emitClearFilter)="clearFilters($event)"
+      ></filter>
+    </div>
+  </section>
+</mat-expansion-panel>
 <main class="p-10">
   <div class="title mb-5">
     <h1>Imagens</h1>
@@ -26,11 +34,13 @@
         <div class="img-info-container">
           <div>
             <h1 class="image-title">{{ image.descricao }}</h1>
-            <p class="image-info">Nome: {{ image.nome }}</p>
-            <p class="image-info">Categoria: {{ image.category.nome }}</p>
-            <p class="image-info">Campanha: {{ image.campaing.nome }}</p>
+            <p class="image-info"><b>Nome</b>: {{ image.nome }}</p>
+            <p class="image-info">
+              <b>Categoria</b>: {{ image.category.nome }}
+            </p>
+            <p class="image-info"><b>Campanha</b>: {{ image.campaing.nome }}</p>
           </div>
-          <div class="flex w-12/12 my-2">
+          <div *ngxPermissionsOnly="'ADMIN'" class="flex w-12/12 my-2">
             <div class="w-6/12 flex justify-start">
               <button class="btn green w-40" (click)="edit(image.id)">
                 <div class="mr-3">
@@ -56,4 +66,10 @@
       }
     </div>
   </section>
+  <paginator
+    #paginator
+    [pageSize]="pagination.pageCount"
+    [pageOptions]="{ pageIndex: 1, listLength: itemsCount }"
+    (onPageChange)="changePage($event)"
+  ></paginator>
 </main>

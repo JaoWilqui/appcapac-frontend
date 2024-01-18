@@ -1,0 +1,91 @@
+.welcome-container {
+  h1 {
+    margin: 0;
+    padding: 0;
+    color: #303030;
+    font-size: 2.2rem;
+  }
+  p {
+    font-size: 0.875rem;
+  }
+}
+
+.chart-box {
+  background-color: white;
+  border-radius: 10px;
+  width: 33%;
+  gap: 50px;
+  border: solid 2px rgb(231, 236, 238);
+}
+
+.charts_orb {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  .orb {
+    padding: 20px;
+    border-radius: 10px;
+    border: solid 2px rgb(231, 236, 238);
+    background-color: white;
+    .orb_graphic {
+      position: relative;
+
+      .orb_value {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5em;
+        font-weight: bold;
+      }
+    } //.orb_graphic
+
+    .orb_label {
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 1em;
+    } //.orb_label
+  } //.orb
+
+  svg {
+    width: 110px;
+    height: 110px;
+
+    circle {
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+      stroke-dasharray: 314.16, 314.16;
+      stroke-width: 2;
+      fill: transparent;
+      r: 50;
+      cx: 55;
+      cy: 55;
+
+      &.fill {
+        stroke: #d3d3d3;
+      }
+
+      &.progress {
+        stroke: #ff6b00;
+        transition: stroke-dashoffset 0.35s;
+        stroke-dashoffset: 214.16;
+        -webkit-animation: NAME-YOUR-ANIMATION 1.5s forwards;
+        -webkit-animation-timing-function: linear;
+
+        @-webkit-keyframes NAME-YOUR-ANIMATION {
+          0% {
+            stroke-dashoffset: 314.16;
+          }
+          100% {
+            stroke-dashoffset: 0;
+          }
+        }
+      }
+    }
+  }
+}

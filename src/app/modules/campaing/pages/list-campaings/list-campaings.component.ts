@@ -29,7 +29,7 @@ export class ListCampaingsComponent implements OnInit {
   filterForm: FormGroup;
   isLoading: boolean = false;
   perm: NgxPermissionsObject = null;
-
+  showFilters: boolean = false;
   itemsCount: number = 0;
   displayedColumns: Fields[] = [
     {
