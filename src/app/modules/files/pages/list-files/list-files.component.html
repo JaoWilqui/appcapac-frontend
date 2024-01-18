@@ -30,6 +30,13 @@
       [isPageable]="true"
     >
       <ng-template #actions let-file="element">
+        <button
+          matTooltip="Download"
+          mat-icon-button
+          (click)="downloadFile(file.fileRelativePath)"
+        >
+          <mat-icon>download</mat-icon>
+        </button>
         <button matTooltip="Editar" mat-icon-button (click)="edit(file.id)">
           <img class="icon-btn" [src]="'../../assets/svgs/edit.svg'" />
         </button>

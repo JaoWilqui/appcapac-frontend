@@ -1,13 +1,27 @@
 <header>
   <nav class="top-bar">
-    <div class="flex">
-      <img class="icon-img" [src]="'../../assets/svgs/chart.svg'" alt="" />
+    <div class="flex items-center mr-5">
+      <img class="icon-img" [src]="'../../assets/svgs/circle.svg'" alt="" />
       <img
         class="icon-img"
         [src]="'../../assets/svgs/notification.svg'"
         alt=""
       />
-      <img class="icon-img" [src]="'../../assets/svgs/circle.svg'" alt="" />
+      <img
+        class="profile-img"
+        [matMenuTriggerFor]="menu"
+        [src]="'../../assets/svgs/man.svg'"
+        alt=""
+      />
+      <mat-menu class="w-60" #menu="matMenu">
+        <div class="user-name">{{ user.nome }}</div>
+        <button (click)="goToProfile()" mat-menu-item>
+          <mat-icon>account_circle</mat-icon> Perfil
+        </button>
+        <button (click)="logout()" mat-menu-item>
+          <mat-icon>logout</mat-icon> Sair
+        </button>
+      </mat-menu>
     </div>
   </nav>
 </header>

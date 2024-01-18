@@ -17,6 +17,10 @@
   outline: none;
   overflow: hidden;
 
+  img {
+    object-fit: contain;
+  }
+
   .picture_image {
     width: 100%;
   }

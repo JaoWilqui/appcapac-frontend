@@ -6,11 +6,18 @@
   align-items: center;
   justify-content: end;
   background-color: white;
-}
-.icon-img {
-  margin-right: 10px;
-  width: 30px;
-  height: 30px;
+
+  .profile-img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+  }
+
+  .icon-img {
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+  }
 }
 header {
   height: 150px;
@@ -23,4 +30,9 @@ header {
   z-index: 100;
   align-items: center;
   background: transparent;
+}
+
+.user-name {
+  padding: 10px 0px 10px 15px;
+  border-bottom: 1px solid rgb(231, 236, 238);
 }

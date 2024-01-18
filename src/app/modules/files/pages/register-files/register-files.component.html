@@ -29,7 +29,7 @@
             #fileInput
             type="file"
             accept=".pdf"
-            (change)="processFile(fileInput)"
+            (change)="processFile(fileInput.files[0])"
             customInput
             [formControl]="fileControl"
           />

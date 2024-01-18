@@ -58,6 +58,27 @@ export class AsideMenuService {
         ],
       },
     ],
+    [PERMS.USER]: [
+      {
+        label: 'Gerenciamento',
+        expanded: false,
+        icon: '../../assets/svgs/chart.svg',
+        subItems: [
+          {
+            label: 'Categoria',
+            path: '/category',
+          },
+          {
+            label: 'Campanha',
+            path: '/campaing',
+          },
+          {
+            label: 'Operadoras',
+            path: '/operators',
+          },
+        ],
+      },
+    ],
   };
 
   MODULES_LITERAL: MenuObjectLiteral = {

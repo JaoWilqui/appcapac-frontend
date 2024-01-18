@@ -7,7 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import {
   AdhesionOption,
   adhesionOptions,
@@ -54,8 +55,7 @@ export class RegisterFilesComponent implements OnInit {
     private operatorsService: OperatorsService,
     private dialogRef: MatDialogRef<RegisterFilesComponent>,
     @Inject(MAT_DIALOG_DATA) private data: { id: number },
-    private swalService: SwalService,
-    private activeRoute: ActivatedRoute
+    private swalService: SwalService
   ) {
     if (this.data) this.fileId = this.data?.id;
   }
@@ -78,7 +78,7 @@ export class RegisterFilesComponent implements OnInit {
       nome: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
       category: this.fb.control<number>(null, Validators.required),
-      file: ['', [Validators.required]],
+      file: [null, [Validators.required]],
       tipo: ['', [Validators.required]],
       uf: ['', [Validators.required]],
       adesao: ['', [Validators.required]],
@@ -112,8 +112,24 @@ export class RegisterFilesComponent implements OnInit {
 
   getFile() {
     this.filesService.getFileById(this.fileId).subscribe({
-      next: (res) => {
+      next: async (res) => {
         this.fileObject = res;
+
+        const file = await firstValueFrom(
+          this.filesService.downloadFile(this.fileObject.fileRelativePath)
+        );
+
+        const fileInput = new File(
+          [file],
+          `${
+            'arquivo_' +
+            this.fileObject.id +
+            '.' +
+            this.fileObject.fileRelativePath.split('.').pop()
+          }`
+        );
+
+        this.processFile(fileInput);
         this.populateForms();
       },
     });
@@ -123,6 +139,7 @@ export class RegisterFilesComponent implements OnInit {
     this.registerFileForm.patchValue({
       ...this.fileObject,
       category: this.fileObject.category.id,
+      operator: this.fileObject.operator.id,
     });
   }
 
@@ -136,8 +153,7 @@ export class RegisterFilesComponent implements OnInit {
 
   processFile(fileInput: any) {
     this.file = null;
-    this.file = fileInput.files[0];
-    console.log(fileInput.files[0]);
+    this.file = fileInput;
   }
 
   updateImage() {

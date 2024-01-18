@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { NgxPermissionsService } from 'ngx-permissions';
 import { Observable } from 'rxjs';
 import { clearUser } from '../../_store/user/user.actions';
 import { IAuthRes, ILogin, IUserProfile } from '../models/auth.model';
@@ -11,6 +12,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private permissionsService: NgxPermissionsService,
     private store: Store
   ) {}
 
@@ -20,6 +22,7 @@ export class AuthService {
 
   logout(path: string) {
     localStorage.removeItem('authToken');
+    this.permissionsService.flushPermissions();
     this.store.select(clearUser);
     this.router.navigate([path]);
   }

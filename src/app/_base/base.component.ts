@@ -9,10 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { User } from '../_shared/models/user.model';
-import { AuthService } from '../auth/services/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -37,12 +34,7 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
     // this.handleResize();
   }
 
-  constructor(
-    private renderer: Renderer2,
-    private store: Store<any>,
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private renderer: Renderer2) {}
   ngOnDestroy(): void {}
 
   ngOnInit(): void {}
@@ -54,10 +46,6 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.renderer.setStyle(this.side.nativeElement, 'width', '350px');
     this.isPropertiesShown = true;
-  }
-
-  logout() {
-    this.authService.logout('login');
   }
 
   handleExpansion() {

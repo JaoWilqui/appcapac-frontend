@@ -8,7 +8,9 @@
   </div>
 </section>
 <div class="flex justify-end mb-2">
-  <button class="btn blue" (click)="register()">Adicionar</button>
+  <button class="btn blue" (click)="register()">
+    <img class="icon-btn mr-2" [src]="'../../assets/svgs/add.svg'" /> Adicionar
+  </button>
 </div>
 <main class="p-10">
   <div class="title mb-5">
@@ -33,7 +35,7 @@
           <p class="video-info">Campanha: {{ video.campaing.nome }}</p>
         </div>
         <div class="flex w-12/12 my-2">
-          <div class="justify-start w-6/12">
+          <div class="flex justify-start w-6/12">
             <button class="btn green w-40" (click)="edit(video.id)">
               <div class="mr-3">
                 <img class="icon-btn" [src]="'../../assets/svgs/edit.svg'" />
@@ -41,7 +43,7 @@
               editar
             </button>
           </div>
-          <div class="justify-end w-6/12">
+          <div class="flex justify-end w-6/12">
             <button class="btn red w-40" (click)="delete(video.id)">
               <div class="mr-3">
                 <img class="icon-btn" [src]="'../../assets/svgs/delete.svg'" />

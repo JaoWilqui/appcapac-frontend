@@ -1,5 +1,7 @@
 <div class="flex justify-end mb-2">
-  <button class="btn blue" (click)="register()">Adicionar</button>
+  <button *ngxPermissionsOnly="'ADMIN'" class="btn blue" (click)="register()">
+    <img class="icon-btn mr-2" [src]="'../../assets/svgs/add.svg'" /> Adicionar
+  </button>
 </div>
 <div class="main-body">
   <section class="flex justify-center mb-5">
@@ -21,7 +23,7 @@
       #appTable
       [tableData]="data"
       [isLoading]="isLoading"
-      [options]="'Ações'"
+      [options]="perm['ADMIN'] ? 'Ações' : ''"
       [pageSizeOptions]="[5, 10, 15]"
       [pageOptions]="{ pageIndex: 1, listLength: itemsCount }"
       [tableColumns]="displayedColumns"
@@ -29,7 +31,11 @@
       (changePageData)="changePage($event)"
       [isPageable]="true"
     >
-      <ng-template #actions let-category="element">
+      <ng-template
+        *ngxPermissionsOnly="'ADMIN'"
+        #actions
+        let-category="element"
+      >
         <button matTooltip="Editar" mat-icon-button (click)="edit(category.id)">
           <img class="icon-btn" [src]="'../../assets/svgs/edit.svg'" />
         </button>

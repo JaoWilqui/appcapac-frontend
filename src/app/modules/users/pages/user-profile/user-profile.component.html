@@ -1,0 +1,99 @@
+<main class="profile-body flex">
+  <section class="user-info py-10 flex flex-col items-center justify-center">
+    <img class="img-profile" [src]="'../../assets/svgs/man.svg'" alt="" />
+    <h1>{{ user.nome }}</h1>
+    <p>{{ user.email }}</p>
+  </section>
+
+  <section class="form-container flex flex-col p-10">
+    <div class="profile-title mb-5">
+      <h1>Perfil</h1>
+      <p>Edite o perfil do usuário</p>
+    </div>
+    <form [formGroup]="registerUserForm" class="w-4/12 grid grid-cols-1">
+      <div class="mb-3">
+        <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
+          <input type="text" customInput formControlName="nome" />
+          <label>Nome</label>
+        </form-field>
+      </div>
+      <div class="mb-3">
+        <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
+          <input type="text" customInput formControlName="sobrenome" />
+          <label>Sobrenome</label>
+        </form-field>
+      </div>
+      <div class="mb-3">
+        <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
+          <input type="text" customInput formControlName="email" />
+          <label>E-mail</label>
+        </form-field>
+      </div>
+      <div class="mb-3">
+        <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
+          <input
+            mask="000.000.000-00"
+            type="text"
+            customInput
+            formControlName="cpf"
+          />
+          <label>CPF</label>
+        </form-field>
+      </div>
+      <div class="mb-3">
+        <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
+          <input
+            customInput
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            autocomplete="on"
+          />
+          <label>Senha</label>
+          <button
+            class="button-password"
+            (click)="showPassword = !showPassword"
+          >
+            <mat-icon class="mt-1 mr-2">{{
+              showPassword ? "visibility" : "visibility_off"
+            }}</mat-icon>
+          </button>
+          <label>senha</label>
+        </form-field>
+      </div>
+      <form-field>
+        <select customInput formControlName="perms">
+          <option [value]="'ADMIN'">Admnistrador</option>
+          <option [value]="'USER'">Usuário</option>
+        </select>
+        <label>Permsissões</label>
+      </form-field>
+    </form>
+
+    <section class="mt-5 w-4/12">
+      <div class="modules-container">
+        <div class="module-area" *ngFor="let module of modules">
+          <input
+            class="module-check"
+            type="checkbox"
+            [checked]="module.active"
+            [value]="module.id"
+            (change)="moduleSelected($event.target.checked, module.id)"
+          />
+          <div class="card-module-info-body">
+            <div class="module-card">
+              <div class="module-content">
+                <mat-icon>{{ module.icon }}</mat-icon>
+                <h3 class="module-title">{{ module.label }}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="flex justify-start my-5">
+      <div class="">
+        <button (click)="sendForm()" class="btn blue">Salvar</button>
+      </div>
+    </section>
+  </section>
+</main>

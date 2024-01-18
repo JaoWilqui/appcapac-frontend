@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxPermissionsObject, NgxPermissionsService } from 'ngx-permissions';
 import { ControlTypeEnum } from '../../../../_shared/components/filter/enum/control-type.enum';
 import { FiltersFields } from '../../../../_shared/components/filter/interface/filter-interface.model';
 import { PaginatorEvent } from '../../../../_shared/components/paginator/models/page-event.model';
@@ -27,6 +28,7 @@ export class ListCampaingsComponent implements OnInit {
   data: ICampaing[] = [];
   filterForm: FormGroup;
   isLoading: boolean = false;
+  perm: NgxPermissionsObject = null;
 
   itemsCount: number = 0;
   displayedColumns: Fields[] = [
@@ -119,9 +121,11 @@ export class ListCampaingsComponent implements OnInit {
     private swalService: SwalService,
     private router: Router,
     private dialog: MatDialog,
-
+    private permissionsService: NgxPermissionsService,
     private activeRoute: ActivatedRoute
-  ) {}
+  ) {
+    this.perm = this.permissionsService.getPermissions();
+  }
 
   register(): void {
     const dialogRef = this.dialog.open(CampaingRegisterComponent, {});
