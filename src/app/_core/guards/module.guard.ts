@@ -24,7 +24,7 @@ export class ModuleGuard {
     if (route.data['perms'].includes(this.profile)) {
       return true;
     } else {
-      this.router.navigate(['/users/profile']);
+      this.router.navigate(['/users/profile/edit']);
       return false;
     }
   }

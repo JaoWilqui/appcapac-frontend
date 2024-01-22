@@ -1,5 +1,5 @@
 import { ICampaing } from '../../campaing/models/campaing.model';
-import { ICategory } from '../../category/models/category.model';
+import { IProduct } from '../../products/models/product.model';
 
 export class IVideos {
   id?: number;
@@ -12,7 +12,7 @@ export class IVideos {
 
   dtcadastro?: Date;
 
-  category: ICategory;
+  product: IProduct;
 
   campaing: ICampaing;
 }

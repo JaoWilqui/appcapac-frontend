@@ -30,6 +30,6 @@ export class HeaderComponent implements OnInit {
   }
 
   goToProfile() {
-    this.router.navigate(['users/profile']);
+    this.router.navigate(['users/profile/edit']);
   }
 }

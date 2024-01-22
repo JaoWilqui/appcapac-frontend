@@ -9,15 +9,6 @@
 </section>
 
 <ul class="main-list">
-  <!-- <li
-    class="menu-item"
-    [routerLink]="['/dashboard']"
-    [routerLinkActive]="'active'"
-  >
-    <img class="icon-img" [src]="'../../assets/svgs/home.svg'" alt="" />
-    <span [ngClass]="isPropertiesShown ? 'open' : 'closed'">Dashboard</span>
-  </li> -->
-
   <ng-container *ngFor="let item of menuList">
     <ng-container *ngIf="!item.subItems">
       <li

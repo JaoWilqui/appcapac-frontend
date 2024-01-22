@@ -1,7 +1,7 @@
 import { AdhesionEnum } from '../../../_shared/models/adhesion.model';
 import { ICampaing } from '../../campaing/models/campaing.model';
-import { ICategory } from '../../category/models/category.model';
 import { IOperator } from '../../operators/models/operators.model';
+import { IProduct } from '../../products/models/product.model';
 
 export class IImages {
   id?: number;
@@ -16,7 +16,7 @@ export class IImages {
 
   operator: IOperator;
 
-  category: ICategory;
+  product: IProduct;
 
   campaing: ICampaing;
 

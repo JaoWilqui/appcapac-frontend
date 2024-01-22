@@ -117,7 +117,7 @@ export class ListCategoriesComponent implements OnInit {
       ...this.pagination,
       ...this.sortParams,
     };
-    this.productService.getCategories(params).subscribe({
+    this.productService.getProducts(params).subscribe({
       next: (res) => {
         this.data = res.data;
         this.itemsCount = res.itemCount;

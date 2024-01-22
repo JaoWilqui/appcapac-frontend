@@ -57,9 +57,9 @@
       </div>
       <div>
         <form-field>
-          <select customInput formControlName="category">
-            @for (category of categories; track $index) {
-            <option [value]="category.id">{{ category.nome }}</option>
+          <select customInput formControlName="product">
+            @for (product of products; track $index) {
+            <option [value]="product.id">{{ product.nome }}</option>
 
             }
           </select>

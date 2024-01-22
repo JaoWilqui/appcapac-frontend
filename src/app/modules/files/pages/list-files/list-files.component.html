@@ -39,7 +39,7 @@
       (changePageData)="changePage($event)"
       [isPageable]="true"
     >
-      <ng-template *ngxPermissionsOnly="'ADMIN'" #actions let-file="element">
+      <ng-template #actions let-file="element">
         <button
           matTooltip="Download"
           mat-icon-button
@@ -47,10 +47,20 @@
         >
           <mat-icon>download</mat-icon>
         </button>
-        <button matTooltip="Editar" mat-icon-button (click)="edit(file.id)">
+        <button
+          *ngxPermissionsOnly="'ADMIN'"
+          matTooltip="Editar"
+          mat-icon-button
+          (click)="edit(file.id)"
+        >
           <img class="icon-btn" [src]="'../../assets/svgs/edit.svg'" />
         </button>
-        <button matTooltip="Deletar" mat-icon-button (click)="delete(file.id)">
+        <button
+          *ngxPermissionsOnly="'ADMIN'"
+          matTooltip="Deletar"
+          mat-icon-button
+          (click)="delete(file.id)"
+        >
           <img class="icon-btn" [src]="'../../assets/svgs/delete.svg'" />
         </button>
       </ng-template>

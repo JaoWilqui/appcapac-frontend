@@ -12,8 +12,8 @@ import { IParams } from '../../../../_shared/models/params.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { ICampaing } from '../../../campaing/models/campaing.model';
 import { CampaingService } from '../../../campaing/services/campaing.service';
-import { ICategory } from '../../../category/models/category.model';
-import { CategoryService } from '../../../category/services/category.service';
+import { IProduct } from '../../../products/models/product.model';
+import { ProductService } from '../../../products/services/product.service';
 import { IVideos } from '../../models/videos.model';
 import { VideosService } from '../../services/videos.service';
 import { VideosRegisterComponent } from '../videos-register/videos-register.component';
@@ -31,7 +31,7 @@ export class ListVideosComponent implements OnInit {
   itemsCount: number = 0;
   showFilters: boolean = false;
   campaings: ICampaing[] = [];
-  categories: ICategory[] = [];
+  products: IProduct[] = [];
   length: number;
   videos: IVideos[] = [];
 
@@ -62,7 +62,7 @@ export class ListVideosComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private videosService: VideosService,
     private swalService: SwalService,
-    private categoryService: CategoryService,
+    private productService: ProductService,
     private campaingService: CampaingService,
     private dialog: MatDialog
   ) {}
@@ -116,8 +116,8 @@ export class ListVideosComponent implements OnInit {
   }
 
   getCategories() {
-    this.categoryService.getCategories({}).subscribe((res) => {
-      this.categories = res.data;
+    this.productService.getProducts({}).subscribe((res) => {
+      this.products = res.data;
     });
   }
 

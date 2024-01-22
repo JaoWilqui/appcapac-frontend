@@ -22,12 +22,12 @@ import { BrlState, brlStates } from '../../../../_shared/models/states.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { ICampaing } from '../../../campaing/models/campaing.model';
 import { CampaingService } from '../../../campaing/services/campaing.service';
-import { ICategory } from '../../../category/models/category.model';
-import { CategoryService } from '../../../category/services/category.service';
 import { IImages } from '../../../images/models/images.model';
 import { ImagesService } from '../../../images/services/images.service';
 import { IOperator } from '../../../operators/models/operators.model';
 import { OperatorsService } from '../../../operators/services/operators.service';
+import { IProduct } from '../../../products/models/product.model';
+import { ProductService } from '../../../products/services/product.service';
 
 @Component({
   selector: 'app-images-register',
@@ -52,11 +52,11 @@ export class ImagesRegisterComponent implements OnInit {
 
   operators: IOperator[] = [];
 
-  categories: ICategory[] = [];
+  products: IProduct[] = [];
   constructor(
     private fb: FormBuilder,
     private imagesService: ImagesService,
-    private categoryService: CategoryService,
+    private productService: ProductService,
     private campaingService: CampaingService,
     private operatorsService: OperatorsService,
     private swalService: SwalService,
@@ -84,7 +84,7 @@ export class ImagesRegisterComponent implements OnInit {
     this.registerImageForm = this.fb.group({
       nome: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
-      category: this.fb.control<number>(null, Validators.required),
+      product: this.fb.control<number>(null, Validators.required),
       campaing: this.fb.control<number>(null, Validators.required),
       imageFile: [''],
       adesao: ['', [Validators.required]],
@@ -98,8 +98,8 @@ export class ImagesRegisterComponent implements OnInit {
   }
 
   getCategories() {
-    this.categoryService.getCategories({}).subscribe((res) => {
-      this.categories = res.data;
+    this.productService.getProducts({}).subscribe((res) => {
+      this.products = res.data;
     });
   }
 
@@ -139,7 +139,7 @@ export class ImagesRegisterComponent implements OnInit {
     this.registerImageForm.patchValue({
       ...this.images,
       campaing: this.images.campaing.id,
-      category: this.images.category.id,
+      product: this.images.product.id,
       operator: this.images.operator.id,
     });
   }

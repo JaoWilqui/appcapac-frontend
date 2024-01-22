@@ -30,4 +30,17 @@ export class UsersService {
   deleteUserById(id: number) {
     return this.http.delete<HttpSuccess>(`/user/delete/${id}`);
   }
+
+  changePassword(
+    id: number,
+    changePassword: {
+      newPassword: string;
+      confirmPassword: string;
+    }
+  ): Observable<HttpSuccess> {
+    return this.http.put<HttpSuccess>(
+      `/user/change-password/${id}`,
+      changePassword
+    );
+  }
 }

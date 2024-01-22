@@ -54,7 +54,7 @@ export class AsideComponent implements OnDestroy {
   }
 
   goToProfile() {
-    this.router.navigate(['users/profile']);
+    this.router.navigate(['users/profile/edit']);
   }
 
   changeView() {

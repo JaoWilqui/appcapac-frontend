@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpSuccess } from '../../../_shared/models/http-success.model';
 import { IPaginationRes } from '../../../_shared/models/pagination.model';
-import { IProduct } from '../../product/models/product.model';
+import { IProduct } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ import { IProduct } from '../../product/models/product.model';
 export class ProductService {
   constructor(private http: HttpClient) {}
 
-  getCategories(params: any): Observable<IPaginationRes<IProduct>> {
+  getProducts(params: any): Observable<IPaginationRes<IProduct>> {
     return this.http.get<IPaginationRes<IProduct>>('/product', {
       params: { ...params },
     });

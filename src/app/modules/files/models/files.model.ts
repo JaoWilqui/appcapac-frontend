@@ -1,6 +1,6 @@
 import { AdhesionEnum } from '../../../_shared/models/adhesion.model';
-import { ICategory } from '../../category/models/category.model';
 import { IOperator } from '../../operators/models/operators.model';
+import { IProduct } from '../../products/models/product.model';
 
 export class IFiles {
   id?: number;
@@ -17,7 +17,7 @@ export class IFiles {
 
   fileRelativePath: string;
 
-  category: ICategory;
+  product: IProduct;
 
   tipo: string;
 }

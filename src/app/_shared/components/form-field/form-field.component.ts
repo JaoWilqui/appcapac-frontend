@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ContentChild,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { InputDirective } from '../../directives/custom-input.directive';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'form-field',
@@ -19,18 +12,8 @@ export class FormFieldComponent implements OnInit, AfterViewInit {
     this.style = styleProperties;
   }
 
-  @ContentChild(InputDirective) input: InputDirective;
-
   constructor() {}
 
   ngAfterViewInit(): void {}
   ngOnInit(): void {}
-
-  public resetValue() {
-    if (this.input?.control) {
-      this.input.control.control.setValue('');
-    } else if (this.input?.el) {
-      this.input.el.nativeElement.value = '';
-    }
-  }
 }

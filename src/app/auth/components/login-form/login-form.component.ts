@@ -54,10 +54,11 @@ export class LoginFormComponent implements OnInit {
         next: async (res) => {
           localStorage.setItem('authToken', res.access_token);
           const value = await firstValueFrom(this.authService.getUserInfo());
+
           this.permissionsService.loadPermissions([value.perms]);
 
           this.store.dispatch(setUser({ user: value }));
-          this.route.navigate(['users/profile']);
+          this.route.navigate(['users/profil/edite']);
           this.isLoading = false;
         },
         error: (err: HttpErrorResponse) => {

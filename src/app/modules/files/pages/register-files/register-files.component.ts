@@ -17,10 +17,10 @@ import { brlStates } from '../../../../_shared/models/states.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { ICampaing } from '../../../campaing/models/campaing.model';
 import { CampaingService } from '../../../campaing/services/campaing.service';
-import { ICategory } from '../../../category/models/category.model';
-import { CategoryService } from '../../../category/services/category.service';
 import { IOperator } from '../../../operators/models/operators.model';
 import { OperatorsService } from '../../../operators/services/operators.service';
+import { IProduct } from '../../../products/models/product.model';
+import { ProductService } from '../../../products/services/product.service';
 import { IFiles } from '../../models/files.model';
 import { FilesService } from '../../services/files.service';
 import { BrlState } from './../../../../_shared/models/states.model';
@@ -45,12 +45,12 @@ export class RegisterFilesComponent implements OnInit {
 
   campaings: ICampaing[] = [];
 
-  categories: ICategory[] = [];
+  products: IProduct[] = [];
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private filesService: FilesService,
-    private categoryService: CategoryService,
+    private productService: ProductService,
     private campaingService: CampaingService,
     private operatorsService: OperatorsService,
     private dialogRef: MatDialogRef<RegisterFilesComponent>,
@@ -69,7 +69,7 @@ export class RegisterFilesComponent implements OnInit {
     }
     this.initForm();
     this.getCampaings();
-    this.getCategories();
+    this.getProducts();
     this.getOperators();
   }
 
@@ -77,7 +77,7 @@ export class RegisterFilesComponent implements OnInit {
     this.registerFileForm = this.fb.group({
       nome: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
-      category: this.fb.control<number>(null, Validators.required),
+      product: this.fb.control<number>(null, Validators.required),
       file: [null, [Validators.required]],
       tipo: ['', [Validators.required]],
       uf: ['', [Validators.required]],
@@ -90,9 +90,9 @@ export class RegisterFilesComponent implements OnInit {
     return this.registerFileForm.controls['file'] as FormControl;
   }
 
-  getCategories() {
-    this.categoryService.getCategories({}).subscribe((res) => {
-      this.categories = res.data;
+  getProducts() {
+    this.productService.getProducts({}).subscribe((res) => {
+      this.products = res.data;
     });
   }
 
@@ -129,6 +129,8 @@ export class RegisterFilesComponent implements OnInit {
           }`
         );
 
+        this.fileControl.setValue(fileInput.name);
+
         this.processFile(fileInput);
         this.populateForms();
       },
@@ -138,7 +140,7 @@ export class RegisterFilesComponent implements OnInit {
   populateForms() {
     this.registerFileForm.patchValue({
       ...this.fileObject,
-      category: this.fileObject.category.id,
+      product: this.fileObject.product.id,
       operator: this.fileObject.operator.id,
     });
   }
@@ -151,7 +153,8 @@ export class RegisterFilesComponent implements OnInit {
     this.registerImage();
   }
 
-  processFile(fileInput: any) {
+  processFile(fileInput: File) {
+    this.fileControl.setValue(fileInput.name);
     this.file = null;
     this.file = fileInput;
   }

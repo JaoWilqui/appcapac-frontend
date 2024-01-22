@@ -52,6 +52,7 @@ ul {
   display: flex;
   align-items: center;
   height: 54px;
+  position: relative;
   cursor: pointer;
   padding: 20px 15px 20px 15px;
   transition: all ease 0.2s;
@@ -75,7 +76,7 @@ ul {
 
   span {
     font-family: Poppins, Helvetica, "sans-serif" !important;
-    color: var(--dark-green);
+    color: var(--dark-gray);
     font-size: 15px;
     background: transparent;
     word-break: keep-all !important;
@@ -84,16 +85,23 @@ ul {
     &.open {
       width: 100%;
       opacity: 1;
-      transition: all ease 0.2s;
     }
     &.closed {
       opacity: 0;
       width: 0%;
-      transition: all ease 0.2s;
     }
   }
 
   &.active {
+    &::after {
+      content: "";
+      right: 0;
+      position: absolute;
+      width: 2px;
+      background-color: var(--blue);
+      height: 80%;
+    }
+
     background-color: var(--white-blue);
     color: var(--blue);
   }
