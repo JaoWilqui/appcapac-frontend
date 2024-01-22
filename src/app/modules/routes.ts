@@ -1,12 +1,5 @@
 export const routeModules = [
   {
-    path: 'dashboard',
-    loadChildren: () =>
-      import('./dashboard/dashboard.module').then(
-        (module) => module.DashboardModule
-      ),
-  },
-  {
     path: 'users',
     loadChildren: () =>
       import('./users/users.module').then((module) => module.UsersModule),
@@ -26,10 +19,10 @@ export const routeModules = [
   },
 
   {
-    path: 'category',
+    path: 'product',
     loadChildren: () =>
-      import('./category/category.module').then(
-        (module) => module.CategoryModule
+      import('./products/product.module').then(
+        (module) => module.ProductModule
       ),
   },
 

@@ -12,19 +12,19 @@ import { Fields } from '../../../../_shared/components/table/interface/tableColu
 import { Order } from '../../../../_shared/models/pagination.model';
 import { IParams } from '../../../../_shared/models/params.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
-import { ICategory } from '../../models/category.model';
-import { CategoryService } from '../../services/category.service';
-import { CategoryRegisterComponent } from '../category-register/category-register.component';
+import { IProduct } from '../../models/product.model';
+import { ProductService } from '../../services/product.service';
+import { ProductRegisterComponent } from '../product-register/product-register.component';
 
 @Component({
-  selector: 'app-list-categories',
-  templateUrl: './list-categories.component.html',
-  styleUrls: ['./list-categories.component.scss'],
+  selector: 'app-list-products',
+  templateUrl: './list-products.component.html',
+  styleUrls: ['./list-products.component.scss'],
 })
 export class ListCategoriesComponent implements OnInit {
   pagination = { page: 1, pageCount: 10 };
   sortParams = { order: Order.DESC, orderBy: 'id' };
-  data: ICategory[] = [];
+  data: IProduct[] = [];
   filterForm: FormGroup;
   perm: NgxPermissionsObject = null;
   showFilters: boolean = false;
@@ -76,7 +76,7 @@ export class ListCategoriesComponent implements OnInit {
     },
   ];
   constructor(
-    private categoryService: CategoryService,
+    private productService: ProductService,
     private swalService: SwalService,
     private router: Router,
     private dialog: MatDialog,
@@ -91,7 +91,7 @@ export class ListCategoriesComponent implements OnInit {
   }
 
   register(): void {
-    const dialogRef = this.dialog.open(CategoryRegisterComponent, {});
+    const dialogRef = this.dialog.open(ProductRegisterComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) this.loadData();
@@ -99,7 +99,7 @@ export class ListCategoriesComponent implements OnInit {
   }
 
   edit(id: number) {
-    const dialogRef = this.dialog.open(CategoryRegisterComponent, {
+    const dialogRef = this.dialog.open(ProductRegisterComponent, {
       data: { id },
     });
 
@@ -117,7 +117,7 @@ export class ListCategoriesComponent implements OnInit {
       ...this.pagination,
       ...this.sortParams,
     };
-    this.categoryService.getCategories(params).subscribe({
+    this.productService.getCategories(params).subscribe({
       next: (res) => {
         this.data = res.data;
         this.itemsCount = res.itemCount;
@@ -140,7 +140,7 @@ export class ListCategoriesComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          this.categoryService.deleteCategoryById(id).subscribe({
+          this.productService.deleteProductById(id).subscribe({
             next: (res) => {
               this.swalService.success.fire('Sucesso', res.message);
               this.loadData();

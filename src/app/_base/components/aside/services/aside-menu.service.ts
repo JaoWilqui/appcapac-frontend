@@ -44,8 +44,8 @@ export class AsideMenuService {
         icon: '../../assets/svgs/chart.svg',
         subItems: [
           {
-            label: 'Categoria',
-            path: '/category',
+            label: 'Produto',
+            path: '/product',
           },
           {
             label: 'Campanha',
@@ -65,8 +65,8 @@ export class AsideMenuService {
         icon: '../../assets/svgs/chart.svg',
         subItems: [
           {
-            label: 'Categoria',
-            path: '/category',
+            label: 'Produto',
+            path: '/product',
           },
           {
             label: 'Campanha',
@@ -84,7 +84,7 @@ export class AsideMenuService {
   MODULES_LITERAL: MenuObjectLiteral = {
     [ModulesEnum.imagens]: [
       {
-        label: 'Imagens',
+        label: 'Mídias',
         icon: '../../assets/svgs/image.svg',
         expanded: false,
         subItems: [
@@ -97,7 +97,7 @@ export class AsideMenuService {
     ],
     [ModulesEnum.videos]: [
       {
-        label: 'Videos',
+        label: 'Treinamentos',
         expanded: false,
         icon: '../../assets/svgs/video.svg',
         subItems: [
@@ -110,7 +110,7 @@ export class AsideMenuService {
     ],
     [ModulesEnum.arquivos]: [
       {
-        label: 'Arquivos',
+        label: 'Documentação',
         expanded: false,
 
         icon: '../../assets/svgs/file.svg',

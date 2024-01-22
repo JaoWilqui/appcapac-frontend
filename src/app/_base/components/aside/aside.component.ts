@@ -5,6 +5,7 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { getUser } from '../../../_store/user/user.actions';
@@ -34,7 +35,8 @@ export class AsideComponent implements OnDestroy {
 
   constructor(
     private asideMenuService: AsideMenuService,
-    private store: Store<any>
+    private store: Store<any>,
+    private router: Router
   ) {
     this.unsubscribe.push(
       this.store.select(getUser).subscribe((value) => {
@@ -49,6 +51,10 @@ export class AsideComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
+  }
+
+  goToProfile() {
+    this.router.navigate(['users/profile']);
   }
 
   changeView() {

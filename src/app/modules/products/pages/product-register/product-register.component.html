@@ -1,7 +1,7 @@
 <section class="dialog-header flex items-center justify-between">
   <div>
     <span class="mb-5">
-      <h1>{{ categoryId ? "Editar categoria" : "Adicionar categoria" }}</h1>
+      <h1>{{ productId ? "Editar categoria" : "Adicionar categoria" }}</h1>
     </span>
   </div>
 
@@ -16,7 +16,7 @@
 </section>
 <main mat-dialog-content class="main-body">
   <section>
-    <form [formGroup]="registerCategoryForm" class="grid grid-cols-1">
+    <form [formGroup]="registerProductForm" class="grid grid-cols-1">
       <div class="mb-3">
         <form-field [setStyle]="{ width: '100%', 'min-width': '300px' }">
           <input type="text" customInput formControlName="nome" />

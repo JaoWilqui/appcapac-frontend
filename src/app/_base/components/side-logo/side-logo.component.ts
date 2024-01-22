@@ -11,7 +11,7 @@ export class SideLogoComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  goToDashboard() {
-    this.router.navigate(['dashboard']);
+  goToProfile() {
+    this.router.navigate(['users/profile']);
   }
 }

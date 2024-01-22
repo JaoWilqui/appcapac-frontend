@@ -1,16 +1,22 @@
 <section class="img-container flex justify-center align-items-center">
-  <img width="200" height="200" src="../../assets/logos/logo_horizontal.png" />
+  <img
+    (click)="goToProfile()"
+    width="200"
+    class="logo-img"
+    height="200"
+    src="../../assets/logos/logo_horizontal.png"
+  />
 </section>
 
 <ul class="main-list">
-  <li
+  <!-- <li
     class="menu-item"
     [routerLink]="['/dashboard']"
     [routerLinkActive]="'active'"
   >
     <img class="icon-img" [src]="'../../assets/svgs/home.svg'" alt="" />
     <span [ngClass]="isPropertiesShown ? 'open' : 'closed'">Dashboard</span>
-  </li>
+  </li> -->
 
   <ng-container *ngFor="let item of menuList">
     <ng-container *ngIf="!item.subItems">

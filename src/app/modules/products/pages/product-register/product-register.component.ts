@@ -3,26 +3,26 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SwalService } from '../../../../_shared/services/swal.service';
-import { ICategory } from '../../models/category.model';
-import { CategoryService } from '../../services/category.service';
+import { IProduct } from '../../models/product.model';
+import { ProductService } from '../../services/product.service';
 
 @Component({
-  selector: 'app-category-register',
-  templateUrl: './category-register.component.html',
-  styleUrls: ['./category-register.component.scss'],
+  selector: 'app-product-register',
+  templateUrl: './product-register.component.html',
+  styleUrls: ['./product-register.component.scss'],
 })
-export class CategoryRegisterComponent implements OnInit {
-  registerCategoryForm: FormGroup;
-  category: ICategory;
-  categoryId: number;
+export class ProductRegisterComponent implements OnInit {
+  registerProductForm: FormGroup;
+  product: IProduct;
+  productId: number;
   constructor(
     private fb: FormBuilder,
-    private categoryService: CategoryService,
+    private productService: ProductService,
     private swalService: SwalService,
-    private dialogRef: MatDialogRef<CategoryRegisterComponent>,
+    private dialogRef: MatDialogRef<ProductRegisterComponent>,
     @Inject(MAT_DIALOG_DATA) private data: { id: number }
   ) {
-    if (this.data) this.categoryId = this.data?.id;
+    if (this.data) this.productId = this.data?.id;
   }
 
   goBack() {
@@ -30,34 +30,34 @@ export class CategoryRegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.categoryId) {
-      this.getCategory();
+    if (this.productId) {
+      this.getProduct();
     }
     this.initForm();
   }
 
   initForm() {
-    this.registerCategoryForm = this.fb.group({
+    this.registerProductForm = this.fb.group({
       nome: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
     });
   }
 
-  getCategory() {
-    this.categoryService.getCategoryById(this.categoryId).subscribe({
+  getProduct() {
+    this.productService.getProductById(this.productId).subscribe({
       next: (res) => {
-        this.category = res;
+        this.product = res;
         this.populateForms();
       },
     });
   }
 
   populateForms() {
-    this.registerCategoryForm.patchValue({ ...this.category });
+    this.registerProductForm.patchValue({ ...this.product });
   }
 
   sendForm() {
-    if (this.categoryId) {
+    if (this.productId) {
       this.updateUser();
       return;
     }
@@ -65,12 +65,12 @@ export class CategoryRegisterComponent implements OnInit {
   }
 
   updateUser() {
-    if (this.registerCategoryForm.valid) {
-      this.category = {
-        ...this.registerCategoryForm.value,
+    if (this.registerProductForm.valid) {
+      this.product = {
+        ...this.registerProductForm.value,
       };
-      this.categoryService
-        .updateCategory(this.categoryId, this.category)
+      this.productService
+        .updateProduct(this.productId, this.product)
         .subscribe({
           next: (res) => {
             this.swalService.success.fire('Sucesso!', res.message).then(() => {
@@ -91,11 +91,11 @@ export class CategoryRegisterComponent implements OnInit {
   }
 
   registerUser() {
-    if (this.registerCategoryForm.valid) {
-      this.category = {
-        ...this.registerCategoryForm.value,
+    if (this.registerProductForm.valid) {
+      this.product = {
+        ...this.registerProductForm.value,
       };
-      this.categoryService.postCategory(this.category).subscribe({
+      this.productService.postProduct(this.product).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {
             this.goBack();

@@ -39,18 +39,14 @@
       (changePageData)="changePage($event)"
       [isPageable]="true"
     >
-      <ng-template
-        *ngxPermissionsOnly="'ADMIN'"
-        #actions
-        let-category="element"
-      >
-        <button matTooltip="Editar" mat-icon-button (click)="edit(category.id)">
+      <ng-template *ngxPermissionsOnly="'ADMIN'" #actions let-product="element">
+        <button matTooltip="Editar" mat-icon-button (click)="edit(product.id)">
           <img class="icon-btn" [src]="'../../assets/svgs/edit.svg'" />
         </button>
         <button
           matTooltip="Deletar"
           mat-icon-button
-          (click)="delete(category.id)"
+          (click)="delete(product.id)"
         >
           <img class="icon-btn" [src]="'../../assets/svgs/delete.svg'" />
         </button>

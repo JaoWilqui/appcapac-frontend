@@ -1,4 +1,4 @@
-export class ICategory {
+export class IProduct {
   id?: number;
 
   nome: string;
