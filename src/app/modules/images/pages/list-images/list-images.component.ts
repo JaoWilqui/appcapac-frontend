@@ -37,6 +37,7 @@ export class ListImagesComponent implements OnInit {
       label: 'Nome',
       type: ControlTypeEnum.FORM,
     },
+
     {
       control: new FormControl(''),
       name: 'descricao',

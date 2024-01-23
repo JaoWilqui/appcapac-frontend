@@ -6,12 +6,12 @@ export function changePasswordValidator(): ValidatorFn {
     const confirmPassword = group.controls['confirmPassword'];
 
     if (!newPassword.value || !confirmPassword.value) {
-      return null;
+      return { matchPassword: false };
     }
     console.log(group);
     const passwordValid = newPassword.value == confirmPassword.value;
 
     console.log(passwordValid);
-    return passwordValid ? { matchPassword: true } : null;
+    return passwordValid ? { matchPassword: true } : { matchPassword: false };
   };
 }

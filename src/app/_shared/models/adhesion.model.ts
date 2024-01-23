@@ -1,6 +1,6 @@
 export enum AdhesionEnum {
-  pf = 'PF',
-  pme = 'PME',
+  pf = 'PF/Adesão',
+  pme = 'PME/Empresarial',
 }
 
 export interface AdhesionOption {
@@ -10,11 +10,11 @@ export interface AdhesionOption {
 
 export const adhesionOptions: AdhesionOption[] = [
   {
-    nome: 'PF',
+    nome: 'PF/Adesão',
     value: AdhesionEnum.pf,
   },
   {
-    nome: 'PME',
+    nome: 'PME/Empresarial',
     value: AdhesionEnum.pme,
   },
 ];

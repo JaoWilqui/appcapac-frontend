@@ -14,6 +14,10 @@ export class IImages {
 
   adesao: AdhesionEnum;
 
+  cidade: string;
+
+  uf: string;
+
   operator: IOperator;
 
   product: IProduct;

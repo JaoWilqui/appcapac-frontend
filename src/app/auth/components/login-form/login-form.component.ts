@@ -58,7 +58,7 @@ export class LoginFormComponent implements OnInit {
           this.permissionsService.loadPermissions([value.perms]);
 
           this.store.dispatch(setUser({ user: value }));
-          this.route.navigate(['users/profil/edite']);
+          this.route.navigate(['users/profile/edit']);
           this.isLoading = false;
         },
         error: (err: HttpErrorResponse) => {

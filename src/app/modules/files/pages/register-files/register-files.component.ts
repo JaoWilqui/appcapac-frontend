@@ -81,6 +81,7 @@ export class RegisterFilesComponent implements OnInit {
       file: [null, [Validators.required]],
       tipo: ['', [Validators.required]],
       uf: ['', [Validators.required]],
+      cidade: ['', [Validators.required]],
       adesao: ['', [Validators.required]],
       operator: this.fb.control<number>(null, Validators.required),
     });

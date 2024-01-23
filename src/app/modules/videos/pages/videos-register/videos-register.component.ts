@@ -8,6 +8,11 @@ import {
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import {
+  AdhesionOption,
+  adhesionOptions,
+} from '../../../../_shared/models/adhesion.model';
+import { BrlState, brlStates } from '../../../../_shared/models/states.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { ICampaing } from '../../../campaing/models/campaing.model';
 import { CampaingService } from '../../../campaing/services/campaing.service';
@@ -26,6 +31,10 @@ export class VideosRegisterComponent implements OnInit {
   registerVideoForm: FormGroup;
   videos: IVideos;
   videosId: number;
+
+  states: BrlState[] = brlStates;
+
+  adhesions: AdhesionOption[] = adhesionOptions;
 
   campaings: ICampaing[] = [];
 
@@ -62,6 +71,9 @@ export class VideosRegisterComponent implements OnInit {
     this.registerVideoForm = this.fb.group({
       nome: ['', [Validators.required]],
       link: ['', [Validators.required]],
+      adesao: ['', [Validators.required]],
+      uf: ['', [Validators.required]],
+      cidade: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
       product: this.fb.control<number>(null, Validators.required),
       campaing: this.fb.control<number>(null, Validators.required),

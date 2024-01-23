@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { User } from '../../_shared/models/user.model';
 
 @Injectable({ providedIn: 'root' })
-export class ModuleGuard {
+export class PermsGuard {
   profile: string;
   user: User;
   constructor(private router: Router, private store: Store<any>) {

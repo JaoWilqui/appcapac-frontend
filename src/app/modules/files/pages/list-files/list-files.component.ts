@@ -46,7 +46,16 @@ export class ListFilesComponent implements OnInit {
       dataKey: 'nome',
       isSortable: true,
     },
-
+    {
+      name: 'Cidade',
+      dataKey: 'cidade',
+      isSortable: true,
+    },
+    {
+      name: 'UF',
+      dataKey: 'uf',
+      isSortable: true,
+    },
     {
       name: 'Descricao',
       dataKey: 'descricao',

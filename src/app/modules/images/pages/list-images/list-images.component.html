@@ -37,6 +37,9 @@
             <p class="image-info"><b>Nome</b>: {{ image.nome }}</p>
             <p class="image-info"><b>Categoria</b>: {{ image.product.nome }}</p>
             <p class="image-info"><b>Campanha</b>: {{ image.campaing.nome }}</p>
+            <p class="image-info"><b>Estado</b>: {{ image.uf }}</p>
+            <p class="image-info"><b>Cidade</b>: {{ image.cidade }}</p>
+            <p class="image-info"><b>Adesão</b>: {{ image.adesao }}</p>
           </div>
           <div *ngxPermissionsOnly="'ADMIN'" class="flex w-12/12 my-2">
             <div class="w-6/12 flex justify-start">

@@ -87,6 +87,7 @@ export class ImagesRegisterComponent implements OnInit {
       product: this.fb.control<number>(null, Validators.required),
       campaing: this.fb.control<number>(null, Validators.required),
       imageFile: [''],
+      cidade: ['', [Validators.required]],
       adesao: ['', [Validators.required]],
       uf: ['', [Validators.required]],
       operator: this.fb.control<number>(null, Validators.required),

@@ -1,4 +1,11 @@
-export const routeModules = [
+import { Routes } from '@angular/router';
+
+export const routeModules: Routes = [
+  {
+    path: '',
+    redirectTo: 'users/profile/edit',
+    pathMatch: 'full',
+  },
   {
     path: 'users',
     loadChildren: () =>

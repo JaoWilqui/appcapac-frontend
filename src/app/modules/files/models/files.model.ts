@@ -11,6 +11,10 @@ export class IFiles {
 
   adesao: AdhesionEnum;
 
+  cidade: string;
+
+  uf: string;
+
   operator: IOperator;
 
   dtcadastro?: Date;

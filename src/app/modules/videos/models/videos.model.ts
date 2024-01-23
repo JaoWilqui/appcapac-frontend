@@ -1,3 +1,4 @@
+import { AdhesionEnum } from '../../../_shared/models/adhesion.model';
 import { ICampaing } from '../../campaing/models/campaing.model';
 import { IProduct } from '../../products/models/product.model';
 
@@ -9,6 +10,12 @@ export class IVideos {
   link: string;
 
   nome: string;
+
+  adesao: AdhesionEnum;
+
+  cidade: string;
+
+  uf: string;
 
   dtcadastro?: Date;
 
