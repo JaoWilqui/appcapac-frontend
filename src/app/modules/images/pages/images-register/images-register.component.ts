@@ -55,11 +55,11 @@ export class ImagesRegisterComponent implements OnInit {
   products: IProduct[] = [];
   constructor(
     private fb: FormBuilder,
-    private imagesService: ImagesService,
     private productService: ProductService,
     private campaingService: CampaingService,
     private operatorsService: OperatorsService,
     private swalService: SwalService,
+    private imagesService: ImagesService,
     private dialogRef: MatDialogRef<ImagesRegisterComponent>,
     @Inject(MAT_DIALOG_DATA) private data: { id: number }
   ) {
@@ -128,7 +128,6 @@ export class ImagesRegisterComponent implements OnInit {
           this.imagesService.downloadImage(this.imageSrc)
         );
         const imageFile = new File([img], 'name');
-        console.log(imageFile);
         this.processFile(imageFile);
 
         this.populateForms();

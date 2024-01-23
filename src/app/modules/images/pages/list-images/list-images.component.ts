@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import { ControlTypeEnum } from '../../../../_shared/components/filter/enum/control-type.enum';
 import { FiltersFields } from '../../../../_shared/components/filter/interface/filter-interface.model';
 import { PaginatorEvent } from '../../../../_shared/components/paginator/models/page-event.model';
@@ -12,6 +13,7 @@ import { IParams } from '../../../../_shared/models/params.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { IImages } from '../../../images/models/images.model';
 import { ImagesService } from '../../../images/services/images.service';
+import { ImageViewComponent } from '../../components/image-view/image-view.component';
 import { ImagesRegisterComponent } from '../images-register/images-register.component';
 
 @Component({
@@ -67,6 +69,37 @@ export class ListImagesComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) this.loadData();
     });
+  }
+
+  viewImage(imgPath: string): void {
+    const dialogRef = this.dialog.open(ImageViewComponent, {
+      data: { imgPath },
+      height: '80%',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.loadData();
+    });
+  }
+
+  async downloadImg(image: IImages) {
+    var urlCreator = window.URL || window.webkitURL;
+
+    const img = await firstValueFrom(
+      this.imagesService.downloadImage(image.imageRelativePath)
+    );
+
+    const imageFile = new File([img], 'name');
+
+    var imageUrl = urlCreator.createObjectURL(img);
+
+    const link = document.createElement('a');
+    link.href = imageUrl;
+    link.download = `${image.nome}.${imageFile.type}`;
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
   edit(id: number) {

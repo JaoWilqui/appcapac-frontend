@@ -18,9 +18,17 @@
   color: #ffffff;
   min-height: 27px;
 
+  img {
+    filter: saturate(0%) brightness(1000%);
+  }
+
   &.white {
     background: white;
     color: #001f30;
+
+    img {
+      filter: saturate(0%) brightness(0%);
+    }
   }
 
   &.red {
