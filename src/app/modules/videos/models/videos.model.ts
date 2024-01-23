@@ -1,5 +1,4 @@
 import { AdhesionEnum } from '../../../_shared/models/adhesion.model';
-import { ICampaing } from '../../campaing/models/campaing.model';
 import { IProduct } from '../../products/models/product.model';
 
 export class IVideos {
@@ -21,5 +20,5 @@ export class IVideos {
 
   product: IProduct;
 
-  campaing: ICampaing;
+  // campaing: ICampaing;
 }

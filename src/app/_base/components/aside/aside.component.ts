@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { getUser } from '../../../_store/user/user.actions';
+import { getUserState } from '../../../_store/user/user.selector';
 import { IUserProfile } from '../../../auth/models/auth.model';
 import { AsideMenuService, MenuLink } from './services/aside-menu.service';
 
@@ -39,8 +39,8 @@ export class AsideComponent implements OnDestroy {
     private router: Router
   ) {
     this.unsubscribe.push(
-      this.store.select(getUser).subscribe((value) => {
-        this.user = value.user;
+      this.store.select(getUserState).subscribe((user) => {
+        this.user = user;
         this.menuList = this.asideMenuService.getListMenu(
           this.user.perms,
           this.user.modules

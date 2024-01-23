@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { SwalService } from '../../../../_shared/services/swal.service';
-import { getUser } from '../../../../_store/user/user.actions';
+import { getUserState } from '../../../../_store/user/user.selector';
 import { IUserProfile } from '../../../../auth/models/auth.model';
 import { UsersService } from '../../services/users.service';
 import { changePasswordValidator } from '../../validators/password.validator';
@@ -25,8 +25,8 @@ export class ChangePasswordComponent implements OnInit {
     private usersService: UsersService,
     private swalService: SwalService
   ) {
-    this.store.select(getUser).subscribe((value) => {
-      this.user = value.user;
+    this.store.select(getUserState).subscribe((user) => {
+      this.user = user;
     });
   }
 

@@ -17,7 +17,8 @@
   overflow-x: hidden;
   background-color: var(--gray);
   position: absolute;
-  height: calc(100vh - 150px);
+
+  height: calc(100vh - 225px);
   &.open {
     width: calc(100% - 275px);
     margin-left: 275px;
@@ -33,13 +34,14 @@
 .app-header {
   margin-left: auto;
   width: calc(100% - 275px);
-  height: 150px;
+  height: 225px;
+  box-shadow: 20px 0px 9px 0px rgba(0, 0, 0, 0.02);
+
   background: transparent;
 }
 
 .sidenav {
   height: 100vh;
-
   top: 0;
   background-color: white;
   position: absolute;

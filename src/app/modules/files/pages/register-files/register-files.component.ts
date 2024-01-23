@@ -68,7 +68,7 @@ export class RegisterFilesComponent implements OnInit {
       this.getFile();
     }
     this.initForm();
-    this.getCampaings();
+    // this.getCampaings();
     this.getProducts();
     this.getOperators();
   }

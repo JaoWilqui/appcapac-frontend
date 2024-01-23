@@ -17,13 +17,13 @@ export const routeModules: Routes = [
       import('./videos/videos.module').then((module) => module.VideosModule),
   },
 
-  {
-    path: 'campaing',
-    loadChildren: () =>
-      import('./campaing/campaing.module').then(
-        (module) => module.CampaingModule
-      ),
-  },
+  // {
+  //   path: 'campaing',
+  //   loadChildren: () =>
+  //     import('./campaing/campaing.module').then(
+  //       (module) => module.CampaingModule
+  //     ),
+  // },
 
   {
     path: 'product',

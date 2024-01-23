@@ -75,7 +75,7 @@ export class ImagesRegisterComponent implements OnInit {
       this.getImage();
     }
     this.initForm();
-    this.getCampaings();
+    // this.getCampaings();
     this.getOperators();
     this.getCategories();
   }
@@ -85,7 +85,6 @@ export class ImagesRegisterComponent implements OnInit {
       nome: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
       product: this.fb.control<number>(null, Validators.required),
-      campaing: this.fb.control<number>(null, Validators.required),
       imageFile: [''],
       cidade: ['', [Validators.required]],
       adesao: ['', [Validators.required]],
@@ -138,7 +137,6 @@ export class ImagesRegisterComponent implements OnInit {
   populateForms() {
     this.registerImageForm.patchValue({
       ...this.images,
-      campaing: this.images.campaing.id,
       product: this.images.product.id,
       operator: this.images.operator.id,
     });
@@ -157,8 +155,6 @@ export class ImagesRegisterComponent implements OnInit {
       this.images = {
         ...this.registerImageForm.value,
       };
-
-      console.log(this.imageFile);
 
       let formData = new FormData();
 

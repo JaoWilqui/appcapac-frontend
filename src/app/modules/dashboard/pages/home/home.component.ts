@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getUser } from '../../../../_store/user/user.actions';
+import { getUserState } from '../../../../_store/user/user.selector';
 import { IUserProfile } from '../../../../auth/models/auth.model';
 import { CampaingService } from '../../../campaing/services/campaing.service';
-import { CategoryService } from '../../../category/services/category.service';
 import { OperatorsService } from '../../../operators/services/operators.service';
 
 @Component({
@@ -21,40 +20,12 @@ export class HomeComponent implements OnInit {
   constructor(
     private store: Store<any>,
     private campaingService: CampaingService,
-    private categoryService: CategoryService,
     private operatorsService: OperatorsService
   ) {
-    this.store.select(getUser).subscribe((value) => {
-      this.user = value.user;
+    this.store.select(getUserState).subscribe((user) => {
+      this.user = user;
     });
   }
 
-  ngOnInit() {
-    this.getCampaingCount();
-    this.getCategoryCount();
-    this.getOperatorsCount();
-  }
-
-  getCampaingCount() {
-    this.campaingService.getCampaings({}).subscribe({
-      next: (res) => {
-        this.campaingsCount = res.itemCount;
-      },
-    });
-  }
-
-  getCategoryCount() {
-    this.categoryService.getCategories({}).subscribe({
-      next: (res) => {
-        this.categoriesCount = res.itemCount;
-      },
-    });
-  }
-  getOperatorsCount() {
-    this.operatorsService.getOperators({}).subscribe({
-      next: (res) => {
-        this.categoriesCount = res.itemCount;
-      },
-    });
-  }
+  ngOnInit() {}
 }

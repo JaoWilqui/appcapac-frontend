@@ -5,6 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgxPermissionsObject, NgxPermissionsService } from 'ngx-permissions';
+import { firstValueFrom } from 'rxjs';
 import { ControlTypeEnum } from '../../../../_shared/components/filter/enum/control-type.enum';
 import { FiltersFields } from '../../../../_shared/components/filter/interface/filter-interface.model';
 import { PaginatorEvent } from '../../../../_shared/components/paginator/models/page-event.model';
@@ -12,7 +13,10 @@ import { SortInterface } from '../../../../_shared/components/table/interface/so
 import { Fields } from '../../../../_shared/components/table/interface/tableColumn.interface';
 import { Order } from '../../../../_shared/models/pagination.model';
 import { IParams } from '../../../../_shared/models/params.model';
+import { brlStates } from '../../../../_shared/models/states.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
+import { OperatorsService } from '../../../operators/services/operators.service';
+import { ProductService } from '../../../products/services/product.service';
 import { IFiles } from '../../models/files.model';
 import { FilesService } from '../../services/files.service';
 import { RegisterFilesComponent } from '../register-files/register-files.component';
@@ -83,6 +87,13 @@ export class ListFilesComponent implements OnInit {
       label: 'Nome',
       type: ControlTypeEnum.FORM,
     },
+
+    {
+      control: new FormControl(''),
+      name: 'cidade',
+      label: 'Cidade',
+      type: ControlTypeEnum.FORM,
+    },
     {
       control: new FormControl(''),
       name: 'descricao',
@@ -96,6 +107,34 @@ export class ListFilesComponent implements OnInit {
       name: 'dtcadastro',
       type: ControlTypeEnum.DATE_PICKER,
     },
+
+    {
+      control: new FormControl(''),
+      name: 'uf',
+      label: 'Estado',
+      optionKey: 'nome',
+      valueKey: 'sigla',
+      options: brlStates,
+      type: ControlTypeEnum.SELECT,
+    },
+    {
+      control: new FormControl(''),
+      name: 'operator',
+      label: 'Operadora',
+      optionKey: 'nome',
+      valueKey: 'id',
+      options: [],
+      type: ControlTypeEnum.SELECT,
+    },
+    {
+      control: new FormControl(''),
+      name: 'product',
+      label: 'Produto',
+      optionKey: 'nome',
+      valueKey: 'id',
+      options: [],
+      type: ControlTypeEnum.SELECT,
+    },
   ];
 
   constructor(
@@ -103,14 +142,35 @@ export class ListFilesComponent implements OnInit {
     private swalService: SwalService,
     private dialog: MatDialog,
     private activeRoute: ActivatedRoute,
+    private productService: ProductService,
+    private operatorsService: OperatorsService,
     private permissionsService: NgxPermissionsService
   ) {
     this.perm = this.permissionsService.getPermissions();
   }
   ngOnInit() {
     this.loadData();
+    this.getOperators();
+    this.getProducts();
   }
 
+  async getOperators() {
+    const res = await firstValueFrom(this.operatorsService.getOperators({}));
+    this.filterControls.forEach((value) => {
+      if (value.name === 'operator') {
+        value.options = res.data;
+      }
+    });
+  }
+
+  async getProducts() {
+    const res = await firstValueFrom(this.productService.getProducts({}));
+    this.filterControls.forEach((value) => {
+      if (value.name === 'product') {
+        value.options = res.data;
+      }
+    });
+  }
   register(): void {
     const dialogRef = this.dialog.open(RegisterFilesComponent, {});
 

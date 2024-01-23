@@ -24,6 +24,7 @@
 <main class="p-10">
   <div class="title mb-5">
     <h1>Videos</h1>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
   </div>
 
   <div class="grid grid-cols-3 gap-7">
@@ -42,17 +43,12 @@
           <section class="flex justify-between">
             <div>
               <p class="video-info"><b>Nome</b>: {{ video.nome }}</p>
-              <p class="video-info">
-                <b>Categoria</b>: {{ video.product.nome }}
-              </p>
-              <p class="video-info">
-                <b>Campanha</b>: {{ video.campaing.nome }}
-              </p>
+              <p class="video-info"><b>Produto</b>: {{ video.product.nome }}</p>
+              <p class="video-info"><b>Adesão</b>: {{ video.adesao }}</p>
             </div>
             <div>
-              <p class="video-info"><b>Estado</b>: {{ video.uf }}</p>
               <p class="video-info"><b>Cidade</b>: {{ video.cidade }}</p>
-              <p class="video-info"><b>Adesão</b>: {{ video.adesao }}</p>
+              <p class="video-info"><b>Estado</b>: {{ video.uf }}</p>
             </div>
           </section>
         </div>

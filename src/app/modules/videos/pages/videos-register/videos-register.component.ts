@@ -15,7 +15,6 @@ import {
 import { BrlState, brlStates } from '../../../../_shared/models/states.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { ICampaing } from '../../../campaing/models/campaing.model';
-import { CampaingService } from '../../../campaing/services/campaing.service';
 import { ImagesRegisterComponent } from '../../../images/pages/images-register/images-register.component';
 import { IProduct } from '../../../products/models/product.model';
 import { ProductService } from '../../../products/services/product.service';
@@ -44,7 +43,7 @@ export class VideosRegisterComponent implements OnInit {
     private router: Router,
     private videosService: VideosService,
     private productService: ProductService,
-    private campaingService: CampaingService,
+    // private campaingService: CampaingService,
 
     private swalService: SwalService,
     private activeRoute: ActivatedRoute,
@@ -63,7 +62,7 @@ export class VideosRegisterComponent implements OnInit {
       this.getVideo();
     }
     this.initForm();
-    this.getCampaings();
+    // this.getCampaings();
     this.getCategories();
   }
 
@@ -76,7 +75,6 @@ export class VideosRegisterComponent implements OnInit {
       cidade: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
       product: this.fb.control<number>(null, Validators.required),
-      campaing: this.fb.control<number>(null, Validators.required),
     });
   }
 
@@ -108,7 +106,6 @@ export class VideosRegisterComponent implements OnInit {
     this.registerVideoForm.patchValue({
       ...this.videos,
       product: this.videos.product.id,
-      campaing: this.videos.campaing.id,
     });
   }
 
@@ -118,13 +115,13 @@ export class VideosRegisterComponent implements OnInit {
     });
   }
 
-  getCampaings() {
-    this.campaingService.getCampaings({}).subscribe({
-      next: (res) => {
-        this.campaings = res.data;
-      },
-    });
-  }
+  // getCampaings() {
+  //   this.campaingService.getCampaings({}).subscribe({
+  //     next: (res) => {
+  //       this.campaings = res.data;
+  //     },
+  //   });
+  // }
 
   populateForms() {
     this.registerVideoForm.patchValue({ ...this.videos });

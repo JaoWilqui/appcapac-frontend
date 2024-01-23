@@ -47,10 +47,10 @@ export class AsideMenuService {
             label: 'Produto',
             path: '/product',
           },
-          {
-            label: 'Campanha',
-            path: '/campaing',
-          },
+          // {
+          //   label: 'Campanha',
+          //   path: '/campaing',
+          // },
           {
             label: 'Operadoras',
             path: '/operators',
@@ -70,7 +70,7 @@ export class AsideMenuService {
         subItems: [
           {
             label: 'Imagens',
-            path: '/images',
+            path: 'images',
           },
         ],
       },

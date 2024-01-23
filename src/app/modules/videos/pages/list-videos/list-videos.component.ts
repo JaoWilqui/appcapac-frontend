@@ -3,15 +3,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import { ControlTypeEnum } from '../../../../_shared/components/filter/enum/control-type.enum';
 import { FiltersFields } from '../../../../_shared/components/filter/interface/filter-interface.model';
 import { PaginatorEvent } from '../../../../_shared/components/paginator/models/page-event.model';
 import { SortInterface } from '../../../../_shared/components/table/interface/sort.model';
 import { Order } from '../../../../_shared/models/pagination.model';
 import { IParams } from '../../../../_shared/models/params.model';
+import { brlStates } from '../../../../_shared/models/states.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
 import { ICampaing } from '../../../campaing/models/campaing.model';
-import { CampaingService } from '../../../campaing/services/campaing.service';
+import { OperatorsService } from '../../../operators/services/operators.service';
 import { IProduct } from '../../../products/models/product.model';
 import { ProductService } from '../../../products/services/product.service';
 import { IVideos } from '../../models/videos.model';
@@ -44,6 +46,12 @@ export class ListVideosComponent implements OnInit {
     },
     {
       control: new FormControl(''),
+      name: 'cidade',
+      label: 'Cidade',
+      type: ControlTypeEnum.FORM,
+    },
+    {
+      control: new FormControl(''),
       name: 'descricao',
       label: 'Descricao',
       type: ControlTypeEnum.FORM,
@@ -55,6 +63,33 @@ export class ListVideosComponent implements OnInit {
       name: 'dtcadastro',
       type: ControlTypeEnum.DATE_PICKER,
     },
+    {
+      control: new FormControl(''),
+      name: 'uf',
+      label: 'Estado',
+      optionKey: 'nome',
+      valueKey: 'sigla',
+      options: brlStates,
+      type: ControlTypeEnum.SELECT,
+    },
+    {
+      control: new FormControl(''),
+      name: 'operator',
+      label: 'Operadora',
+      optionKey: 'nome',
+      valueKey: 'id',
+      options: [],
+      type: ControlTypeEnum.SELECT,
+    },
+    {
+      control: new FormControl(''),
+      name: 'product',
+      label: 'Produto',
+      optionKey: 'nome',
+      valueKey: 'id',
+      options: [],
+      type: ControlTypeEnum.SELECT,
+    },
   ];
 
   constructor(
@@ -63,7 +98,7 @@ export class ListVideosComponent implements OnInit {
     private videosService: VideosService,
     private swalService: SwalService,
     private productService: ProductService,
-    private campaingService: CampaingService,
+    private operatorsService: OperatorsService,
     private dialog: MatDialog
   ) {}
 
@@ -86,9 +121,27 @@ export class ListVideosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getOperators();
+    this.getProducts();
     this.loadData();
-    this.getCampaings();
-    this.getCategories();
+  }
+
+  async getOperators() {
+    const res = await firstValueFrom(this.operatorsService.getOperators({}));
+    this.filterControls.forEach((value) => {
+      if (value.name === 'operator') {
+        value.options = res.data;
+      }
+    });
+  }
+
+  async getProducts() {
+    const res = await firstValueFrom(this.productService.getProducts({}));
+    this.filterControls.forEach((value) => {
+      if (value.name === 'product') {
+        value.options = res.data;
+      }
+    });
   }
 
   loadData() {
@@ -111,21 +164,6 @@ export class ListVideosComponent implements OnInit {
       error: (error: HttpErrorResponse) => {
         this.swalService.error.fire('Error', error.message);
         this.isLoading = false;
-      },
-    });
-  }
-
-  getCategories() {
-    this.productService.getProducts({}).subscribe((res) => {
-      this.products = res.data;
-    });
-  }
-
-  getCampaings() {
-    this.campaingService.getCampaings({}).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.campaings = res.data;
       },
     });
   }

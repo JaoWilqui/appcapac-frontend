@@ -24,6 +24,7 @@
 <main class="p-10">
   <div class="title mb-5">
     <h1>Imagens</h1>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
   </div>
 
   <section>
@@ -45,10 +46,10 @@
               <div>
                 <p class="image-info"><b>Nome</b>: {{ image.nome }}</p>
                 <p class="image-info">
-                  <b>Categoria</b>: {{ image.product.nome }}
+                  <b>Produto</b>: {{ image.product.nome }}
                 </p>
                 <p class="image-info">
-                  <b>Campanha</b>: {{ image.campaing.nome }}
+                  <b>Operadoras</b>: {{ image.operator.nome }}
                 </p>
               </div>
               <div>

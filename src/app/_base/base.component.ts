@@ -30,9 +30,7 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
   sidebarAllowed = true;
 
   @HostListener('window:resize', ['$event'])
-  onResize() {
-    // this.handleResize();
-  }
+  onResize() {}
 
   constructor(private renderer: Renderer2) {}
   ngOnDestroy(): void {}

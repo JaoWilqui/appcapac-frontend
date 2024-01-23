@@ -15,6 +15,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { CoreModule } from './_core/core.module';
 import { InitializerModule } from './_initializer/initializer.module';
 import { SharedModule } from './_shared/shared.module';
+import { _breadcrumbReducer } from './_store/breadcrumb/breadcrumb.reducer';
 import { _userReducer } from './_store/user/user.reducer';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,11 +28,11 @@ registerLocaleData(localePT);
     BrowserAnimationsModule,
     SharedModule,
     InitializerModule,
-
     CoreModule,
     NgxPermissionsModule.forRoot(),
     StoreModule.forRoot({
       user: _userReducer,
+      breadcrumb: _breadcrumbReducer,
     }),
   ],
   exports: [CommonModule, BrowserModule],

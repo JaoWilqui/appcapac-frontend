@@ -5,7 +5,7 @@ import { getUserState } from '../../_store/user/user.selector';
 import { IUserProfile } from '../../auth/models/auth.model';
 
 @Injectable({ providedIn: 'root' })
-export class PermsGuard {
+export class ModuleGuard {
   profile: string;
   user: IUserProfile;
   constructor(private router: Router, private store: Store<any>) {

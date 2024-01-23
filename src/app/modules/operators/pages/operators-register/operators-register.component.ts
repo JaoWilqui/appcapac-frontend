@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SwalService } from '../../../../_shared/services/swal.service';
-import { CampaingRegisterComponent } from '../../../campaing/pages/campaing-register/campaing-register.component';
 import { IOperator } from '../../models/operators.model';
 import { OperatorsService } from '../../services/operators.service';
 
@@ -23,7 +22,7 @@ export class OperatorsRegisterComponent implements OnInit {
     private operatorService: OperatorsService,
     private swalService: SwalService,
     private activeRoute: ActivatedRoute,
-    private dialogRef: MatDialogRef<CampaingRegisterComponent>,
+    private dialogRef: MatDialogRef<OperatorsRegisterComponent>,
     @Inject(MAT_DIALOG_DATA) private data: { id: number }
   ) {
     if (this.data) this.operatorId = this.data?.id;
@@ -50,7 +49,6 @@ export class OperatorsRegisterComponent implements OnInit {
     this.operatorService.getOperatorById(this.operatorId).subscribe({
       next: (res) => {
         this.operator = res;
-        console.log(res);
         this.populateForms();
       },
     });
@@ -79,6 +77,7 @@ export class OperatorsRegisterComponent implements OnInit {
           next: (res) => {
             this.swalService.success.fire('Sucesso!', res.message).then(() => {
               this.goBack();
+              this.dialogRef.close();
             });
           },
           error: (error: HttpErrorResponse) => {
@@ -86,6 +85,7 @@ export class OperatorsRegisterComponent implements OnInit {
               .fire('Erro', error.error.message)
               .then(() => {
                 this.goBack();
+                this.dialogRef.close();
               });
           },
         });
@@ -102,12 +102,14 @@ export class OperatorsRegisterComponent implements OnInit {
       this.operatorService.postOperator(this.operator).subscribe({
         next: (res) => {
           this.swalService.success.fire('Sucesso!', res.message).then(() => {
+            this.dialogRef.close();
             this.goBack();
           });
         },
         error: (error: HttpErrorResponse) => {
           this.swalService.error.fire('Erro', error.error.message).then(() => {
             this.goBack();
+            this.dialogRef.close();
           });
         },
       });

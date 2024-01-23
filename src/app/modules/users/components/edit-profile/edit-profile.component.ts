@@ -5,7 +5,8 @@ import { Store } from '@ngrx/store';
 import { firstValueFrom } from 'rxjs';
 import { User } from '../../../../_shared/models/user.model';
 import { SwalService } from '../../../../_shared/services/swal.service';
-import { getUser, setUser } from '../../../../_store/user/user.actions';
+import { setUser } from '../../../../_store/user/user.actions';
+import { getUserState } from '../../../../_store/user/user.selector';
 import { IUserProfile } from '../../../../auth/models/auth.model';
 import { AuthService } from '../../../../auth/services/auth.service';
 import { UsersService } from '../../services/users.service';
@@ -32,8 +33,8 @@ export class EditProfileComponent implements OnInit {
     private authService: AuthService,
     private swalService: SwalService
   ) {
-    this.store.select(getUser).subscribe((value) => {
-      this.user = value.user;
+    this.store.select(getUserState).subscribe((user) => {
+      this.user = user;
     });
   }
   ngOnInit() {

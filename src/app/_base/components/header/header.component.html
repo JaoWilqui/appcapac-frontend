@@ -24,4 +24,21 @@
       </mat-menu>
     </div>
   </nav>
+  <section class="nav-container">
+    @for (nav of breadCrumb; track $index) { @if (nav.link) {
+    <a class="nav-link" routerLinkActive="active" [routerLink]="nav.link">{{
+      nav.title
+    }}</a>
+
+    }@else{
+    <a class="nav-link" routerLinkActive="active">{{ nav.title }}</a>
+
+    }
+    <span *ngIf="breadCrumb.length - 1 > $index" class="dash px-1"> / </span>
+    }
+  </section>
+  <section class="welcome">
+    <h1>Bem vindo, {{ user.nome }}👋</h1>
+    <p>Aproveite a CapNegócios e melhore suas vendas</p>
+  </section>
 </header>
