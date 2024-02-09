@@ -1,6 +1,5 @@
 .auth-card {
   width: 100%;
-  min-width: 464px;
   max-width: 464px;
   max-height: 663px;
   height: 80vh;
@@ -29,5 +28,11 @@
     img {
       width: 60%;
     }
+  }
+}
+
+@media screen and (max-width: 1000) {
+  .auth-card {
+    transform: scale(0.75);
   }
 }

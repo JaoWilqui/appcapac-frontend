@@ -1,8 +1,13 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
+  HostListener,
   Input,
+  OnChanges,
   OnDestroy,
+  Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -20,24 +25,33 @@ import { AsideMenuService, MenuLink } from './services/aside-menu.service';
     '(document:click)': 'onClickOutside($event)',
   },
 })
-export class AsideComponent implements OnDestroy {
+export class AsideComponent implements OnDestroy, OnChanges {
   @ViewChild('toggleButton') toggleButton: ElementRef;
   @ViewChild('menu') menu: ElementRef<any>;
   @Input('isShown') isPropertiesShown = true;
   @Input('isExpanded') isExpanded: boolean = true;
+  @Output() emitExpand = new EventEmitter<any>();
 
   menuList: MenuLink[] = [];
   user?: IUserProfile;
   show = false;
-
+  innerWidth: number;
   subscribes = new Subscription();
   private unsubscribe: Subscription[] = [];
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.innerWidth = window.innerWidth;
+    this.isExpanded = false;
+  }
 
   constructor(
     private asideMenuService: AsideMenuService,
     private store: Store<any>,
     private router: Router
   ) {
+    this.onResize();
+
     this.unsubscribe.push(
       this.store.select(getUserState).subscribe((user) => {
         this.user = user;
@@ -47,6 +61,17 @@ export class AsideComponent implements OnDestroy {
         );
       })
     );
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['isExpanded']) {
+      console.log(this.innerWidth);
+      if (this.isExpanded == false) {
+        this.menuList.forEach((menu) => {
+          menu.expanded = false;
+        });
+      }
+    }
   }
 
   ngOnDestroy() {
@@ -59,6 +84,10 @@ export class AsideComponent implements OnDestroy {
 
   changeView() {
     this.show = !this.show;
+  }
+
+  expand() {
+    this.emitExpand.emit('');
   }
 
   onClickOutside(event: any) {

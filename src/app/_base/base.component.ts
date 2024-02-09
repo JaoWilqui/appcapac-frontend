@@ -18,9 +18,11 @@ import { User } from '../_shared/models/user.model';
 })
 export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('aside') side!: ElementRef<any>;
-  allowOpen = true;
+  @ViewChild('content') content!: ElementRef<any>;
+  allowHover = true;
   isExpanded = true;
 
+  innerWidth: number;
   user?: User;
 
   isPropertiesShown = true;
@@ -30,30 +32,47 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
   sidebarAllowed = true;
 
   @HostListener('window:resize', ['$event'])
-  onResize() {}
+  @HostListener('document:mousedown', ['$event'])
+  onGlobalClick(event): void {
+    console.log(window);
+    if (
+      !this.side.nativeElement.contains(event.target) &&
+      window.innerWidth <= 1000
+    ) {
+      this.isExpanded = false;
+    }
+  }
 
-  constructor(private renderer: Renderer2) {}
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.innerWidth = window.innerWidth;
+  }
+
+  constructor(private renderer: Renderer2) {
+    this.onResize();
+  }
   ngOnDestroy(): void {}
 
   ngOnInit(): void {}
 
   mouseEnter() {
-    if (this.isExpanded) {
+    if (this.isExpanded && this.allowHover) {
       return;
     }
 
-    this.renderer.setStyle(this.side.nativeElement, 'width', '350px');
+    this.renderer.setStyle(this.side.nativeElement, 'width', '275px');
     this.isPropertiesShown = true;
   }
 
   handleExpansion() {
     this.isExpanded = !this.isExpanded;
     if (this.isExpanded) {
-      this.renderer.setStyle(this.side.nativeElement, 'width', '350px');
+      this.renderer.setStyle(this.side.nativeElement, 'width', '275px');
+      this.isPropertiesShown = true;
     } else {
-      this.renderer.setStyle(this.side.nativeElement, 'width', '80px');
+      this.renderer.setStyle(this.side.nativeElement, 'width', '70px');
+      this.isPropertiesShown = false;
     }
-
     if (this.isExpanded) {
       this.isPropertiesShown = true;
     } else {
@@ -62,24 +81,20 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   mouseExit() {
-    if (this.isExpanded) {
+    if (this.isExpanded && this.allowHover) {
       return;
     }
-
-    this.renderer.setStyle(this.side.nativeElement, 'width', '80px');
+    this.renderer.setStyle(this.side.nativeElement, 'width', '70px');
     this.isPropertiesShown = false;
   }
 
   handleResize() {
-    if (window.innerWidth < 1100) {
-      this.allowOpen = false;
+    if (this.innerWidth <= 1000) {
+      this.allowHover = false;
       this.isExpanded = false;
       this.isPropertiesShown = false;
-
-      this.renderer.setStyle(this.side.nativeElement, 'width', '80px');
-      return;
+      this.renderer.setStyle(this.side.nativeElement, 'width', '70px');
     }
-    this.allowOpen = true;
   }
 
   ngAfterViewInit(): void {

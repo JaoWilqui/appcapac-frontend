@@ -2,7 +2,7 @@ main {
   width: 100vw;
   height: 100vh;
   background: var(--gray-blue);
-
+  overflow: scroll;
   justify-content: center;
   align-items: center;
   display: flex;

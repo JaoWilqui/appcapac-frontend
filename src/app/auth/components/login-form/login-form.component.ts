@@ -14,6 +14,9 @@ import { AuthService } from '../../services/auth.service';
   selector: 'login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
+  host: {
+    '(keyup)': 'keyUpLogin($event)',
+  },
 })
 export class LoginFormComponent implements OnInit {
   showPassword: boolean = false;
@@ -44,6 +47,13 @@ export class LoginFormComponent implements OnInit {
       cpf: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
+  }
+
+  keyUpLogin(event: KeyboardEvent) {
+    console.log(event);
+    if (event.key == 'Enter') {
+      this.access();
+    }
   }
 
   access() {

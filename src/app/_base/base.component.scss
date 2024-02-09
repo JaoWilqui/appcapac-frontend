@@ -3,10 +3,6 @@
   background-color: var(--gray);
 }
 
-.app-content {
-  opacity: 1;
-}
-
 .loading {
   opacity: 0.5;
   cursor: wait;
@@ -17,8 +13,8 @@
   overflow-x: hidden;
   background-color: var(--gray);
   position: absolute;
-
   height: calc(100vh - 225px);
+
   &.open {
     width: calc(100% - 275px);
     margin-left: 275px;
@@ -36,8 +32,17 @@
   width: calc(100% - 275px);
   height: 225px;
   box-shadow: 20px 0px 9px 0px rgba(0, 0, 0, 0.02);
-
   background: transparent;
+  &.open {
+    width: calc(100% - 275px);
+    margin-left: 275px;
+    transition: all ease 0.3s;
+  }
+  &.closed {
+    width: calc(100% - 70px);
+    margin-left: 70px !important;
+    transition: all ease 0.3s;
+  }
 }
 
 .sidenav {
@@ -71,20 +76,6 @@
     &:hover {
       background-color: rgb(14, 155, 206);
       transition: all ease 0.2s;
-
-      .double-arrow {
-        color: white;
-      }
-    }
-    .double-arrow {
-      &.open {
-        transition: all ease 0.2s;
-      }
-
-      &.closed {
-        transition: all ease 0.2s;
-        transform: rotate(180deg);
-      }
     }
   }
 
@@ -98,4 +89,40 @@
 
 .app-content {
   padding: 3% 1.5% 5% 1.5%;
+}
+
+@media screen and (max-width: 800px) {
+  .app-content {
+    width: calc(100% - 70px);
+    overflow-x: scroll;
+
+    &.open {
+      width: calc(100% - 70px);
+      margin-left: 70px;
+      transition: all ease 0.3s;
+    }
+    &.closed {
+      width: calc(100% - 70px);
+      transition: all ease 0.3s;
+      margin-left: 70px;
+    }
+  }
+  .app-header {
+    width: calc(100% - 70px);
+    box-shadow: 20px 0px 9px 0px rgba(0, 0, 0, 0.02);
+    background: transparent;
+    &.open {
+      width: calc(100% - 70px);
+
+      margin-left: 70px;
+      transition: all ease 0.3s;
+    }
+    &.closed {
+      width: calc(100% - 70px);
+
+      margin-left: 70px;
+
+      transition: all ease 0.3s;
+    }
+  }
 }

@@ -1,5 +1,5 @@
 <main class="app-body">
-  <section class="app-header">
+  <section [ngClass]="isExpanded ? 'open' : 'closed'" class="app-header">
     <app-header></app-header>
   </section>
   <section
@@ -11,6 +11,7 @@
   >
     <div class="menu">
       <app-aside
+        (emitExpand)="handleExpansion()"
         [isExpanded]="isExpanded"
         [isShown]="isPropertiesShown"
         #sidenav
@@ -18,12 +19,7 @@
     </div>
   </section>
 
-  <body
-    [ngClass]="isExpanded ? 'open' : 'closed'"
-    class="app-content"
-    [class.nomargin]="!sidebarAllowed"
-    [class.loading]="isLoading"
-  >
+  <body #content [ngClass]="isExpanded ? 'open' : 'closed'" class="app-content">
     <router-outlet></router-outlet>
   </body>
 </main>
