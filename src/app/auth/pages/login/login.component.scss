@@ -2,7 +2,12 @@
   width: 100%;
   max-width: 464px;
   max-height: 663px;
-  height: 80vh;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 44px;
   background-color: white;
   border-radius: 10px;
@@ -31,7 +36,7 @@
   }
 }
 
-@media screen and (max-width: 1000) {
+@media screen and (max-width: 1000px) {
   .auth-card {
     transform: scale(0.75);
   }

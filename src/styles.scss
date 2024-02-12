@@ -12,7 +12,12 @@
 
 @include mat.core();
 
+html,
 body {
+  height: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
   font-family: "Poppins" !important;
 }
 
@@ -43,12 +48,3 @@ $appcapac-frontend-theme: mat.define-light-theme(
 );
 
 @include mat.all-component-themes($appcapac-frontend-theme);
-
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}

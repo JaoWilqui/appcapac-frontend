@@ -50,7 +50,6 @@ export class LoginFormComponent implements OnInit {
   }
 
   keyUpLogin(event: KeyboardEvent) {
-    console.log(event);
     if (event.key == 'Enter') {
       this.access();
     }

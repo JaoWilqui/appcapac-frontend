@@ -1,11 +1,7 @@
 main {
-  width: 100vw;
-  height: 100vh;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding-top: 100px;
   background: var(--gray-blue);
-  overflow: scroll;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
