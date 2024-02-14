@@ -51,6 +51,7 @@ export class LoginFormComponent implements OnInit {
 
   keyUpLogin(event: KeyboardEvent) {
     if (event.key == 'Enter') {
+      event.preventDefault();
       this.access();
     }
   }

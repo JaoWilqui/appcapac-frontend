@@ -25,7 +25,11 @@
         autocomplete="on"
       />
       <label>Senha</label>
-      <button class="button-password" (click)="changePasswordVisibility()">
+      <button
+        type="button"
+        class="button-password"
+        (click)="changePasswordVisibility()"
+      >
         <mat-icon class="mt-1 mr-2">{{
           showPassword ? "visibility" : "visibility_off"
         }}</mat-icon>

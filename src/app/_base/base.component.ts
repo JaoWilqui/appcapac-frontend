@@ -44,12 +44,15 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
     this.handleResize();
   }
 
-  constructor(private renderer: Renderer2) {
-    this.innerWidth = window.innerWidth;
-  }
+  constructor(private renderer: Renderer2) {}
   ngOnDestroy(): void {}
 
   ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    this.innerWidth = window.innerWidth;
+    this.handleResize();
+  }
 
   mouseEnter() {
     if (this.isExpanded && this.allowHover) {
@@ -90,16 +93,11 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
       this.isExpanded = false;
       this.isPropertiesShown = false;
       this.renderer.setStyle(this.side.nativeElement, 'width', '70px');
-    } else if (this.innerWidth > 1000) {
+    } else if (this.innerWidth >= 1000) {
       this.allowHover = true;
       this.isExpanded = true;
       this.isPropertiesShown = true;
       this.renderer.setStyle(this.side.nativeElement, 'width', '275px');
     }
-  }
-
-  ngAfterViewInit(): void {
-    this.innerWidth = window.innerWidth;
-    this.handleResize();
   }
 }

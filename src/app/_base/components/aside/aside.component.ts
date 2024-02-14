@@ -2,7 +2,6 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  HostListener,
   Input,
   OnChanges,
   OnDestroy,
@@ -39,19 +38,11 @@ export class AsideComponent implements OnDestroy, OnChanges {
   subscribes = new Subscription();
   private unsubscribe: Subscription[] = [];
 
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    this.innerWidth = window.innerWidth;
-    this.isExpanded = false;
-  }
-
   constructor(
     private asideMenuService: AsideMenuService,
     private store: Store<any>,
     private router: Router
   ) {
-    this.onResize();
-
     this.unsubscribe.push(
       this.store.select(getUserState).subscribe((user) => {
         this.user = user;
