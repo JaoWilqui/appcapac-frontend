@@ -21,20 +21,15 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('content') content!: ElementRef<any>;
   allowHover = true;
   isExpanded = true;
-
   innerWidth: number;
   user?: User;
-
   isPropertiesShown = true;
-
   isLoading = false;
-
   sidebarAllowed = true;
 
   @HostListener('window:resize', ['$event'])
   @HostListener('document:mousedown', ['$event'])
   onGlobalClick(event): void {
-    console.log(window);
     if (
       !this.side.nativeElement.contains(event.target) &&
       window.innerWidth <= 1000
@@ -46,10 +41,11 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.innerWidth = window.innerWidth;
+    this.handleResize();
   }
 
   constructor(private renderer: Renderer2) {
-    this.onResize();
+    this.innerWidth = window.innerWidth;
   }
   ngOnDestroy(): void {}
 
@@ -94,10 +90,16 @@ export class BaseComponent implements OnInit, AfterViewInit, OnDestroy {
       this.isExpanded = false;
       this.isPropertiesShown = false;
       this.renderer.setStyle(this.side.nativeElement, 'width', '70px');
+    } else if (this.innerWidth > 1000) {
+      this.allowHover = true;
+      this.isExpanded = true;
+      this.isPropertiesShown = true;
+      this.renderer.setStyle(this.side.nativeElement, 'width', '275px');
     }
   }
 
   ngAfterViewInit(): void {
+    this.innerWidth = window.innerWidth;
     this.handleResize();
   }
 }

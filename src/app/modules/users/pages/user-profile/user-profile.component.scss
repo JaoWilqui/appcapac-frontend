@@ -1,7 +1,6 @@
 .profile-body {
   background-color: #ffffff;
   width: 100%;
-  min-width: 754px;
   margin-top: 20px;
   position: relative;
   height: auto;
@@ -103,5 +102,11 @@
     background-color: var(--white-blue);
     transition: all ease 0.2s;
     opacity: 0.9;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .profile-body {
+    min-width: 754px;
   }
 }

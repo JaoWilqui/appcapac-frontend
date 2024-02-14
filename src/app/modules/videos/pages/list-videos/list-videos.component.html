@@ -27,7 +27,9 @@
     <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
   </div>
 
-  <div class="grid grid-3 gap-7 md:grid-cols-md-1">
+  <div
+    class="grid grid-cols-1 gap-7 desktop-lg:grid-cols-3 laptop-s:grid-cols-2"
+  >
     @for (video of videos; track $index) {
     <div class="video-card">
       <iframe
@@ -52,17 +54,20 @@
             </div>
           </section>
         </div>
-        <div *ngxPermissionsOnly="'ADMIN'" class="flex w-12/12 my-2">
-          <div class="flex justify-start w-6/12">
-            <button class="btn green w-40" (click)="edit(video.id)">
+        <div
+          *ngxPermissionsOnly="'ADMIN'"
+          class="flex w-12/12 mb-5 gap-5 justify-center"
+        >
+          <div class="">
+            <button class="btn green w-30" (click)="edit(video.id)">
               <div class="mr-3">
                 <img class="icon-btn" [src]="'../../assets/svgs/edit.svg'" />
               </div>
               editar
             </button>
           </div>
-          <div class="flex justify-end w-6/12">
-            <button class="btn red w-40" (click)="delete(video.id)">
+          <div class="">
+            <button class="btn red w-30" (click)="delete(video.id)">
               <div class="mr-3">
                 <img class="icon-btn" [src]="'../../assets/svgs/delete.svg'" />
               </div>

@@ -30,9 +30,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    console.log(this.acitveRoute.snapshot.data);
-  }
+  ngOnInit(): void {}
 
   logout() {
     this.authService.logout('login');

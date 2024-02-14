@@ -65,7 +65,6 @@ export class AsideComponent implements OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['isExpanded']) {
-      console.log(this.innerWidth);
       if (this.isExpanded == false) {
         this.menuList.forEach((menu) => {
           menu.expanded = false;

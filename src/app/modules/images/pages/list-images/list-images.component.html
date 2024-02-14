@@ -28,7 +28,9 @@
   </div>
 
   <section>
-    <div class="grid grid-3 gap-7 md:grid-cols-md-1">
+    <div
+      class="grid grid-cols-1 gap-7 desktop-lg:grid-cols-3 laptop-s:grid-cols-2"
+    >
       @for (image of images; track $index) {
       <div class="image-card">
         <div class="img-container">
@@ -59,25 +61,28 @@
               </div>
             </section>
           </div>
-          <div *ngxPermissionsOnly="'ADMIN'" class="flex w-12/12 my-2 gap-2">
-            <div class="w-4/12 flex justify-start">
-              <button class="btn green w-40" (click)="edit(image.id)">
+          <div
+            *ngxPermissionsOnly="'ADMIN'"
+            class="flex w-12/12 mb-5 gap-5 justify-center"
+          >
+            <div class="">
+              <button class="btn green w-30" (click)="edit(image.id)">
                 <div class="mr-3">
                   <img class="icon-btn" [src]="'../../assets/svgs/edit.svg'" />
                 </div>
                 Editar
               </button>
             </div>
-            <div class="w-4/12 flex justify-center">
-              <button class="btn white w-40" (click)="downloadImg(image)">
+            <div class="">
+              <button class="btn white w-30" (click)="downloadImg(image)">
                 <div class="mr-1">
                   <mat-icon>download</mat-icon>
                 </div>
                 Download
               </button>
             </div>
-            <div class="w-4/12 flex justify-end">
-              <button class="btn red w-40" (click)="delete(image.id)">
+            <div class="">
+              <button class="btn red w-30" (click)="delete(image.id)">
                 <div class="mr-3">
                   <img
                     class="icon-btn"

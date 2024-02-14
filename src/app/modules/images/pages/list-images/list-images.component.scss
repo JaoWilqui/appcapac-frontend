@@ -1,8 +1,9 @@
 .image-card {
   background: white;
   border-radius: 20px;
-  max-height: 500px;
-  min-height: 500px;
+  height: auto;
+
+  max-height: 700px;
   border: solid 2px rgb(231, 236, 238);
 
   .img-container {
@@ -77,4 +78,10 @@
 
 mat-expansion-panel {
   background: none !important;
+}
+
+@media screen and (max-width: 1280px) {
+  .image-card {
+    min-width: 724px;
+  }
 }

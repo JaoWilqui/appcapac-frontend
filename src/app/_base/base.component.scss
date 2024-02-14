@@ -1,5 +1,6 @@
 .app-body {
   position: relative;
+  height: 100vh;
   background-color: var(--gray);
 }
 
@@ -9,38 +10,37 @@
 }
 
 .app-content {
-  width: calc(100% - 70px);
-  overflow-x: hidden;
   background-color: var(--gray);
   position: absolute;
-  height: calc(100vh - 225px);
+  overflow-x: scroll;
+  height: calc(100% - 225px) !important;
+  padding: 5% 1.5% 5% 1.5% !important;
 
   &.open {
-    width: calc(100% - 275px);
-    margin-left: 275px;
+    width: calc(100% - 275px) !important;
+    left: 275px;
     transition: all ease 0.3s;
   }
   &.closed {
-    width: calc(100% - 70px);
-    margin-left: 70px !important;
+    width: calc(100% - 70px) !important;
+    left: 70px !important;
     transition: all ease 0.3s;
   }
 }
 
 .app-header {
-  margin-left: auto;
-  width: calc(100% - 275px);
   height: 225px;
   box-shadow: 20px 0px 9px 0px rgba(0, 0, 0, 0.02);
   background: transparent;
+  position: relative;
   &.open {
     width: calc(100% - 275px);
-    margin-left: 275px;
+    left: 275px;
     transition: all ease 0.3s;
   }
   &.closed {
     width: calc(100% - 70px);
-    margin-left: 70px !important;
+    left: 70px !important;
     transition: all ease 0.3s;
   }
 }
@@ -87,41 +87,34 @@
   }
 }
 
-.app-content {
-  padding: 3% 1.5% 5% 1.5%;
-}
-
 @media screen and (max-width: 800px) {
   .app-content {
-    width: calc(100% - 70px);
+    width: calc(100% - 70px) !important;
     overflow-x: scroll;
 
     &.open {
-      width: calc(100% - 70px);
-      margin-left: 70px;
+      width: calc(100% - 70px) !important;
+      left: 70px;
       transition: all ease 0.3s;
     }
     &.closed {
-      width: calc(100% - 70px);
+      width: calc(100% - 70px) !important;
       transition: all ease 0.3s;
-      margin-left: 70px;
+      left: 70px;
     }
   }
   .app-header {
-    width: calc(100% - 70px);
     box-shadow: 20px 0px 9px 0px rgba(0, 0, 0, 0.02);
     background: transparent;
-    &.open {
-      width: calc(100% - 70px);
 
-      margin-left: 70px;
+    &.open {
+      width: calc(100% - 70px) !important;
+      left: 70px !important;
       transition: all ease 0.3s;
     }
     &.closed {
-      width: calc(100% - 70px);
-
-      margin-left: 70px;
-
+      width: calc(100% - 70px) !important;
+      left: 70px !important;
       transition: all ease 0.3s;
     }
   }

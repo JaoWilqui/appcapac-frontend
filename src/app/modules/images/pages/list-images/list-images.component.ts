@@ -154,7 +154,6 @@ export class ListImagesComponent implements OnInit {
     );
 
     var imageUrl = urlCreator.createObjectURL(img);
-    console.log();
     const link = document.createElement('a');
     link.href = imageUrl;
     link.download = `${image.nome}.${image.imageRelativePath.split('.').pop()}`;

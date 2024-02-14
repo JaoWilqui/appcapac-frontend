@@ -162,9 +162,7 @@ export class ListUsersComponent implements OnInit {
       page: event.pageIndex,
       pageCount: event.pageSize,
     }),
-      console.log('aqui');
-
-    this.loadData();
+      this.loadData();
   }
 
   getFilters() {
@@ -220,12 +218,10 @@ export class ListUsersComponent implements OnInit {
   submitFilters(formGroup: FormGroup) {
     this.filterForm = formGroup;
     this.pagination.page = 1;
-    console.log('aqui');
     this.loadData();
   }
   clearFilters(formGroup: FormGroup) {
     this.filterForm = formGroup;
-    console.log('aqui');
 
     this.loadData();
   }
@@ -235,7 +231,6 @@ export class ListUsersComponent implements OnInit {
       order: sort.orderDirection ?? Order.DESC,
       orderBy: sort.orderBy,
     };
-    console.log('aqui');
 
     this.loadData();
   }

@@ -95,7 +95,6 @@ export class VideosRegisterComponent implements OnInit {
   getVideo() {
     this.videosService.getVideoById(this.videosId).subscribe({
       next: (res) => {
-        console.log(res);
         this.videos = res;
         this.populateForm();
       },

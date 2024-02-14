@@ -8,10 +8,8 @@ export function changePasswordValidator(): ValidatorFn {
     if (!newPassword.value || !confirmPassword.value) {
       return { matchPassword: false };
     }
-    console.log(group);
     const passwordValid = newPassword.value == confirmPassword.value;
 
-    console.log(passwordValid);
     return passwordValid ? { matchPassword: true } : { matchPassword: false };
   };
 }
